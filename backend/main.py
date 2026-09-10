@@ -17,7 +17,7 @@ from .database import connect, dataset, initialize, ingest_bundle, now, save_rec
 from .ingestion import refresh_sources, review_snapshot, snapshot_record
 from .models import Claim, Entity, Review, ReviewedImport, SnapshotReview, Source
 from .semantics import comparison, graph, scenario
-from .dossiers import research_profile
+from .dossiers import dossiers, research_profile
 
 log = logging.getLogger("supply-atlas")
 
@@ -99,6 +99,9 @@ def health():
 @app.get("/api/atlas")
 def atlas():
     data = get_data()
+    data["research"] = {id: {"system_count": len(record.systems), "entry_count": len(list(record.entries()))}
+                        for id, record in dossiers().items()
+                        if any(e["id"] == id and e["kind"] == "product" for e in data["entities"])}
     data["coverage"] = "Documented partial collection. Unknown relationships are not evidence of no relationship. Source dates describe observations, not assured current sourcing."
     return data
 
