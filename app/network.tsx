@@ -48,11 +48,24 @@ export default function NetworkView({
       ];
     }),
   );
-  const highlighted = new Set(
-    network.edges
-      .filter((e) => e.source === highlight || e.target === highlight)
-      .flatMap((e) => [e.source, e.target]),
-  );
+  const highlighted = new Set<string>();
+  const highlightedEdges = new Set<string>();
+  // Trace towards inputs and towards the product separately. Walking both directions
+  // in one traversal would fan back out through the product to unrelated suppliers.
+  for (const direction of ['source', 'target'] as const) {
+    const pending = highlight ? [highlight] : [];
+    const seen = new Set<string>();
+    while (pending.length) {
+      const id = pending.pop()!;
+      if (seen.has(id)) continue;
+      seen.add(id);
+      highlighted.add(id);
+      for (const edge of edges.filter((e) => e[direction] === id)) {
+        highlightedEdges.add(edge.id);
+        pending.push(edge[direction === 'source' ? 'target' : 'source']);
+      }
+    }
+  }
   if (!network.edges.length) return <Empty />;
   return (
     <div className="graph-wrap">
@@ -125,9 +138,7 @@ export default function NetworkView({
                 const a = positions[e.source],
                   b = positions[e.target];
                 if (!a || !b) return null;
-                const active =
-                  highlight &&
-                  (e.source === highlight || e.target === highlight);
+                const active = highlightedEdges.has(e.id);
                 return (
                   <g key={e.id}>
                     <title>
@@ -189,10 +200,12 @@ export default function NetworkView({
                         {n.kind === 'part'
                           ? 'Specific part'
                           : n.kind === 'facility'
-                            ? 'Board assembly · Wales'
+                            ? 'Manufacturing facility'
                             : n.kind === 'product'
                               ? 'Documented partial breakdown'
-                              : 'Documented supplier'}
+                              : n.kind === 'material'
+                                ? 'Upstream material'
+                                : 'Documented supplier'}
                       </small>
                     </span>
                   </button>

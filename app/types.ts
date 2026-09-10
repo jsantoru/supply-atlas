@@ -26,6 +26,7 @@ export type Source = {
   adapter: string;
 };
 export type Claim = {
+  context_status?: string;
   id: string;
   supplier_id: string | null;
   customer_id: string | null;
@@ -57,6 +58,7 @@ export type Edge = {
   target: string;
   label: string;
   claim_id: string;
+  anchor_claim_ids: string[];
   product_context: string;
   status: string;
   upstream: boolean;

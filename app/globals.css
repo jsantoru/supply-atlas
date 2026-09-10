@@ -1764,3 +1764,89 @@ main#workspace {
 .node-main small {
   font-size: 12px;
 }
+.factory-profile-hero {
+  background: var(--cc-color-primary, #011b34);
+  color: white;
+  border-radius: 8px;
+  padding: 22px;
+  margin: 8px 0 20px;
+  display: grid;
+  gap: 12px;
+}
+.factory-profile-mark {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #f8eadd;
+}
+.factory-profile-mark span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.factory-profile-hero p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: #e3f1fd;
+}
+.factory-profile-hero > span {
+  color: #e3f1fd;
+  font-size: 13px;
+}
+.profile-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 16px 0;
+}
+.profile-pills button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.exposure-observations {
+  margin: 30px 0;
+}
+.exposure-observations .compare-grid {
+  margin: 20px 0;
+}
+.exposure-observations .audit-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+.concentration-details {
+  border: 1px solid var(--border);
+  padding: 20px;
+  border-radius: 8px;
+}
+.concentration-details summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.source-snapshot {
+  margin: 20px 0;
+  padding: 18px;
+  background: #e3f1fd;
+  border-radius: 8px;
+}
+.source-snapshot pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 400px;
+  overflow: auto;
+  padding: 16px;
+  background: white;
+  font-size: 12px;
+}
+.source-snapshot .compare-pickers {
+  align-items: stretch;
+}
+.source-snapshot .compare-pickers button {
+  flex: 1;
+}
+.source-snapshot a {
+  overflow-wrap: anywhere;
+}

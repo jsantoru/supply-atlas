@@ -1,7 +1,19 @@
-import { useState } from 'react';
-import type { Atlas } from './types';
+import { useEffect, useRef, useState } from 'react';
+import type { Atlas, Source } from './types';
 import { api } from './types';
-import { Picker } from './controls';
+import { Picker, SourceLink } from './controls';
+type Snapshot = {
+  id: number;
+  source_id: string;
+  digest: string;
+  status: 'pending' | 'acknowledged' | 'rejected';
+  retrieved_at: string;
+  reviewed_at: string | null;
+  review_reason: string | null;
+  affected_claim_ids: string[];
+  fetch_url: string;
+};
+type SnapshotDetail = Snapshot & { body: string; source: Source };
 type AdminStatus = {
   runs: {
     id: number;
@@ -19,6 +31,7 @@ type AdminStatus = {
   }[];
   sources: { source_id: string; status: string; checked_at: string }[];
   review_queue: { id: string; status: string }[];
+  snapshots: Snapshot[];
 };
 export default function Admin({
   data,
@@ -37,6 +50,23 @@ export default function Admin({
   const [record, setRecord] = useState(JSON.stringify(data.claims[0], null, 2));
   const [reason, setReason] = useState('');
   const [bundle, setBundle] = useState('');
+  const [importReason, setImportReason] = useState('');
+  const [snapshot, setSnapshot] = useState<SnapshotDetail | null>(null);
+  const [snapshotReason, setSnapshotReason] = useState('');
+  const generation = useRef(0);
+  useEffect(
+    () => () => {
+      generation.current += 1;
+    },
+    [],
+  );
+  const adminApi = async <T,>(url: string, init: RequestInit): Promise<T> => {
+    const started = generation.current;
+    const result = await api<T>(url, init);
+    if (started !== generation.current)
+      throw new Error('Administration is locked.');
+    return result;
+  };
   const headers = {
     Authorization: 'Bearer ' + token,
     'Content-Type': 'application/json',
@@ -48,19 +78,20 @@ export default function Admin({
         ? data.entities
         : data.sources;
   const run = async (fn: () => Promise<void>) => {
+    const started = generation.current;
     setBusy(true);
     setError('');
     setMessage('');
     try {
       await fn();
     } catch (e) {
-      setError((e as Error).message);
+      if (started === generation.current) setError((e as Error).message);
     } finally {
-      setBusy(false);
+      if (started === generation.current) setBusy(false);
     }
   };
   const load = async () => {
-    setStatus(await api<AdminStatus>('/api/admin/status', { headers }));
+    setStatus(await adminApi<AdminStatus>('/api/admin/status', { headers }));
   };
   return (
     <div className="admin-view">
@@ -99,8 +130,17 @@ export default function Admin({
             <button
               className="cc-button cc-button--secondary"
               onClick={() => {
+                generation.current += 1;
                 setToken('');
                 setStatus(null);
+                setSnapshot(null);
+                setSnapshotReason('');
+                setReason('');
+                setImportReason('');
+                setBundle('');
+                setError('');
+                setMessage('');
+                setBusy(false);
               }}
             >
               Lock administration
@@ -159,7 +199,7 @@ export default function Admin({
                 onSubmit={(e) => {
                   e.preventDefault();
                   void run(async () => {
-                    await api(`/api/admin/${kind}/${id}`, {
+                    await adminApi(`/api/admin/${kind}/${id}`, {
                       method: 'PUT',
                       headers,
                       body: JSON.stringify({
@@ -210,7 +250,7 @@ export default function Admin({
                 className="cc-button cc-button--secondary"
                 onClick={() =>
                   void run(async () => {
-                    const r = await api<{ detail: string }>(
+                    const r = await adminApi<{ detail: string }>(
                       '/api/admin/refresh',
                       { method: 'POST', headers },
                     );
@@ -225,9 +265,16 @@ export default function Admin({
                 onSubmit={(e) => {
                   e.preventDefault();
                   void run(async () => {
-                    const r = await api<{ changed: number }>(
+                    const r = await adminApi<{ changed: number }>(
                       '/api/admin/import',
-                      { method: 'POST', headers, body: bundle },
+                      {
+                        method: 'POST',
+                        headers,
+                        body: JSON.stringify({
+                          bundle: JSON.parse(bundle),
+                          reason: importReason,
+                        }),
+                      },
                     );
                     setMessage(`${r.changed} records imported.`);
                     setBundle('');
@@ -243,6 +290,16 @@ export default function Admin({
                     onChange={(e) => setBundle(e.target.value)}
                     required
                     placeholder="A reviewed bundle containing entities, sources and claims"
+                  />
+                </label>
+                <label>
+                  Reason for reviewed import
+                  <textarea
+                    value={importReason}
+                    onChange={(e) => setImportReason(e.target.value)}
+                    minLength={10}
+                    required
+                    placeholder="Describe what was researched, resolved and reviewed."
                   />
                 </label>
                 <button disabled={busy} className="cc-button">
@@ -279,6 +336,169 @@ export default function Admin({
                   <small>{s.checked_at}</small>
                 </p>
               ))}
+              <h4>Licensed source snapshots</h4>
+              <p>
+                Read the retained document and inspect affected claims before
+                acknowledging a source change. Acknowledgement records your
+                review; corrections are saved separately.
+              </p>
+              {status.snapshots?.length ? (
+                status.snapshots.map((s) => (
+                  <button
+                    className="list-link"
+                    key={s.id}
+                    onClick={() =>
+                      void run(async () => {
+                        setSnapshot(
+                          await adminApi<SnapshotDetail>(
+                            `/api/admin/snapshots/${s.id}`,
+                            { headers },
+                          ),
+                        );
+                        setSnapshotReason('');
+                      })
+                    }
+                  >
+                    <span>
+                      {data.sources.find((x) => x.id === s.source_id)?.title ||
+                        s.source_id}
+                      <small>
+                        {s.retrieved_at} · {s.status} ·{' '}
+                        {s.affected_claim_ids.length} affected claims
+                      </small>
+                    </span>
+                  </button>
+                ))
+              ) : (
+                <p>
+                  No retained source snapshots. Check licensed documentation to
+                  fetch the first review copy.
+                </p>
+              )}
+              {snapshot && (
+                <section
+                  className="source-snapshot"
+                  aria-label="Source snapshot review"
+                >
+                  <div className="row-between">
+                    <h4>{snapshot.source.title}</h4>
+                    <button
+                      className="text-link"
+                      onClick={() => setSnapshot(null)}
+                    >
+                      Close snapshot
+                    </button>
+                  </div>
+                  <p>
+                    {snapshot.source.publisher} · {snapshot.source.license}
+                  </p>
+                  <p>{snapshot.source.reuse}</p>
+                  <SourceLink href={snapshot.source.url}>
+                    Original publication
+                  </SourceLink>
+                  {' · '}
+                  <SourceLink href={snapshot.source.terms_url}>
+                    Reuse terms
+                  </SourceLink>
+                  <p>
+                    Retrieved {snapshot.retrieved_at} · {snapshot.status}
+                  </p>
+                  <details>
+                    <summary>Document fingerprint and fetch location</summary>
+                    <p>{snapshot.digest}</p>
+                    <SourceLink href={snapshot.fetch_url}>
+                      Licensed document URL
+                    </SourceLink>
+                  </details>
+                  <pre aria-label="Retained licensed source text">
+                    {snapshot.body}
+                  </pre>
+                  <h4>Affected claims</h4>
+                  {snapshot.affected_claim_ids.map((claimId) => (
+                    <button
+                      className="list-link"
+                      key={claimId}
+                      onClick={() => {
+                        setKind('claim');
+                        setId(claimId);
+                        setRecord(
+                          JSON.stringify(
+                            data.claims.find((c) => c.id === claimId),
+                            null,
+                            2,
+                          ),
+                        );
+                        document
+                          .querySelector<HTMLTextAreaElement>('.record-editor')
+                          ?.focus();
+                      }}
+                    >
+                      {claimId} · open in correction editor
+                    </button>
+                  ))}
+                  {snapshot.status === 'pending' ? (
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const decision =
+                          (
+                            e.nativeEvent as SubmitEvent
+                          ).submitter?.getAttribute('value') || 'acknowledged';
+                        void run(async () => {
+                          await adminApi(
+                            `/api/admin/snapshots/${snapshot.id}/review`,
+                            {
+                              method: 'POST',
+                              headers,
+                              body: JSON.stringify({
+                                digest: snapshot.digest,
+                                decision,
+                                reason: snapshotReason,
+                              }),
+                            },
+                          );
+                          setMessage(
+                            `Snapshot ${decision}. Claims have not been changed automatically.`,
+                          );
+                          setSnapshot(null);
+                          await load();
+                        });
+                      }}
+                    >
+                      <label>
+                        Source review reason
+                        <textarea
+                          value={snapshotReason}
+                          onChange={(e) => setSnapshotReason(e.target.value)}
+                          minLength={10}
+                          required
+                          placeholder="Explain findings and any corrections needed."
+                        />
+                      </label>
+                      <div className="compare-pickers">
+                        <button
+                          className="cc-button"
+                          value="acknowledged"
+                          disabled={busy}
+                        >
+                          Acknowledge review
+                        </button>
+                        <button
+                          className="cc-button cc-button--secondary"
+                          value="rejected"
+                          disabled={busy}
+                        >
+                          Reject snapshot
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <p>
+                      {snapshot.review_reason} · Reviewed {snapshot.reviewed_at}
+                    </p>
+                  )}
+                </section>
+              )}
             </section>
           </div>
           <section>

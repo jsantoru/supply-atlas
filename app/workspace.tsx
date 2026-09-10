@@ -62,7 +62,9 @@ import NetworkView from './network';
 import { CompareView, RiskView } from './analysis-views';
 const FactoryMap = lazy(() => import('./factory-map'));
 const Admin = lazy(() => import('./admin'));
+const ProductTeardown = lazy(() => import('./product-teardown'));
 const views = [
+  { id: 'teardown', name: 'Product studio', icon: Box },
   { id: 'network', name: 'Supply network', icon: NetworkIcon },
   { id: 'breakdown', name: 'Components', icon: Layers3 },
   { id: 'map', name: 'Factory map', icon: Factory },
@@ -88,7 +90,7 @@ function useUrl() {
 export default function App() {
   const [params, update] = useUrl();
   const product = params.get('product') || 'pi5';
-  const view = params.get('view') || 'network';
+  const view = params.get('view') || 'teardown';
   const status = params.get('status') || 'all';
   const role = params.get('role') || 'all';
   const depth = params.get('depth') || '2';
@@ -149,7 +151,7 @@ export default function App() {
       claim: '',
       variant: '',
       view: ['risk', 'directory', 'sources', 'admin'].includes(view)
-        ? 'network'
+        ? 'teardown'
         : view,
     });
   const facilities = useMemo(
@@ -188,11 +190,27 @@ export default function App() {
     .slice(0, 12);
   const directClaims =
     network?.claims.filter((c) => c.product_id === product) || [];
+  const factoryClaim = directClaims.find((c) => c.facility_id);
+  const scenarioTarget =
+    factoryClaim?.facility_id ||
+    directClaims.find((c) => c.supplier_id)?.supplier_id ||
+    directClaims.find((c) => c.part_id)?.part_id ||
+    product;
   const partIds = [
     ...new Set(
-      directClaims.map((c) => c.part_id).filter((v): v is string => !!v),
+      (network?.claims || [])
+        .map((c) => c.part_id)
+        .filter((v): v is string => !!v),
     ),
   ];
+  const partCategory = (id: string) =>
+    data.entities.find((e) => e.id === id)?.category_id || '__uncategorized__';
+  const breakdownCategories = [
+    ...data.entities.filter((e) => e.kind === 'category'),
+    { id: '__uncategorized__', name: 'Uncategorized parts' },
+  ].filter((category) =>
+    partIds.some((id) => partCategory(id) === category.id),
+  );
   const supplierCount = new Set(
     network?.claims.map((c) => c.supplier_id).filter(Boolean),
   ).size;
@@ -227,7 +245,7 @@ export default function App() {
             <p className="nav-label">Workspace</p>
             <SidebarMenu>
               {[
-                { id: 'network', name: 'Explore', icon: Compass },
+                { id: 'teardown', name: 'Explore', icon: Compass },
                 { id: 'directory', name: 'Entity directory', icon: Layers3 },
                 { id: 'risk', name: 'Risk exploration', icon: FlaskConical },
                 { id: 'sources', name: 'Evidence library', icon: BookOpen },
@@ -235,10 +253,14 @@ export default function App() {
                 <SidebarMenuItem key={item.id}>
                   <SidebarMenuButton
                     isActive={
-                      item.id === 'network'
-                        ? ['network', 'breakdown', 'map', 'compare'].includes(
-                            view,
-                          )
+                      item.id === 'teardown'
+                        ? [
+                            'teardown',
+                            'network',
+                            'breakdown',
+                            'map',
+                            'compare',
+                          ].includes(view)
                         : view === item.id
                     }
                     onClick={() =>
@@ -400,7 +422,7 @@ export default function App() {
               </button>
               <button
                 className="cc-button"
-                onClick={() => update({ view: 'risk', target: 'pencoed' })}
+                onClick={() => update({ view: 'risk', target: scenarioTarget })}
               >
                 <FlaskConical size={16} />
                 Explore disruption
@@ -673,11 +695,13 @@ export default function App() {
                 <h2>What this collection can tell you</h2>
                 <p>{data.coverage}</p>
                 <p>
-                  Five products, selected semiconductor dependencies, and one
-                  documented assembly facility. Memory sourcing, packaging
-                  sites, material suppliers and specific chip fabs are not
-                  established. Data is researched; no demonstration
-                  relationships are mixed in.
+                  {products.length} products, selected semiconductor
+                  dependencies, and{' '}
+                  {data.entities.filter((e) => e.kind === 'facility').length}{' '}
+                  documented facilities. Memory sourcing, packaging sites,
+                  material suppliers and specific chip fabs are not established.
+                  Data is researched; no demonstration relationships are mixed
+                  in.
                 </p>
               </div>
               {data.sources.map((s) => (
@@ -709,6 +733,29 @@ export default function App() {
             <Suspense fallback={<p>Loading administration…</p>}>
               <Admin data={data} onRefresh={() => setRetry((v) => v + 1)} />
             </Suspense>
+          ) : view === 'teardown' ? (
+            networkError ? (
+              <ErrorState
+                error={networkError}
+                retry={() => setRetry((v) => v + 1)}
+              />
+            ) : !network ? (
+              <p role="status">Loading product studio…</p>
+            ) : entity ? (
+              <Suspense fallback={<p role="status">Loading product studio…</p>}>
+                <ProductTeardown
+                  product={entity}
+                  data={data}
+                  claims={network.claims}
+                  onEntity={openEntity}
+                  onClaim={openClaim}
+                  onProduct={openProduct}
+                  onMap={(id) => update({ view: 'map', entity: id, claim: '' })}
+                />
+              </Suspense>
+            ) : (
+              <Empty title="Product not found" />
+            )
           ) : view === 'compare' ? (
             <CompareView
               data={data}
@@ -778,73 +825,62 @@ export default function App() {
                           </TableRow>
                         </TableHeader>
                         <TableBody>
-                          {data.entities
-                            .filter(
-                              (e) =>
-                                e.kind === 'category' &&
-                                partIds.some(
-                                  (id) =>
-                                    data.entities.find((p) => p.id === id)
-                                      ?.category_id === e.id,
-                                ),
-                            )
-                            .flatMap((category) => [
-                              <TableRow
-                                key={category.id}
-                                className="category-row"
-                              >
-                                <TableCell colSpan={4}>
-                                  <button
-                                    onClick={() =>
-                                      setCollapsed((v) =>
-                                        v.includes(category.id)
-                                          ? v.filter((x) => x !== category.id)
-                                          : [...v, category.id],
-                                      )
-                                    }
-                                    aria-expanded={
-                                      !collapsed.includes(category.id)
-                                    }
-                                  >
-                                    <ChevronRight
-                                      size={15}
-                                      className={
-                                        collapsed.includes(category.id)
-                                          ? ''
-                                          : 'rotated'
-                                      }
-                                    />
-                                    {category.name}
-                                  </button>
-                                </TableCell>
-                              </TableRow>,
-                              ...(!collapsed.includes(category.id)
-                                ? partIds
-                                    .filter(
-                                      (id) =>
-                                        data.entities.find((p) => p.id === id)
-                                          ?.category_id === category.id,
+                          {breakdownCategories.flatMap((category) => [
+                            <TableRow
+                              key={category.id}
+                              className="category-row"
+                            >
+                              <TableCell colSpan={4}>
+                                <button
+                                  onClick={() =>
+                                    setCollapsed((v) =>
+                                      v.includes(category.id)
+                                        ? v.filter((x) => x !== category.id)
+                                        : [...v, category.id],
                                     )
-                                    .flatMap((id) =>
-                                      network.claims
-                                        .filter((c) => c.part_id === id)
-                                        .map((c) => (
-                                          <TableRow key={c.id}>
-                                            <TableCell>
-                                              <button
-                                                className="part-name"
-                                                onClick={() => openEntity(id)}
-                                              >
-                                                <EntityIcon kind="part" />
-                                                {name(id)}
-                                              </button>
-                                              {!c.product_id && (
-                                                <small className="inference-note">
-                                                  Part-level upstream link
-                                                </small>
-                                              )}
-                                            </TableCell>
-                                            <TableCell>
+                                  }
+                                  aria-expanded={
+                                    !collapsed.includes(category.id)
+                                  }
+                                >
+                                  <ChevronRight
+                                    size={15}
+                                    className={
+                                      collapsed.includes(category.id)
+                                        ? ''
+                                        : 'rotated'
+                                    }
+                                  />
+                                  {category.name}
+                                </button>
+                              </TableCell>
+                            </TableRow>,
+                            ...(!collapsed.includes(category.id)
+                              ? partIds
+                                  .filter(
+                                    (id) => partCategory(id) === category.id,
+                                  )
+                                  .flatMap((id) =>
+                                    network.claims
+                                      .filter((c) => c.part_id === id)
+                                      .map((c) => (
+                                        <TableRow key={c.id}>
+                                          <TableCell>
+                                            <button
+                                              className="part-name"
+                                              onClick={() => openEntity(id)}
+                                            >
+                                              <EntityIcon kind="part" />
+                                              {name(id)}
+                                            </button>
+                                            {!c.product_id && (
+                                              <small className="inference-note">
+                                                Part-level upstream link
+                                              </small>
+                                            )}
+                                          </TableCell>
+                                          <TableCell>
+                                            {c.supplier_id ? (
                                               <button
                                                 className="text-link"
                                                 onClick={() =>
@@ -854,44 +890,51 @@ export default function App() {
                                               >
                                                 {name(c.supplier_id)}
                                               </button>
-                                              <small>{c.role}</small>
-                                            </TableCell>
-                                            <TableCell>
-                                              {c.facility_id ? (
-                                                <button
-                                                  className="text-link"
-                                                  onClick={() =>
-                                                    openEntity(c.facility_id!)
-                                                  }
-                                                >
-                                                  {name(c.facility_id)}
-                                                </button>
-                                              ) : (
-                                                <span className="muted">
-                                                  Not established
-                                                </span>
-                                              )}
-                                            </TableCell>
-                                            <TableCell>
+                                            ) : (
+                                              <span className="muted">
+                                                Supplier not established
+                                              </span>
+                                            )}
+                                            <small>{c.role}</small>
+                                          </TableCell>
+                                          <TableCell>
+                                            {c.facility_id ? (
                                               <button
-                                                className="evidence-button"
-                                                onClick={() => openClaim(c.id)}
+                                                className="text-link"
+                                                onClick={() =>
+                                                  openEntity(c.facility_id!)
+                                                }
                                               >
-                                                <Status
-                                                  value={
-                                                    c.product_id
-                                                      ? c.status
-                                                      : 'inferred'
-                                                  }
-                                                />
-                                                <ArrowUpRight size={14} />
+                                                {name(c.facility_id)}
                                               </button>
-                                            </TableCell>
-                                          </TableRow>
-                                        )),
-                                    )
-                                : []),
-                            ])}
+                                            ) : (
+                                              <span className="muted">
+                                                Not established
+                                              </span>
+                                            )}
+                                          </TableCell>
+                                          <TableCell>
+                                            <button
+                                              className="evidence-button"
+                                              onClick={() => openClaim(c.id)}
+                                            >
+                                              <Status
+                                                value={
+                                                  c.context_status ||
+                                                  (!c.product_id &&
+                                                  c.status === 'direct'
+                                                    ? 'inferred'
+                                                    : c.status)
+                                                }
+                                              />
+                                              <ArrowUpRight size={14} />
+                                            </button>
+                                          </TableCell>
+                                        </TableRow>
+                                      )),
+                                  )
+                              : []),
+                          ])}
                         </TableBody>
                       </Table>
                     ) : (
@@ -938,17 +981,22 @@ export default function App() {
                   </p>
                 </div>
                 <h4>Start with a documented path</h4>
-                {directClaims.find((c) => c.facility_id) ? (
+                {factoryClaim ? (
                   <button
                     className="suggested-path"
-                    onClick={() =>
-                      openClaim(directClaims.find((c) => c.facility_id)!.id)
-                    }
+                    onClick={() => openClaim(factoryClaim.id)}
                   >
                     <Factory size={20} />
                     <span>
-                      <strong>Sony → Pi 5 board</strong>
-                      <small>Pencoed, Wales · Assembly</small>
+                      <strong>
+                        {factoryClaim.supplier_id
+                          ? name(factoryClaim.supplier_id)
+                          : 'Operator unknown'}{' '}
+                        → {name(factoryClaim.part_id || product)}
+                      </strong>
+                      <small>
+                        {name(factoryClaim.facility_id)} · {factoryClaim.role}
+                      </small>
                     </span>
                     <ArrowRight size={16} />
                   </button>
@@ -1009,7 +1057,19 @@ export default function App() {
           </SheetHeader>
           <div className="detail-body">
             {claim ? (
-              <EvidenceCard claim={claim} data={data} onEntity={openEntity} />
+              <EvidenceCard
+                claim={claim}
+                data={data}
+                onEntity={openEntity}
+                onClaim={openClaim}
+                anchorClaims={data.claims.filter((c) =>
+                  network?.edges.some(
+                    (edge) =>
+                      edge.claim_id === claim.id &&
+                      edge.anchor_claim_ids?.includes(c.id),
+                  ),
+                )}
+              />
             ) : current ? (
               <EntityDetails
                 entity={current}
