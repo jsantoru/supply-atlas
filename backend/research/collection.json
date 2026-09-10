@@ -704,6 +704,28 @@
       ],
       "industry_id": "aviation",
       "description": "Shahed-family development organization. CSIS attributes Shahed-238 development to it; Treasury's 2022 institutional description predates this model's public display. Exact Shahed-238 final-assembly arrangements remain unverified."
+    },
+    {
+      "id": "lucas",
+      "kind": "product",
+      "name": "LUCAS",
+      "aliases": [
+        "Low-Cost Uncrewed Combat Attack System",
+        "Low-cost Unmanned Combat Attack System"
+      ],
+      "industry_id": "aviation",
+      "description": "U.S. one-way aircraft program \u00b7 cited industrial attributions, public program history and conceptual major-system exploration."
+    },
+    {
+      "id": "spektreworks",
+      "kind": "company",
+      "name": "SpektreWorks",
+      "aliases": [
+        "SpektreWorks, Inc.",
+        "Spektreworks Inc."
+      ],
+      "industry_id": "aviation",
+      "description": "Arizona unmanned-systems company attributed to LUCAS development and manufacture in dated original reporting. Corporate services, FLM 136 target-drone specifications and government program partners are not a verified LUCAS parts list."
     }
   ],
   "sources": [
@@ -1150,6 +1172,174 @@
       "terms_url": "https://missilethreat.csis.org/missile/shahed-238/",
       "adapter": "manual-reference",
       "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Date is the profile update date. Used for attributed development and model identity, not aggregate performance, supplier or production claims."
+    },
+    {
+      "id": "lucas-spektre-about",
+      "title": "About SpektreWorks",
+      "url": "https://spektreworks.com/about/",
+      "publisher": "SpektreWorks",
+      "published": null,
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://spektreworks.com/about/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Undated company self-description, reviewed September 10, 2026. City-level corporate context only; no factory inferred."
+    },
+    {
+      "id": "lucas-spektre-target",
+      "title": "Counter UAS \u2014 FLM 136",
+      "url": "https://spektreworks.com/counter-uas/",
+      "publisher": "SpektreWorks",
+      "published": null,
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://spektreworks.com/counter-uas/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Undated live catalog. Used only to identify the separately marketed FLM 136 threat-emulation platform. Its technical specifications are not transferred to LUCAS."
+    },
+    {
+      "id": "lucas-spektre-services",
+      "title": "Custom Engineering",
+      "url": "https://spektreworks.com/custom-engineering/",
+      "publisher": "SpektreWorks",
+      "published": null,
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://spektreworks.com/custom-engineering/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Undated company-wide services page. A capability or software mentioned here is not evidence of a LUCAS supplier relationship."
+    },
+    {
+      "id": "lucas-pentagon-showcase",
+      "title": "Pentagon Showcases Rapidly Developed Drones",
+      "url": "https://www.nationaldefensemagazine.org/articles/2025/8/15/pentagon-showcases-rapidly-developed-drones",
+      "publisher": "National Defense / Sabina Lum",
+      "published": "2025-08-15",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.nationaldefensemagazine.org/articles/2025/8/15/pentagon-showcases-rapidly-developed-drones",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Firsthand showcase reporting and direct emailed comments from Dan Ermer. Used for observed exterior, developer attribution and the named official's development-policy role; advertised configurations are not assumed deployed."
+    },
+    {
+      "id": "lucas-pentagon-event",
+      "title": "SD, USD(R&E) Tour Multi-Domain Autonomous Displays at Pentagon",
+      "url": "https://www.dvidshub.net/image/9183292/sd-usdre-tour-multi-domain-autonomous-displays-pentagon",
+      "publisher": "Office of the Secretary of Defense Public Affairs / Alexander Kubitza via DVIDS",
+      "published": "2025-07-16",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.dvidshub.net/image/9183292/sd-usdre-tour-multi-domain-autonomous-displays-pentagon",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Photo ID 9183292; VIRIN 250716-D-PM193-1138. Caption and metadata establish the event date and public roles. The image is not redistributed."
+    },
+    {
+      "id": "lucas-centcom-squadron",
+      "title": "U.S. Launches One-Way-Attack Drone Force in the Middle East",
+      "url": "https://www.centcom.mil/MEDIA/PUBLIC-RELEASES/Article/4347030/us-launches-one-way-attack-drone-force-in-the-middle-east/",
+      "publisher": "U.S. Central Command",
+      "published": "2025-12-03",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.centcom.mil/MEDIA/PUBLIC-RELEASES/Article/4347030/us-launches-one-way-attack-drone-force-in-the-middle-east/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Release 20251203-01. Included photograph captions are dated November 23, 2025; the announcement is December 3. Broad regional context only."
+    },
+    {
+      "id": "lucas-yuma-evaluation",
+      "title": "Low-cost combat attack system tested at U.S. Army Yuma Proving Ground",
+      "url": "https://www.dvidshub.net/news/552807/low-cost-combat-attack-system-tested-us-army-yuma-proving-ground",
+      "publisher": "U.S. Army Yuma Proving Ground / Mark Schauer via DVIDS",
+      "published": "2025-12-03",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.dvidshub.net/news/552807/low-cost-combat-attack-system-tested-us-army-yuma-proving-ground",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Story 552807. Dated account of a particular evaluation using inert payloads; it is not a declaration about every aircraft or later deployed configuration. Precise installation geography and test procedures are not reproduced."
+    },
+    {
+      "id": "lucas-navy-sea",
+      "title": "U.S. Navy in Middle East Employs Attack Drone at Sea for First Time",
+      "url": "https://www.navy.mil/Press-Office/News-Stories/display-news/Article/4363707/us-navy-in-middle-east-employs-attack-drone-at-sea-for-first-time/",
+      "publisher": "U.S. Naval Forces Central Command Public Affairs",
+      "published": "2025-12-18",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.navy.mil/Press-Office/News-Stories/display-news/Article/4363707/us-navy-in-middle-east-employs-attack-drone-at-sea-for-first-time/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Navy page publication is December 18; the described event and photograph captions are December 16. Operator and event context only, without launch procedures or hardware specifications."
+    },
+    {
+      "id": "lucas-centcom-epic",
+      "title": "U.S. Forces Launch Operation Epic Fury",
+      "url": "https://www.centcom.mil/MEDIA/PUBLIC-RELEASES/Article/4418396/us-forces-launch-operation-epic-fury/",
+      "publisher": "U.S. Central Command",
+      "published": "2026-02-28",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.centcom.mil/MEDIA/PUBLIC-RELEASES/Article/4418396/us-forces-launch-operation-epic-fury/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Command's contemporaneous account. The paragraph names Task Force Scorpion Strike's one-way drones rather than specifying a LUCAS configuration. The older PRESS-RELEASES URL returned a generic media index; this PUBLIC-RELEASES URL resolves the article."
+    },
+    {
+      "id": "lucas-senate-transcript",
+      "title": "To receive testimony on the American small drone industrial base \u2014 transcript",
+      "url": "https://www.armed-services.senate.gov/imo/media/doc/full-transcript_03-03-2026.pdf",
+      "publisher": "U.S. Senate Committee on Armed Services",
+      "published": "2026-03-05",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.armed-services.senate.gov/imo/media/doc/full-transcript_03-03-2026.pdf",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Hearing date verified on the PDF title page and official hearing page: March 5, despite March 3 in the filename. Printed pages 5 and 60\u201362 are used. The transcript renders Marks' given name as Stephen; the official witness listing identifies Steven M. Marks."
+    },
+    {
+      "id": "lucas-senate-hearing",
+      "title": "To receive testimony on the American small drone industrial base",
+      "url": "https://www.armed-services.senate.gov/hearings/to-receive-testimony-on-the-american-small-drone-industrial-base",
+      "publisher": "U.S. Senate Committee on Armed Services",
+      "published": "2026-03-05",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.armed-services.senate.gov/hearings/to-receive-testimony-on-the-american-small-drone-industrial-base",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Official event date and witness listing. Used for Steven M. Marks' name and dated public institutional role."
+    },
+    {
+      "id": "lucas-reuters-production",
+      "title": "US debuts LUCAS kamikaze drone in Iran after fast-tracked Pentagon procurement",
+      "url": "https://www.channelnewsasia.com/world/us-military-lucas-kamikaze-drone-iran-pentagon-weapon-5967021",
+      "publisher": "Reuters via CNA",
+      "published": "2026-03-04",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.channelnewsasia.com/world/us-military-lucas-kamikaze-drone-iran-pentagon-weapon-5967021",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Full syndicated article reviewed; CNA HTML datePublished is 2026-03-04T16:03:00+08:00. Original reporting includes anonymous program sources; SpektreWorks declined comment. Only whole-aircraft manufacturer/design-ownership attribution is recorded in the network. Suggested subsystem vendors and operational configurations are not reproduced."
+    },
+    {
+      "id": "lucas-uk-answer",
+      "title": "USA: Uncrewed Systems \u2014 Written Answer 118990",
+      "url": "https://qna.files.parliament.uk/qnadailyreports/Written-Questions-Answers-Statements-Daily-Report-Commons-2026-03-17.pdf",
+      "publisher": "UK House of Commons / Ministry of Defence",
+      "published": "2026-03-17",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://qna.files.parliament.uk/qnadailyreports/Written-Questions-Answers-Statements-Daily-Report-Commons-2026-03-17.pdf",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Daily Report, printed page 39: Ben Obese-Jecty's question and Luke Pollard's answer. This is a dated statement about records of formal engagement, not a universal claim that no contacts ever occurred."
+    },
+    {
+      "id": "lucas-centcom-falcon",
+      "title": "CENTCOM Launches First-Ever Multinational Attack Drone Task Force",
+      "url": "https://www.centcom.mil/MEDIA/PUBLIC-RELEASES/Article/4573159/centcom-launches-first-ever-multinational-attack-drone-task-force/",
+      "publisher": "U.S. Central Command",
+      "published": "2026-08-13",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.centcom.mil/MEDIA/PUBLIC-RELEASES/Article/4573159/centcom-launches-first-ever-multinational-attack-drone-task-force/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Current review includes this later institutional announcement. It concerns a wider multi-domain task force; it does not establish LUCAS exports, named partner purchases or additional aircraft suppliers."
     }
   ],
   "claims": [
@@ -1802,6 +1992,38 @@
         {
           "source_id": "s238-csis",
           "reference": "Development section: attribution to Shahed Aviation Industries; configuration and derivative boundaries retained."
+        }
+      ]
+    },
+    {
+      "id": "lucas-spektreworks-development",
+      "supplier_id": "spektreworks",
+      "product_id": "lucas",
+      "role": "designer",
+      "status": "direct",
+      "observed_at": "2025-08-15",
+      "period": "Developer attribution in National Defense's August 15, 2025 firsthand showcase reporting.",
+      "uncertainty": "The source explicitly attributes LUCAS development to SpektreWorks. Direct denotes an explicit published attribution, not an independent design audit. It does not establish individual engineers, all development workshare, component suppliers or a production site.",
+      "evidence": [
+        {
+          "source_id": "lucas-pentagon-showcase",
+          "reference": "LUCAS paragraphs: developer attribution; direct event reporting and Dan Ermer comments."
+        }
+      ]
+    },
+    {
+      "id": "lucas-spektreworks-manufacture",
+      "supplier_id": "spektreworks",
+      "product_id": "lucas",
+      "role": "assembler",
+      "status": "direct",
+      "observed_at": "2026-03-04",
+      "period": "Reuters manufacturer and manufacturing-contract attribution, published by CNA March 4, 2026.",
+      "uncertainty": "Assembler records whole-aircraft manufacture only. Reuters identifies SpektreWorks; the company declined comment. The article does not publish contract identifiers, batch allocations, final-assembly premises, subcontractor workshare or a complete manufacturer census.",
+      "evidence": [
+        {
+          "source_id": "lucas-reuters-production",
+          "reference": "Opening manufacturer attribution and Rapid Deployment section: SpektreWorks manufacturing contracts."
         }
       ]
     }

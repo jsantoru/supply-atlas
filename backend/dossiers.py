@@ -8,7 +8,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from .models import Evidence, StrictModel
 
@@ -23,6 +23,39 @@ class ResearchEntry(StrictModel):
     entity_id: str | None = None
 
 
+class ResearchNetworkNode(StrictModel):
+    id: str = Field(pattern=r"^[a-z0-9-]+$")
+    label: str = Field(min_length=1, max_length=180)
+    kind: Literal["product", "company", "organization", "program", "test-center"]
+
+
+class ResearchNetworkEdge(ResearchEntry):
+    source_node: str
+    target_node: str
+    relation_kind: Literal["industrial", "evaluation", "program"]
+
+
+class ResearchNetwork(StrictModel):
+    nodes: list[ResearchNetworkNode] = Field(min_length=2, max_length=30)
+    edges: list[ResearchNetworkEdge] = Field(min_length=1, max_length=40)
+
+    @model_validator(mode="after")
+    def validate_relationships(self):
+        node_ids = {node.id for node in self.nodes}
+        if len(node_ids) != len(self.nodes):
+            raise ValueError("Duplicate research network node")
+        connected = set()
+        for edge in self.edges:
+            if edge.source_node not in node_ids or edge.target_node not in node_ids:
+                raise ValueError("Research relationship references a missing node")
+            if edge.source_node == edge.target_node:
+                raise ValueError("Research relationship cannot connect a node to itself")
+            connected.update((edge.source_node, edge.target_node))
+        if connected != node_ids:
+            raise ValueError("Every research network node needs a cited relationship")
+        return self
+
+
 class ResearchDossier(StrictModel):
     product_id: str
     reviewed: str
@@ -35,11 +68,14 @@ class ResearchDossier(StrictModel):
     people: list[ResearchEntry] = Field(min_length=1)
     manufacturing: list[ResearchEntry] = Field(min_length=1)
     assessment: list[ResearchEntry] = Field(min_length=1)
+    network: ResearchNetwork | None = None
 
     def entries(self):
         for section in (self.systems, self.timeline, self.organizations,
                         self.people, self.manufacturing, self.assessment):
             yield from section
+        if self.network:
+            yield from self.network.edges
 
 
 @lru_cache(maxsize=1)

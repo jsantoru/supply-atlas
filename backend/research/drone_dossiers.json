@@ -663,5 +663,639 @@
         ]
       }
     ]
+  },
+  {
+    "product_id": "lucas",
+    "reviewed": "2026-09-10",
+    "subtitle": "U.S. one-way aircraft \u00b7 industry and public-program dossier",
+    "introduction": "Explore the aircraft's visible form, its attributed U.S. developer and manufacturer, and the organizations that evaluated and fielded the program. The dated record follows the 2025 public showcase through the broader task-force developments announced in August 2026.",
+    "scope": "Conceptual exterior and major-system overview with high-level weapons-role context. This is not an engineering teardown or a complete supplier census. Test examples, fielded aircraft and related target platforms retain their own evidence boundaries; people appear only in dated public roles.",
+    "systems": [
+      {
+        "id": "external-airframe",
+        "title": "External airframe",
+        "text": "Pentagon showcase reporting describes delta wings and a rounded nose, while noting that prototype features could change. The exterior establishes neither internal assemblies nor materials.",
+        "basis": "observed",
+        "date": "July 2025 display / 2025-08-15 report",
+        "evidence": [
+          {
+            "source_id": "lucas-pentagon-showcase",
+            "reference": "LUCAS display paragraphs: delta wings, rounded nose and prototype-change caveat."
+          }
+        ]
+      },
+      {
+        "id": "propulsion",
+        "title": "Propulsion exterior",
+        "text": "CENTCOM's November photographs show an aft propeller. This visible feature supports a propulsion category, not a verified engine model or component manufacturer.",
+        "basis": "observed",
+        "date": "2025-11-23 photographs / 2025-12-03 release",
+        "evidence": [
+          {
+            "source_id": "lucas-centcom-squadron",
+            "reference": "Official photographs 251123-D-D0477-1163 and 251123-D-D0477-1029: externally visible aft propeller."
+          }
+        ]
+      },
+      {
+        "id": "guidance-control",
+        "title": "Guidance and control",
+        "text": "CENTCOM describes autonomous operation at a broad level. The Senate's later public exchange did not disclose the internal implementation. This topic therefore shows a system category without locating avionics or asserting a specific decision-making architecture.",
+        "basis": "attributed",
+        "date": "2025-12-03 / 2026-03-05",
+        "evidence": [
+          {
+            "source_id": "lucas-centcom-squadron",
+            "reference": "Broad autonomy description."
+          },
+          {
+            "source_id": "lucas-senate-transcript",
+            "reference": "Printed page 60: Marks declines to discuss LUCAS internals in the open hearing."
+          }
+        ]
+      },
+      {
+        "id": "payload-role",
+        "title": "Weapons and payload role",
+        "text": "LUCAS is described as a one-way attack aircraft. Yuma's December evaluation report specifically describes inert payloads and a weapons payload still under development in that test context. Later fielding does not make that test configuration a universal weapons specification.",
+        "basis": "attributed",
+        "date": "2025-12-03 evaluation account",
+        "evidence": [
+          {
+            "source_id": "lucas-yuma-evaluation",
+            "reference": "Opening paragraphs: one-way role, inert evaluation payloads and dated development status."
+          }
+        ]
+      },
+      {
+        "id": "ground-support",
+        "title": "Ground and launch support",
+        "text": "The Navy's reported shipboard demonstration establishes a support segment outside the aircraft. The visual treats this as a separate topic, without suggesting that a ship, launcher or control station is an internal aircraft component.",
+        "basis": "context",
+        "date": "2025-12-16 event",
+        "evidence": [
+          {
+            "source_id": "lucas-navy-sea",
+            "reference": "Shipboard demonstration and Task Force 59 participation."
+          }
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "id": "lucas-july-showcase",
+        "title": "Pentagon public showcase",
+        "text": "Official metadata dates the Pentagon tour to July 16; National Defense identifies LUCAS among the prototypes. A display establishes visibility, not completed fleet certification.",
+        "basis": "observed",
+        "date": "2025-07-16",
+        "evidence": [
+          {
+            "source_id": "lucas-pentagon-event",
+            "reference": "Photo caption and event date."
+          },
+          {
+            "source_id": "lucas-pentagon-showcase",
+            "reference": "LUCAS among the displayed prototypes."
+          }
+        ]
+      },
+      {
+        "id": "lucas-september-program",
+        "title": "A joint innovation framework",
+        "text": "CENTCOM places the squadron within the capability work of its Rapid Employment Joint Task Force, established in September.",
+        "basis": "context",
+        "date": "September 2025 / 2025-12-03 account",
+        "evidence": [
+          {
+            "source_id": "lucas-centcom-squadron",
+            "reference": "REJTF establishment and capability focus."
+          }
+        ]
+      },
+      {
+        "id": "lucas-squadron-announcement",
+        "title": "The squadron enters the official record",
+        "text": "CENTCOM announced Task Force Scorpion Strike on December 3. The accompanying LUCAS photographs carry November 23 dates; photograph dates and announcement dates describe different events.",
+        "basis": "attributed",
+        "date": "2025-11-23 / 2025-12-03",
+        "evidence": [
+          {
+            "source_id": "lucas-centcom-squadron",
+            "reference": "Release date and photograph captions."
+          }
+        ]
+      },
+      {
+        "id": "lucas-yuma-milestone",
+        "title": "Yuma evaluation disclosed",
+        "text": "The Army published its Yuma evaluation account separately from the squadron announcement. The two reports do not establish identical configurations.",
+        "basis": "attributed",
+        "date": "2025-12-03",
+        "evidence": [
+          {
+            "source_id": "lucas-yuma-evaluation",
+            "reference": "Dated evaluation account; separate source scope from the squadron announcement."
+          }
+        ]
+      },
+      {
+        "id": "lucas-sea-milestone",
+        "title": "First reported naval demonstration",
+        "text": "The Navy reported its first LUCAS launch from a naval vessel on December 16 aboard USS Santa Barbara. The report was published two days later.",
+        "basis": "attributed",
+        "date": "2025-12-16 / 2025-12-18",
+        "evidence": [
+          {
+            "source_id": "lucas-navy-sea",
+            "reference": "Event date, named vessel and page publication date."
+          }
+        ]
+      },
+      {
+        "id": "lucas-combat-announcement",
+        "title": "First combat-use announcement",
+        "text": "CENTCOM reported that Scorpion Strike used one-way drones in combat for the first time during Operation Epic Fury. The release does not specify their configuration; the Senate subsequently identified LUCAS in its account of that milestone.",
+        "basis": "attributed",
+        "date": "2026-02-28 / 2026-03-05",
+        "evidence": [
+          {
+            "source_id": "lucas-centcom-epic",
+            "reference": "Final paragraphs: task force's first combat use."
+          },
+          {
+            "source_id": "lucas-senate-transcript",
+            "reference": "Printed page 5: chairman's LUCAS identification."
+          }
+        ]
+      },
+      {
+        "id": "lucas-august-context",
+        "title": "The wider task-force program evolves",
+        "text": "CENTCOM announced plans for multinational Task Force Falcon Strike, drawing on Scorpion Strike's experience. The announcement expands the institutional story; it does not identify new LUCAS manufacturers or confirm aircraft transfers to particular partner countries.",
+        "basis": "context",
+        "date": "2026-08-13",
+        "evidence": [
+          {
+            "source_id": "lucas-centcom-falcon",
+            "reference": "Falcon Strike announcement, consultation status and Scorpion Strike background."
+          }
+        ]
+      }
+    ],
+    "organizations": [
+      {
+        "id": "lucas-spektreworks",
+        "title": "SpektreWorks",
+        "text": "National Defense names SpektreWorks as developer. The Arizona company's own description covers unmanned-systems engineering and production, without identifying individual LUCAS engineering workshare.",
+        "basis": "attributed",
+        "date": "2025-08-15 / company page reviewed 2026-09-10",
+        "evidence": [
+          {
+            "source_id": "lucas-pentagon-showcase",
+            "reference": "LUCAS developer attribution."
+          },
+          {
+            "source_id": "lucas-spektre-about",
+            "reference": "Company self-description."
+          }
+        ],
+        "entity_id": "spektreworks"
+      },
+      {
+        "id": "lucas-marine-sponsor",
+        "title": "U.S. Marine Corps",
+        "text": "Yuma's report identifies Marine Corps sponsorship of the evaluated aircraft. It does not assign the service manufacturing workshare.",
+        "basis": "attributed",
+        "date": "2025-12-03",
+        "evidence": [
+          {
+            "source_id": "lucas-yuma-evaluation",
+            "reference": "Opening program description: Marine Corps sponsorship."
+          }
+        ]
+      },
+      {
+        "id": "lucas-research-office",
+        "title": "Defense research and engineering offices",
+        "text": "Public records place prototyping officials in the research-and-engineering and mission-capabilities organizations. Their documented roles concern development oversight and experimentation; they are not commercial component vendors.",
+        "basis": "context",
+        "date": "July\u2013December 2025",
+        "evidence": [
+          {
+            "source_id": "lucas-pentagon-event",
+            "reference": "Emil Michael's research-and-engineering role."
+          },
+          {
+            "source_id": "lucas-pentagon-showcase",
+            "reference": "Dan Ermer's mission-capabilities office role."
+          }
+        ]
+      },
+      {
+        "id": "lucas-centcom-soccent",
+        "title": "CENTCOM and SOCCENT",
+        "text": "CENTCOM introduced the fielded squadron; it says Special Operations Command Central personnel led the task-force effort. This is a command and fielding relationship, distinct from the industrial supply network.",
+        "basis": "attributed",
+        "date": "2025-12-03",
+        "evidence": [
+          {
+            "source_id": "lucas-centcom-squadron",
+            "reference": "Task Force Scorpion Strike and SOCCENT personnel."
+          }
+        ]
+      },
+      {
+        "id": "lucas-navcent-tf59",
+        "title": "NAVCENT / Fifth Fleet and Task Force 59",
+        "text": "The Navy identifies Task Force 59 as the naval organization that conducted the demonstration, within NAVCENT/Fifth Fleet. Its involvement records an operator and demonstration partner, not an aircraft assembler.",
+        "basis": "attributed",
+        "date": "2025-12-18",
+        "evidence": [
+          {
+            "source_id": "lucas-navy-sea",
+            "reference": "Task Force 59 and NAVCENT organizational attribution."
+          }
+        ]
+      }
+    ],
+    "people": [
+      {
+        "id": "lucas-showcase-leaders",
+        "title": "Pete Hegseth and Emil Michael",
+        "text": "The official July 16 caption identifies Hegseth as defense secretary and Michael as under secretary for research and engineering during the showcase tour. These are dated public leadership roles, not individual engineering credits.",
+        "basis": "context",
+        "date": "2025-07-16",
+        "evidence": [
+          {
+            "source_id": "lucas-pentagon-event",
+            "reference": "Named officials and roles in the event caption."
+          }
+        ]
+      },
+      {
+        "id": "lucas-ermer",
+        "title": "Dan Ermer",
+        "text": "National Defense identifies Ermer as mission-capabilities director for rapid prototyping and experimentation. His direct comments describe early affordability constraints, not individual engineering authorship.",
+        "basis": "attributed",
+        "date": "2025-08-15",
+        "evidence": [
+          {
+            "source_id": "lucas-pentagon-showcase",
+            "reference": "Direct emailed comments and public official's title."
+          }
+        ]
+      },
+      {
+        "id": "lucas-law",
+        "title": "Nicholas Law",
+        "text": "Yuma identifies Colonel Law as the research-and-engineering office's experimentation director, commenting on evaluation and production aspirations.",
+        "basis": "attributed",
+        "date": "2025-12-03",
+        "evidence": [
+          {
+            "source_id": "lucas-yuma-evaluation",
+            "reference": "Named experimentation official and quoted role."
+          }
+        ]
+      },
+      {
+        "id": "lucas-cooper",
+        "title": "Brad Cooper",
+        "text": "CENTCOM names Admiral Cooper as its commander in the squadron announcement. The entry records command sponsorship, not personal authorship of the aircraft.",
+        "basis": "context",
+        "date": "2025-12-03",
+        "evidence": [
+          {
+            "source_id": "lucas-centcom-squadron",
+            "reference": "Named command role in the announcement."
+          }
+        ]
+      },
+      {
+        "id": "lucas-renshaw",
+        "title": "Curt Renshaw",
+        "text": "The naval release identifies Vice Admiral Renshaw as NAVCENT/Fifth Fleet commander commenting on the demonstration. His public role does not establish industrial design responsibility.",
+        "basis": "context",
+        "date": "2025-12-18",
+        "evidence": [
+          {
+            "source_id": "lucas-navy-sea",
+            "reference": "Named NAVCENT/Fifth Fleet commander."
+          }
+        ]
+      },
+      {
+        "id": "lucas-marks",
+        "title": "Steven M. Marks",
+        "text": "The Senate's official witness list identifies Major General Marks as director of the Defense Autonomous Warfare Group. His hearing appearance provides public oversight context; it does not establish that his organization supplied LUCAS hardware.",
+        "basis": "context",
+        "date": "2026-03-05",
+        "evidence": [
+          {
+            "source_id": "lucas-senate-hearing",
+            "reference": "Official witness name, organization and hearing date."
+          }
+        ]
+      }
+    ],
+    "manufacturing": [
+      {
+        "id": "lucas-manufacturer-record",
+        "title": "Whole-aircraft manufacturing attribution",
+        "text": "Reuters identifies SpektreWorks as manufacturer and reports that it held manufacturing contracts; the company declined comment. The app records that explicit attribution without presenting it as an independently inspected production line.",
+        "basis": "attributed",
+        "date": "2026-03-04",
+        "evidence": [
+          {
+            "source_id": "lucas-reuters-production",
+            "reference": "Opening attribution and Rapid Deployment section."
+          }
+        ],
+        "entity_id": "spektreworks"
+      },
+      {
+        "id": "lucas-design-ownership",
+        "title": "Reported government design ownership",
+        "text": "Reuters reports government ownership of the LUCAS design intellectual property. This could permit other manufacturers; it does not prove that an additional named firm produced a delivered aircraft, or establish the terms of a license.",
+        "basis": "attributed",
+        "date": "2026-03-04",
+        "evidence": [
+          {
+            "source_id": "lucas-reuters-production",
+            "reference": "Design intellectual-property ownership and multiple-manufacturer possibility."
+          }
+        ]
+      },
+      {
+        "id": "lucas-production-aspiration",
+        "title": "Multiple producers were an objective",
+        "text": "Yuma describes an intention to enable multiple manufacturers, without naming additional producers or verifying output. This remains an aspiration.",
+        "basis": "attributed",
+        "date": "2025-12-03",
+        "evidence": [
+          {
+            "source_id": "lucas-yuma-evaluation",
+            "reference": "Law's multiple-manufacturer aspiration."
+          }
+        ]
+      },
+      {
+        "id": "lucas-test-facility",
+        "title": "Yuma is an evaluation venue",
+        "text": "The Army establishes testing at Yuma, without assigning airframe manufacture there. Consequently the installation receives no supplier-factory edge.",
+        "basis": "context",
+        "date": "2025-12-03",
+        "evidence": [
+          {
+            "source_id": "lucas-yuma-evaluation",
+            "reference": "Evaluation venue and source scope."
+          }
+        ]
+      },
+      {
+        "id": "lucas-arizona-context",
+        "title": "Arizona corporate context",
+        "text": "SpektreWorks describes itself as Phoenix-based. A city-level company description does not locate a LUCAS final-assembly line. Exact premises, audited production capacity and batch-level facility allocation remain unverified in the reviewed record.",
+        "basis": "unresolved",
+        "date": "Company page reviewed 2026-09-10",
+        "evidence": [
+          {
+            "source_id": "lucas-spektre-about",
+            "reference": "Corporate self-description, without a product-specific plant allocation."
+          }
+        ]
+      },
+      {
+        "id": "lucas-services-boundary",
+        "title": "Company capabilities are not a parts list",
+        "text": "SpektreWorks advertises mechanical, electrical, software and flight services. That business-wide capability menu does not identify what was installed in a delivered LUCAS aircraft or establish a contract with any specific component company.",
+        "basis": "context",
+        "date": "Services page reviewed 2026-09-10",
+        "evidence": [
+          {
+            "source_id": "lucas-spektre-services",
+            "reference": "Company-wide service categories; no LUCAS configuration attribution."
+          }
+        ]
+      }
+    ],
+    "assessment": [
+      {
+        "id": "lucas-flm-boundary",
+        "title": "FLM 136 remains a separate catalog platform",
+        "text": "SpektreWorks markets FLM 136 for threat emulation and counter-drone testing. Its catalog specification is not labeled as a verified fielded LUCAS configuration. Shared ancestry or resemblance therefore does not justify transferring its technical parts or performance figures.",
+        "basis": "context",
+        "date": "Catalog reviewed 2026-09-10",
+        "evidence": [
+          {
+            "source_id": "lucas-spektre-target",
+            "reference": "FLM 136 identity and threat-emulation scope."
+          }
+        ]
+      },
+      {
+        "id": "lucas-shahed-boundary",
+        "title": "Shahed-136 lineage is not a supply relationship",
+        "text": "The Senate chairman describes LUCAS as derived through reverse engineering of Shahed-136. That historical attribution concerns Shahed-136, not Shahed-238, and does not establish an Iranian company as a supplier to the U.S. program.",
+        "basis": "attributed",
+        "date": "2026-03-05",
+        "evidence": [
+          {
+            "source_id": "lucas-senate-transcript",
+            "reference": "Printed page 5: explicitly names Shahed-136."
+          }
+        ]
+      },
+      {
+        "id": "lucas-oversight-boundary",
+        "title": "Public questions did not disclose the internals",
+        "text": "Senator Mark Kelly asked about LUCAS decision-making and oversight. Marks offered a classified briefing instead of public technical detail. The unanswered questions must not be treated as confirmation of a particular autonomous weapons architecture.",
+        "basis": "unresolved",
+        "date": "2026-03-05",
+        "evidence": [
+          {
+            "source_id": "lucas-senate-transcript",
+            "reference": "Printed pages 60\u201362: question, response and oversight discussion."
+          }
+        ]
+      },
+      {
+        "id": "lucas-industrial-scale",
+        "title": "Wider drone targets are not LUCAS orders",
+        "text": "The Senate distinguishes the Drone Dominance effort for smaller aircraft from broader autonomous-warfare work. Aggregate program ambitions cannot be converted into LUCAS purchase quantities, current inventory or SpektreWorks production totals.",
+        "basis": "context",
+        "date": "2026-03-05",
+        "evidence": [
+          {
+            "source_id": "lucas-senate-transcript",
+            "reference": "Printed pages 4\u20135: distinct program scopes."
+          }
+        ]
+      },
+      {
+        "id": "lucas-uk-engagement",
+        "title": "An allied relationship remains unestablished",
+        "text": "In a written answer, UK minister Luke Pollard said the department held no records of formal LUCAS engagement with U.S. counterparts or SpektreWorks. This dated records statement supports leaving a UK program edge absent; it does not rule out all informal contact or later change.",
+        "basis": "attributed",
+        "date": "2026-03-17",
+        "evidence": [
+          {
+            "source_id": "lucas-uk-answer",
+            "reference": "Printed page 39, answer 118990."
+          }
+        ]
+      },
+      {
+        "id": "lucas-latest-boundary",
+        "title": "A larger task force does not identify every aircraft",
+        "text": "The August Falcon Strike announcement discusses a wider mix of aerial and maritime systems and planned partner participation. It does not establish that every task-force activity uses LUCAS or identify new LUCAS factories, subcontractors or export customers.",
+        "basis": "context",
+        "date": "2026-08-13",
+        "evidence": [
+          {
+            "source_id": "lucas-centcom-falcon",
+            "reference": "Multi-domain scope and invitation process; no product-specific manufacturer census."
+          }
+        ]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "lucas",
+          "label": "LUCAS",
+          "kind": "product"
+        },
+        {
+          "id": "spektreworks",
+          "label": "SpektreWorks",
+          "kind": "company"
+        },
+        {
+          "id": "marine-corps",
+          "label": "U.S. Marine Corps",
+          "kind": "organization"
+        },
+        {
+          "id": "yuma-evaluation",
+          "label": "Yuma Proving Ground",
+          "kind": "test-center"
+        },
+        {
+          "id": "soccent",
+          "label": "SOCCENT",
+          "kind": "organization"
+        },
+        {
+          "id": "scorpion-strike",
+          "label": "Task Force Scorpion Strike",
+          "kind": "program"
+        },
+        {
+          "id": "task-force-59",
+          "label": "Task Force 59",
+          "kind": "organization"
+        }
+      ],
+      "edges": [
+        {
+          "id": "lucas-network-industrial",
+          "title": "Attributed manufacturer",
+          "text": "Reuters attributes whole-aircraft manufacture to SpektreWorks. The edge does not identify subcontractors or production premises.",
+          "basis": "attributed",
+          "date": "2026-03-04",
+          "evidence": [
+            {
+              "source_id": "lucas-reuters-production",
+              "reference": "Manufacturer and manufacturing-contract attribution."
+            }
+          ],
+          "entity_id": "spektreworks",
+          "source_node": "spektreworks",
+          "target_node": "lucas",
+          "relation_kind": "industrial"
+        },
+        {
+          "id": "lucas-network-sponsor",
+          "title": "Evaluation sponsor",
+          "text": "The Army identifies Marine Corps sponsorship of the evaluated aircraft, without assigning manufacturing workshare.",
+          "basis": "attributed",
+          "date": "2025-12-03",
+          "evidence": [
+            {
+              "source_id": "lucas-yuma-evaluation",
+              "reference": "Opening program description."
+            }
+          ],
+          "source_node": "marine-corps",
+          "target_node": "lucas",
+          "relation_kind": "program"
+        },
+        {
+          "id": "lucas-network-test",
+          "title": "Hosted evaluation",
+          "text": "Yuma's documented role is evaluation; it is not presented as a supplier factory.",
+          "basis": "attributed",
+          "date": "2025-12-03",
+          "evidence": [
+            {
+              "source_id": "lucas-yuma-evaluation",
+              "reference": "Evaluation venue."
+            }
+          ],
+          "source_node": "yuma-evaluation",
+          "target_node": "lucas",
+          "relation_kind": "evaluation"
+        },
+        {
+          "id": "lucas-network-command",
+          "title": "Led task-force effort",
+          "text": "CENTCOM identifies SOCCENT personnel as leading Scorpion Strike's squadron-building effort.",
+          "basis": "attributed",
+          "date": "2025-12-03",
+          "evidence": [
+            {
+              "source_id": "lucas-centcom-squadron",
+              "reference": "Final paragraph: SOCCENT role."
+            }
+          ],
+          "source_node": "soccent",
+          "target_node": "scorpion-strike",
+          "relation_kind": "program"
+        },
+        {
+          "id": "lucas-network-fielding",
+          "title": "Fielded squadron",
+          "text": "CENTCOM identifies LUCAS aircraft with Scorpion Strike's announced squadron. Fielding is not manufacture.",
+          "basis": "attributed",
+          "date": "2025-12-03",
+          "evidence": [
+            {
+              "source_id": "lucas-centcom-squadron",
+              "reference": "Squadron aircraft identification."
+            }
+          ],
+          "source_node": "scorpion-strike",
+          "target_node": "lucas",
+          "relation_kind": "program"
+        },
+        {
+          "id": "lucas-network-naval",
+          "title": "Conducted naval demonstration",
+          "text": "The Navy identifies Task Force 59 as the demonstration operator, without assigning industrial supply responsibility.",
+          "basis": "attributed",
+          "date": "2025-12-16",
+          "evidence": [
+            {
+              "source_id": "lucas-navy-sea",
+              "reference": "Task Force 59 demonstration role."
+            }
+          ],
+          "source_node": "task-force-59",
+          "target_node": "lucas",
+          "relation_kind": "evaluation"
+        }
+      ]
+    }
   }
 ]
