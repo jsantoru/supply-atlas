@@ -46,3 +46,6 @@ __pycache__/
 /backups/
 !.env.example
 *.tsbuildinfo
+test-results/
+playwright-report/
+/.openai/

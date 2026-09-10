@@ -1,8 +1,12 @@
 """Claims, not company adjacency, are the unit of traversal."""
-def eligible(claim, status="all", role="all", at=None, variant=None):
+def eligible(claim, status="all", role="all", at=None, variant=None, supplier=None, part=None):
     if status != "all" and claim["status"] != status:
         return False
     if role != "all" and claim["role"] != role:
+        return False
+    if supplier and claim["supplier_id"] != supplier:
+        return False
+    if part and claim["part_id"] != part:
         return False
     if at and (claim["observed_at"] > at or (claim.get("valid_from") and claim["valid_from"] > at) or (claim.get("valid_to") and claim["valid_to"] < at)):
         return False
@@ -13,7 +17,7 @@ def product_claims(data, product, **filters):
 
 def dependencies(data, product, **filters):
     direct = product_claims(data, product, **filters)
-    scope_filters = {**filters, "role": "all"}
+    scope_filters = {**filters, "role": "all", "supplier": None}
     parts = {c["part_id"] for c in product_claims(data, product, **scope_filters) if c["part_id"]}
     # Only part-level claims may be inherited. Never inherit another product's factories.
     upstream = [c for c in data["claims"] if c["product_id"] is None and c["part_id"] in parts and eligible(c, **filters)]

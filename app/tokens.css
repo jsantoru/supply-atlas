@@ -1,0 +1,224 @@
+/* CoCounsel-inspired extraction. See DESIGN-SYSTEM.md for provenance and font setup.
+   Responsive sizes/colors match inspected source. Focus ring, 44px targets,
+   container mobile padding, and grid-collapse rules are implementation recommendations. */
+:root {
+  --cc-action-primary: #d64000;
+  --cc-hero-navy: #011b34;
+  --cc-surface: #ffffff;
+  --cc-surface-subtle: #fafafa;
+  --cc-surface-blue: #e3f1fd;
+  --cc-surface-warm: #f8eadd;
+  --cc-surface-green: #123021;
+  --cc-text-primary: #1f1f1f;
+  --cc-text-secondary: #404040;
+  --cc-text-inverse: #ffffff;
+  --cc-link: #005da2;
+  --cc-border: #e5e5e5;
+  --cc-border-strong: #1f1f1f;
+  --cc-action-active: #ab3300;
+  --cc-focus: #0065ff;
+  --cc-font-heading: Clario, 'Helvetica Neue', Arial, sans-serif;
+  --cc-font-body: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  --cc-display-size: 40px;
+  --cc-heading-large-size: 24px;
+  --cc-heading-medium-size: 24px;
+  --cc-heading-small-size: 24px;
+  --cc-eyebrow-size: 14px;
+  --cc-body-large-size: 16px;
+  --cc-body-size: 14px;
+  --cc-space-4: 4px;
+  --cc-space-8: 8px;
+  --cc-space-12: 12px;
+  --cc-space-16: 16px;
+  --cc-space-20: 20px;
+  --cc-space-24: 24px;
+  --cc-space-32: 32px;
+  --cc-space-40: 40px;
+  --cc-space-48: 48px;
+  --cc-space-60: 60px;
+  --cc-space-84: 84px;
+  --cc-container: 1200px;
+  --cc-radius-control: 4px;
+  --cc-radius-media: 8px;
+}
+@media (min-width: 600px) {
+  :root {
+    --cc-display-size: 56px;
+    --cc-heading-large-size: 28px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --cc-display-size: 72px;
+    --cc-heading-large-size: 32px;
+    --cc-heading-medium-size: 28px;
+    --cc-eyebrow-size: 16px;
+    --cc-body-large-size: 20px;
+    --cc-body-size: 16px;
+  }
+}
+/* Scoped foundations: add class="cc" to the application or page root. */
+.cc {
+  font: 400 var(--cc-body-size)/1.5 var(--cc-font-body);
+  color: var(--cc-text-secondary);
+  background: var(--cc-surface);
+}
+.cc,
+.cc *,
+.cc *::before,
+.cc *::after {
+  box-sizing: border-box;
+}
+.cc h1,
+.cc h2,
+.cc h3,
+.cc p {
+  margin-top: 0;
+}
+.cc-display,
+.cc-h2,
+.cc-h3,
+.cc-h4,
+.cc-subtitle {
+  font-family: var(--cc-font-heading);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: var(--cc-text-primary);
+}
+.cc-display {
+  font-size: var(--cc-display-size);
+  margin-bottom: 24px;
+}
+.cc-h2 {
+  font-size: var(--cc-heading-large-size);
+  margin-bottom: 20px;
+}
+.cc-h3 {
+  font-size: var(--cc-heading-medium-size);
+  margin-bottom: 20px;
+}
+.cc-h4 {
+  font-size: var(--cc-heading-small-size);
+  margin-bottom: 20px;
+}
+.cc-subtitle {
+  font-size: 20px;
+}
+.cc-eyebrow {
+  font: 500 var(--cc-eyebrow-size)/1.1 var(--cc-font-heading);
+  margin-bottom: 16px;
+}
+.cc-body-lg {
+  font: 400 var(--cc-body-large-size)/1.5 var(--cc-font-body);
+}
+.cc-small {
+  font: 400 14px/1.35 var(--cc-font-body);
+}
+.cc-container {
+  width: 100%;
+  max-width: var(--cc-container);
+  margin-inline: auto;
+  padding-inline: 12px;
+}
+.cc-section {
+  padding-block: 48px;
+}
+.cc-grid {
+  display: grid;
+  gap: 24px;
+}
+.cc-hero {
+  background: var(--cc-hero-navy);
+  color: var(--cc-text-inverse);
+  padding-block: 48px 84px;
+  text-align: center;
+}
+.cc-hero .cc-display {
+  color: inherit;
+}
+.cc-surface-blue {
+  background: var(--cc-surface-blue);
+}
+.cc-surface-warm {
+  background: var(--cc-surface-warm);
+}
+.cc-media {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--cc-border);
+  border-radius: var(--cc-radius-media);
+  overflow: hidden;
+}
+.cc-spotlight {
+  background: var(--cc-surface-green);
+  color: var(--cc-text-inverse);
+  padding: 24px;
+  border-radius: 0;
+}
+.cc-spotlight .cc-h3 {
+  color: inherit;
+}
+.cc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.cc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid var(--cc-action-primary);
+  border-radius: var(--cc-radius-control);
+  background: var(--cc-action-primary);
+  color: var(--cc-text-inverse);
+  font: 500 16px/24px var(--cc-font-heading);
+  text-decoration: none;
+  cursor: pointer;
+}
+.cc-button--secondary {
+  background: var(--cc-surface-subtle);
+  border-color: var(--cc-border-strong);
+  color: var(--cc-text-primary);
+}
+.cc-button:hover {
+  background: var(--cc-surface-warm);
+  color: var(--cc-text-primary);
+}
+.cc-button:active {
+  background: var(--cc-action-active);
+  border-color: var(--cc-action-active);
+  color: var(--cc-text-inverse);
+}
+.cc-button--secondary:active {
+  background: var(--cc-text-primary);
+  border-color: var(--cc-text-primary);
+}
+.cc-link {
+  color: var(--cc-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cc :focus-visible {
+  outline: 3px solid var(--cc-focus);
+  outline-offset: 3px;
+}
+@media (min-width: 600px) {
+  .cc-grid--three {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .cc-section {
+    padding-block: 84px;
+  }
+  .cc-grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cc-grid--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

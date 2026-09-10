@@ -71,12 +71,12 @@ def admin(request: Request, authorization: Annotated[str | None, Header()] = Non
             raise HTTPException(401, "Invalid administrator token")
         db.execute("DELETE FROM login_attempts WHERE client=?", (client,))
 
-def filters(status: str = "all", role: str = "all", at: date | None = None, variant: str | None = None):
+def filters(status: str = "all", role: str = "all", at: date | None = None, variant: str | None = None, supplier: str | None = None, part: str | None = None):
     if status not in ("all", "direct", "inferred", "disputed", "outdated"):
         raise HTTPException(422, "Invalid evidence status")
     if role not in ("all", "designer", "fabricator", "packager", "assembler", "distributor", "material supplier", "component supplier"):
         raise HTTPException(422, "Invalid manufacturing role")
-    return dict(status=status, role=role, at=at.isoformat() if at else None, variant=variant)
+    return dict(status=status, role=role, at=at.isoformat() if at else None, variant=variant, supplier=supplier, part=part)
 
 def get_data():
     with connect() as db:
