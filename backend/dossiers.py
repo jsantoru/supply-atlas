@@ -44,15 +44,32 @@ class ResearchNetwork(StrictModel):
         node_ids = {node.id for node in self.nodes}
         if len(node_ids) != len(self.nodes):
             raise ValueError("Duplicate research network node")
+        products = [node.id for node in self.nodes if node.kind == "product"]
+        if len(products) != 1:
+            raise ValueError("Research network needs exactly one focal product")
         connected = set()
+        neighbors = {node_id: set() for node_id in node_ids}
         for edge in self.edges:
             if edge.source_node not in node_ids or edge.target_node not in node_ids:
                 raise ValueError("Research relationship references a missing node")
             if edge.source_node == edge.target_node:
                 raise ValueError("Research relationship cannot connect a node to itself")
             connected.update((edge.source_node, edge.target_node))
+            neighbors[edge.source_node].add(edge.target_node)
+            neighbors[edge.target_node].add(edge.source_node)
         if connected != node_ids:
             raise ValueError("Every research network node needs a cited relationship")
+        # Connectivity is contextual, not a directed supply dependency. Reject
+        # cited but unrelated islands that would inflate the product's network.
+        reached = set()
+        pending = [products[0]]
+        while pending:
+            node_id = pending.pop()
+            if node_id not in reached:
+                reached.add(node_id)
+                pending.extend(neighbors[node_id] - reached)
+        if reached != node_ids:
+            raise ValueError("Every research network node must connect to the focal product")
         return self
 
 
@@ -69,6 +86,14 @@ class ResearchDossier(StrictModel):
     manufacturing: list[ResearchEntry] = Field(min_length=1)
     assessment: list[ResearchEntry] = Field(min_length=1)
     network: ResearchNetwork | None = None
+
+    @model_validator(mode="after")
+    def validate_network_product(self):
+        if self.network:
+            focal = next(node for node in self.network.nodes if node.kind == "product")
+            if focal.id != self.product_id:
+                raise ValueError("Research network focal product must match its dossier")
+        return self
 
     def entries(self):
         for section in (self.systems, self.timeline, self.organizations,
