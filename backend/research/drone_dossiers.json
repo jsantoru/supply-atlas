@@ -668,7 +668,7 @@
     "product_id": "lucas",
     "reviewed": "2026-09-10",
     "subtitle": "U.S. one-way aircraft \u00b7 industry and public-program dossier",
-    "introduction": "Explore the aircraft's visible form, its attributed U.S. developer and manufacturer, and the organizations that evaluated and fielded the program. The dated record follows the 2025 public showcase through the broader task-force developments announced in August 2026.",
+    "introduction": "Explore the aircraft's visible form, its attributed U.S. developer and manufacturer, and the organizations that funded, evaluated and fielded the program. The dated record follows the June 2025 project-funding announcement through broader task-force developments announced in August 2026.",
     "scope": "Conceptual exterior and major-system overview with high-level weapons-role context. This is not an engineering teardown or a complete supplier census. Test examples, fielded aircraft and related target platforms retain their own evidence boundaries; people appear only in dated public roles.",
     "systems": [
       {
@@ -743,6 +743,19 @@
     ],
     "timeline": [
       {
+        "id": "lucas-june-funding",
+        "title": "A documented production-transition investment",
+        "text": "The official FY2025 APFIT list assigns $30 million to the Marine Corps LUCAS project. This is project-level funding, not a unit price, delivery count or identified company contract.",
+        "basis": "attributed",
+        "date": "2025-06-17",
+        "evidence": [
+          {
+            "source_id": "lucas-apfit-funding",
+            "reference": "FY2025 funded-project list: Low-cost Uncrewed Combat Attack Systems, $30 million, U.S. Marine Corps."
+          }
+        ]
+      },
+      {
         "id": "lucas-july-showcase",
         "title": "Pentagon public showcase",
         "text": "Official metadata dates the Pentagon tour to July 16; National Defense identifies LUCAS among the prototypes. A display establishes visibility, not completed fleet certification.",
@@ -762,13 +775,13 @@
       {
         "id": "lucas-september-program",
         "title": "A joint innovation framework",
-        "text": "CENTCOM places the squadron within the capability work of its Rapid Employment Joint Task Force, established in September.",
+        "text": "CENTCOM established the Rapid Employment Joint Task Force on September 23. This announcement describes the innovation framework; LUCAS and Scorpion Strike enter its public record later.",
         "basis": "context",
-        "date": "September 2025 / 2025-12-03 account",
+        "date": "2025-09-23",
         "evidence": [
           {
-            "source_id": "lucas-centcom-squadron",
-            "reference": "REJTF establishment and capability focus."
+            "source_id": "lucas-rejtf-establishment",
+            "reference": "Release 20250923-01: establishment date and organizational purpose."
           }
         ]
       },
@@ -876,25 +889,21 @@
       },
       {
         "id": "lucas-research-office",
-        "title": "Defense research and engineering offices",
-        "text": "Public records place prototyping officials in the research-and-engineering and mission-capabilities organizations. Their documented roles concern development oversight and experimentation; they are not commercial component vendors.",
+        "title": "Research & Engineering and APFIT",
+        "text": "Research & Engineering's APFIT program supports transition into production. Its June announcement explicitly includes LUCAS, connecting public funding to the industrial story without identifying a component supplier.",
         "basis": "context",
-        "date": "July\u2013December 2025",
+        "date": "2025-06-17",
         "evidence": [
           {
-            "source_id": "lucas-pentagon-event",
-            "reference": "Emil Michael's research-and-engineering role."
-          },
-          {
-            "source_id": "lucas-pentagon-showcase",
-            "reference": "Dan Ermer's mission-capabilities office role."
+            "source_id": "lucas-apfit-funding",
+            "reference": "Program ownership, production-transition purpose and FY2025 LUCAS project listing."
           }
         ]
       },
       {
         "id": "lucas-centcom-soccent",
         "title": "CENTCOM and SOCCENT",
-        "text": "CENTCOM introduced the fielded squadron; it says Special Operations Command Central personnel led the task-force effort. This is a command and fielding relationship, distinct from the industrial supply network.",
+        "text": "SOCCENT personnel led the squadron effort introduced by CENTCOM. These command roles are separate from manufacturing.",
         "basis": "attributed",
         "date": "2025-12-03",
         "evidence": [
@@ -1195,6 +1204,31 @@
           "id": "task-force-59",
           "label": "Task Force 59",
           "kind": "organization"
+        },
+        {
+          "id": "centcom",
+          "label": "CENTCOM",
+          "kind": "organization"
+        },
+        {
+          "id": "rejtf",
+          "label": "Rapid Employment Joint Task Force",
+          "kind": "program"
+        },
+        {
+          "id": "navcent",
+          "label": "NAVCENT / Fifth Fleet",
+          "kind": "organization"
+        },
+        {
+          "id": "apfit",
+          "label": "APFIT",
+          "kind": "program"
+        },
+        {
+          "id": "research-engineering",
+          "label": "Research & Engineering",
+          "kind": "organization"
         }
       ],
       "edges": [
@@ -1294,6 +1328,151 @@
           "source_node": "task-force-59",
           "target_node": "lucas",
           "relation_kind": "evaluation"
+        },
+        {
+          "id": "lucas-network-developer",
+          "title": "Attributed developer",
+          "text": "National Defense explicitly identifies SpektreWorks as LUCAS developer. This documents a second industrial role, not another supplier.",
+          "basis": "attributed",
+          "date": "2025-08-15",
+          "evidence": [
+            {
+              "source_id": "lucas-pentagon-showcase",
+              "reference": "Firsthand showcase report: LUCAS developer attribution."
+            }
+          ],
+          "entity_id": "spektreworks",
+          "source_node": "spektreworks",
+          "target_node": "lucas",
+          "relation_kind": "industrial"
+        },
+        {
+          "id": "lucas-network-funding",
+          "title": "FY2025 project funding",
+          "text": "APFIT lists $30 million for the Marine Corps LUCAS project. No company payment or manufacturing allocation is established.",
+          "basis": "attributed",
+          "date": "2025-06-17",
+          "evidence": [
+            {
+              "source_id": "lucas-apfit-funding",
+              "reference": "FY2025 project list: LUCAS allocation and Marine Corps association."
+            }
+          ],
+          "source_node": "apfit",
+          "target_node": "lucas",
+          "relation_kind": "program"
+        },
+        {
+          "id": "lucas-network-apfit-office",
+          "title": "Administers funding program",
+          "text": "The June release identifies APFIT as a Research & Engineering program supporting production transition.",
+          "basis": "attributed",
+          "date": "2025-06-17",
+          "evidence": [
+            {
+              "source_id": "lucas-apfit-funding",
+              "reference": "Opening paragraphs: office's APFIT program and transition into production."
+            }
+          ],
+          "source_node": "research-engineering",
+          "target_node": "apfit",
+          "relation_kind": "program"
+        },
+        {
+          "id": "lucas-network-rejtf-established",
+          "title": "Established innovation task force",
+          "text": "CENTCOM announced REJTF's establishment on September 23, led by its chief technology officer.",
+          "basis": "attributed",
+          "date": "2025-09-23",
+          "evidence": [
+            {
+              "source_id": "lucas-rejtf-establishment",
+              "reference": "Opening paragraphs: establishment and organizational leadership."
+            }
+          ],
+          "source_node": "centcom",
+          "target_node": "rejtf",
+          "relation_kind": "program"
+        },
+        {
+          "id": "lucas-network-rejtf-alignment",
+          "title": "Aligns with capability focus",
+          "text": "Scorpion Strike's squadron effort aligns with REJTF's capability work. Alignment does not establish a subordinate command relationship.",
+          "basis": "attributed",
+          "date": "2025-12-03",
+          "evidence": [
+            {
+              "source_id": "lucas-centcom-squadron",
+              "reference": "Final paragraph: explicitly stated REJTF capability-focus alignment."
+            }
+          ],
+          "source_node": "scorpion-strike",
+          "target_node": "rejtf",
+          "relation_kind": "program"
+        },
+        {
+          "id": "lucas-network-scorpion-established",
+          "title": "Established task force",
+          "text": "CENTCOM announced the creation of Scorpion Strike, which had established a LUCAS squadron.",
+          "basis": "attributed",
+          "date": "2025-12-03",
+          "evidence": [
+            {
+              "source_id": "lucas-centcom-squadron",
+              "reference": "Opening task-force announcement and squadron identification."
+            }
+          ],
+          "source_node": "centcom",
+          "target_node": "scorpion-strike",
+          "relation_kind": "program"
+        },
+        {
+          "id": "lucas-network-soccent-component",
+          "title": "Special-operations component",
+          "text": "CENTCOM's official directory lists SOCCENT among its component commands. This reviewed relationship has no inferred founding date.",
+          "basis": "context",
+          "date": "Directory reviewed 2026-09-10",
+          "evidence": [
+            {
+              "source_id": "lucas-centcom-components",
+              "reference": "Component Commands introduction and SOCCENT listing."
+            }
+          ],
+          "source_node": "centcom",
+          "target_node": "soccent",
+          "relation_kind": "program"
+        },
+        {
+          "id": "lucas-network-maritime-component",
+          "title": "Maritime component",
+          "text": "The Navy identifies NAVCENT/Fifth Fleet as CENTCOM's maritime component.",
+          "basis": "attributed",
+          "date": "2025-12-18",
+          "evidence": [
+            {
+              "source_id": "lucas-navy-sea",
+              "reference": "Closing NAVCENT/C5F organizational description."
+            }
+          ],
+          "source_node": "centcom",
+          "target_node": "navcent",
+          "relation_kind": "program"
+        },
+        {
+          "id": "lucas-network-tf59-established",
+          "title": "Established unmanned-systems task force",
+          "text": "NAVCENT established Task Force 59 in September 2021. This institutional origin predates its documented LUCAS demonstration.",
+          "basis": "attributed",
+          "date": "2021-09-09",
+          "evidence": [
+            {
+              "source_id": "lucas-tf59-establishment",
+              "reference": "Opening announcement and TF59 commissioning caption."
+            }
+          ],
+          "source_node": "navcent",
+          "target_node": "task-force-59",
+          "relation_kind": "program"
         }
       ]
     }

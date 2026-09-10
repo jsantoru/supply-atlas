@@ -1234,6 +1234,54 @@
       "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Photo ID 9183292; VIRIN 250716-D-PM193-1138. Caption and metadata establish the event date and public roles. The image is not redistributed."
     },
     {
+      "id": "lucas-apfit-funding",
+      "title": "APFIT Program Boosts Small Business Innovation with Record Funding Level",
+      "url": "https://www.cto.mil/news/apfit-sbi/",
+      "publisher": "Defense Research & Engineering",
+      "published": "2025-06-17",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.cto.mil/news/apfit-sbi/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Dated release and FY2025 project list reviewed in full. The list assigns $30 million to the Marine Corps LUCAS project; it does not name an awardee, publish a contract identifier or establish payments to SpektreWorks. The live page now uses OUSW branding despite its June 2025 release date; the dossier uses the neutral Research & Engineering office label."
+    },
+    {
+      "id": "lucas-rejtf-establishment",
+      "title": "CENTCOM Launches Innovation Joint Task Force to Rapidly Equip Warfighters",
+      "url": "https://www.centcom.mil/MEDIA/PUBLIC-RELEASES/Article/4312394/centcom-launches-innovation-joint-task-force-to-rapidly-equip-warfighters/",
+      "publisher": "U.S. Central Command",
+      "published": "2025-09-23",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.centcom.mil/MEDIA/PUBLIC-RELEASES/Article/4312394/centcom-launches-innovation-joint-task-force-to-rapidly-equip-warfighters/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Release 20250923-01. Establishes the dated innovation organization and its relationship to CENTCOM. This September release does not name LUCAS; the subsequent December release separately supports the Scorpion Strike alignment."
+    },
+    {
+      "id": "lucas-centcom-components",
+      "title": "CENTCOM Components",
+      "url": "https://www.centcom.mil/ABOUT-US/COMPONENT-COMMANDS/",
+      "publisher": "U.S. Central Command",
+      "published": null,
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.centcom.mil/ABOUT-US/COMPONENT-COMMANDS/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Undated official component directory, reviewed September 10, 2026. Used only for the SOCCENT component relationship. Review date is not an establishment date; unrelated geographic descriptions and personnel locations are omitted."
+    },
+    {
+      "id": "lucas-tf59-establishment",
+      "title": "U.S. 5th Fleet Launches New Task Force to Integrate Unmanned Systems",
+      "url": "https://www.navy.mil/Press-Office/News-Stories/display-news/Article/2768479/us-5th-fleet-launches-new-task-force-to-integrate-unmanned-systems/",
+      "publisher": "U.S. Naval Forces Central Command / U.S. 5th Fleet / Roland Franklin",
+      "published": "2021-09-09",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.navy.mil/Press-Office/News-Stories/display-news/Article/2768479/us-5th-fleet-launches-new-task-force-to-integrate-unmanned-systems/",
+      "adapter": "manual-reference",
+      "reuse": "Original factual paraphrases and precise citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Original establishment announcement and commissioning caption. This institutional history predates LUCAS; the later December 2025 naval release establishes the aircraft-specific demonstration. Precise installation geography is omitted."
+    },
+    {
       "id": "lucas-centcom-squadron",
       "title": "U.S. Launches One-Way-Attack Drone Force in the Middle East",
       "url": "https://www.centcom.mil/MEDIA/PUBLIC-RELEASES/Article/4347030/us-launches-one-way-attack-drone-force-in-the-middle-east/",
