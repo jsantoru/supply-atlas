@@ -153,6 +153,11 @@ test('research remains dated context while workspace filters restrict manufactur
     }),
   ).toBeAttached();
   await page
+    .getByRole('button', { name: 'Explore LUCAS', exact: true })
+    .click();
+  await expect(page).toHaveURL(/product=lucas/);
+  await expect(attributions.getByRole('button')).toHaveCount(2);
+  await page
     .getByRole('button', { name: 'Explore Mohajer-6', exact: true })
     .click();
   await expect(page).toHaveURL(/product=mohajer6/);
