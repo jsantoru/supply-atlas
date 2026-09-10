@@ -1,16 +1,20 @@
 from datetime import date
-from typing import Literal
+from typing import Annotated, Literal
+import unicodedata
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl, model_validator
 
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+def normalized_name(value: str) -> str:
+    return " ".join(unicodedata.normalize("NFKC", value).casefold().split())
 
 class Entity(StrictModel):
     id: str = Field(pattern=r"^[a-z0-9][a-z0-9-]{0,79}$")
     kind: Literal["company", "product", "variant", "part", "category", "facility", "material", "industry", "region"]
     name: str = Field(min_length=1, max_length=160)
     description: str = Field(max_length=1800)
-    aliases: list[str] = Field(default_factory=list, max_length=30)
+    aliases: list[Annotated[str, Field(min_length=1, max_length=160)]] = Field(default_factory=list, max_length=30)
     category_id: str | None = None
     parent_id: str | None = None
     industry_id: str | None = None
@@ -21,10 +25,13 @@ class Entity(StrictModel):
     location_reference: str | None = None
     @model_validator(mode="after")
     def coordinates(self):
+        self.aliases = list({normalized_name(alias): alias for alias in self.aliases if normalized_name(alias) != normalized_name(self.name)}.values())
         if (self.latitude is None) != (self.longitude is None):
             raise ValueError("Coordinates must be supplied together")
         if self.latitude is not None and (self.precision == "unknown" or not self.location_reference):
             raise ValueError("Coordinates require precision and a location reference")
+        if self.kind == "variant" and not self.parent_id:
+            raise ValueError("A variant requires its parent product")
         return self
 
 class Source(StrictModel):
@@ -64,8 +71,12 @@ class Claim(StrictModel):
     supersedes: str | None = None
     @model_validator(mode="after")
     def semantics(self):
-        if not self.product_id and not self.part_id and not self.material_id:
-            raise ValueError("Claim needs a product, specific part, or material")
+        if not self.product_id and not self.part_id and not self.material_id and not (self.supplier_id and self.customer_id):
+            raise ValueError("Claim needs product/part/material scope or both companies for a general commercial relationship")
+        if self.variant_id and not self.product_id:
+            raise ValueError("Variant scope requires a product")
+        if self.supersedes == self.id:
+            raise ValueError("A claim cannot supersede itself")
         if self.valid_from and self.valid_to and self.valid_from > self.valid_to:
             raise ValueError("Invalid date interval")
         return self
@@ -75,6 +86,21 @@ class Review(StrictModel):
     record: dict
 
 class Bundle(StrictModel):
-    entities: list[Entity]
-    sources: list[Source]
-    claims: list[Claim]
+    entities: list[Entity] = Field(max_length=5000)
+    sources: list[Source] = Field(max_length=5000)
+    claims: list[Claim] = Field(max_length=10000)
+    @model_validator(mode="after")
+    def unique_ids(self):
+        for records in (self.entities, self.sources, self.claims):
+            if len({record.id for record in records}) != len(records):
+                raise ValueError("A bundle cannot repeat a record ID")
+        return self
+
+class ReviewedImport(StrictModel):
+    reason: str = Field(min_length=10, max_length=1000)
+    bundle: Bundle
+
+class SnapshotReview(StrictModel):
+    digest: str = Field(pattern=r"^[a-f0-9]{64}$")
+    decision: Literal["acknowledged", "rejected"]
+    reason: str = Field(min_length=10, max_length=1000)

@@ -1,0 +1,28 @@
+name: supply-atlas
+services:
+  app:
+    build: .
+    image: supply-atlas:local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PORT:-5174}:8000"
+    environment:
+      DATABASE_PATH: /data/atlas.sqlite3
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
+    volumes:
+      - atlas_data:/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+volumes:
+  atlas_data:

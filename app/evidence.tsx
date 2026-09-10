@@ -1,14 +1,18 @@
-import { ArrowRight, CircleHelp } from 'lucide-react';
+import { ArrowRight, CircleHelp, Factory, MapPin } from 'lucide-react';
 import type { Atlas, Claim, Entity } from './types';
 import { SourceLink, Status, EntityIcon } from './controls';
 export function EvidenceCard({
   claim,
   data,
   onEntity,
+  onClaim,
+  anchorClaims,
 }: {
   claim: Claim;
   data: Atlas;
   onEntity: (id: string) => void;
+  onClaim: (id: string) => void;
+  anchorClaims: Claim[];
 }) {
   const name = (id: string) =>
     data.entities.find((e) => e.id === id)?.name || id;
@@ -22,7 +26,12 @@ export function EvidenceCard({
         {claim.role.charAt(0).toUpperCase() + claim.role.slice(1)} relationship
       </h3>
       <div className="relationship-line">
-        {[claim.supplier_id, claim.part_id, claim.product_id]
+        {[
+          claim.supplier_id,
+          claim.material_id,
+          claim.part_id,
+          claim.product_id || claim.customer_id,
+        ]
           .filter((v): v is string => !!v)
           .map((id, i) => (
             <span key={id}>
@@ -59,10 +68,38 @@ export function EvidenceCard({
         <CircleHelp size={17} />
         <p>{claim.uncertainty}</p>
       </div>
-      {claim.product_id === null && (
+      {claim.product_id === null && claim.part_id && (
         <p className="notice">
           Part-level evidence. A connection to a product using this part is an
           inference; product-specific allocation is unconfirmed.
+        </p>
+      )}
+      {anchorClaims.length > 0 && (
+        <section className="source-record">
+          <h4>Product allocation evidence</h4>
+          <p>
+            The source below describes the upstream part. These separate
+            observations describe reported usage of that exact part. Their
+            evidence status also limits the allocation; product-specific
+            sourcing remains an inference.
+          </p>
+          {anchorClaims.map((anchor) => (
+            <button
+              className="list-link"
+              key={anchor.id}
+              onClick={() => onClaim(anchor.id)}
+            >
+              {name(anchor.product_id!)} · {anchor.role}
+              <Status value={anchor.status} />
+              <ArrowRight size={15} />
+            </button>
+          ))}
+        </section>
+      )}
+      {!claim.product_id && !claim.part_id && !claim.material_id && (
+        <p className="notice">
+          General commercial relationship. This record does not establish a
+          component, product or factory allocation.
         </p>
       )}
       {claim.evidence.map((e, i) => {
@@ -112,6 +149,17 @@ export function EntityDetails({
   onProduct: (id: string) => void;
   onScenario: (id: string) => void;
 }) {
+  const scopeIds = new Set([entity.id]);
+  if (['category', 'industry', 'region'].includes(entity.kind)) {
+    data.entities.forEach((e) => {
+      if (
+        e.category_id === entity.id ||
+        e.industry_id === entity.id ||
+        e.region_id === entity.id
+      )
+        scopeIds.add(e.id);
+    });
+  }
   const claims = data.claims.filter((c) =>
     [
       c.supplier_id,
@@ -121,7 +169,8 @@ export function EntityDetails({
       c.facility_id,
       c.material_id,
       c.region_id,
-    ].includes(entity.id),
+      c.variant_id,
+    ].some((id) => !!id && scopeIds.has(id)),
   );
   const children = data.entities.filter(
     (e) =>
@@ -131,7 +180,7 @@ export function EntityDetails({
       e.region_id === entity.id,
   );
   const relatedParts = new Set(
-    claims.filter((c) => !c.product_id).map((c) => c.part_id),
+    claims.filter((c) => !c.product_id && c.part_id).map((c) => c.part_id),
   );
   const products = data.entities.filter(
     (e) =>
@@ -144,9 +193,31 @@ export function EntityDetails({
   );
   return (
     <>
-      <div className="profile-symbol">
-        <EntityIcon kind={entity.kind} size={28} />
-      </div>
+      {entity.kind === 'facility' ? (
+        <section className="factory-profile-hero">
+          <div className="factory-profile-mark">
+            <Factory size={52} strokeWidth={1.25} />
+            <span>Documented facility</span>
+          </div>
+          <p>
+            <MapPin size={15} />
+            {data.entities.find((e) => e.id === entity.region_id)?.name ||
+              'Region not established'}
+          </p>
+          <strong>
+            {[...new Set(claims.map((c) => c.role))].join(' · ') ||
+              'Manufacturing role unknown'}
+          </strong>
+          <span>
+            {entity.precision} location · {products.length} connected{' '}
+            {products.length === 1 ? 'product' : 'products'}
+          </span>
+        </section>
+      ) : (
+        <div className="profile-symbol">
+          <EntityIcon kind={entity.kind} size={28} />
+        </div>
+      )}
       <p>{entity.description}</p>
       {entity.aliases.length > 0 && (
         <p className="muted">Also known as: {entity.aliases.join(', ')}</p>
@@ -154,6 +225,27 @@ export function EntityDetails({
       {entity.location_reference && (
         <p className="notice">{entity.location_reference}</p>
       )}
+      {entity.kind === 'facility' && entity.latitude !== null && (
+        <p className="footnote">
+          Coordinates: {entity.latitude}, {entity.longitude}. A map pin locates
+          the facility; each manufacturing relationship needs its own evidence.
+        </p>
+      )}
+      <div className="profile-pills">
+        {[
+          entity.category_id,
+          entity.industry_id,
+          entity.region_id,
+          entity.parent_id,
+        ]
+          .filter((id): id is string => !!id)
+          .map((id) => (
+            <button className="text-link" key={id} onClick={() => onEntity(id)}>
+              {data.entities.find((e) => e.id === id)?.name || id}
+              <ArrowRight size={13} />
+            </button>
+          ))}
+      </div>
       <div className="actions">
         {entity.kind === 'product' && (
           <button className="cc-button" onClick={() => onProduct(entity.id)}>
@@ -183,7 +275,20 @@ export function EntityDetails({
               key={p.id}
               onClick={() => onProduct(p.id)}
             >
-              {p.name}
+              <span>
+                {p.name}
+                {entity.kind === 'facility' && (
+                  <small>
+                    {[
+                      ...new Set(
+                        claims
+                          .filter((c) => c.product_id === p.id)
+                          .map((c) => c.role),
+                      ),
+                    ].join(' · ') || 'Part-level upstream connection'}
+                  </small>
+                )}
+              </span>
               <ArrowRight size={16} />
             </button>
           ))}

@@ -1,13 +1,15 @@
 import hashlib
 import json
+import logging
 import os
 import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
-from .models import Bundle, Claim, Entity, Source
+from .models import Bundle, Claim, Entity, Source, normalized_name
 
 ROOT = Path(__file__).resolve().parent
+log = logging.getLogger("supply-atlas.database")
 
 def now():
     return datetime.now(timezone.utc).isoformat()
@@ -42,6 +44,11 @@ def migrate():
 def dataset(db):
     return {table: [json.loads(r[0]) for r in db.execute(f"SELECT payload FROM {table} ORDER BY rowid")] for table in ("entities", "sources", "claims")}
 
+def fingerprint(payload):
+    if isinstance(payload, str):
+        payload = json.loads(payload)
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
 def validate_links(db, record):
     expected = {"supplier_id": "company", "customer_id": "company", "product_id": "product", "part_id": "part", "facility_id": "facility", "material_id": "material", "variant_id": "variant", "region_id": "region", "industry_id": "industry", "category_id": "category"}
     for key, kind in expected.items():
@@ -50,6 +57,29 @@ def validate_links(db, record):
             row = db.execute("SELECT kind FROM entities WHERE id=?", (value,)).fetchone()
             if not row or row[0] != kind:
                 raise ValueError(f"{key} must reference an existing {kind}")
+    if isinstance(record, Entity):
+        if record.parent_id:
+            allowed = {"variant": {"product"}, "part": {"part"}, "category": {"category"}, "region": {"region"}, "facility": {"company"}, "product": {"company"}, "company": {"company"}}
+            parent = db.execute("SELECT kind FROM entities WHERE id=?", (record.parent_id,)).fetchone()
+            if not parent or parent[0] not in allowed.get(record.kind, set()):
+                raise ValueError("Parent must have a compatible entity type")
+            seen = {record.id}
+            current = record.parent_id
+            while current:
+                if current in seen:
+                    raise ValueError("Entity hierarchy cannot contain a cycle")
+                seen.add(current)
+                row = db.execute("SELECT payload FROM entities WHERE id=?", (current,)).fetchone()
+                current = json.loads(row[0]).get("parent_id") if row else None
+        labels = {normalized_name(record.name), *map(normalized_name, record.aliases)}
+        for row in db.execute("SELECT id,payload FROM entities WHERE kind=? AND id!=?", (record.kind, record.id)):
+            other = json.loads(row["payload"])
+            if labels.intersection({normalized_name(other["name"]), *map(normalized_name, other.get("aliases", []))}):
+                raise ValueError(f"Entity {record.id} name or alias conflicts with {row['id']}; resolve both to one stable ID")
+    if isinstance(record, Source):
+        for row in db.execute("SELECT id,payload FROM sources WHERE id!=?", (record.id,)):
+            if json.loads(row["payload"])["url"] == str(record.url):
+                raise ValueError(f"Source URL already exists as {row['id']}")
     if isinstance(record, Claim):
         for evidence in record.evidence:
             if not db.execute("SELECT 1 FROM sources WHERE id=?", (evidence.source_id,)).fetchone():
@@ -60,6 +90,26 @@ def validate_links(db, record):
                 raise ValueError("Variant must belong to the claim product")
         if record.supersedes and not db.execute("SELECT 1 FROM claims WHERE id=?", (record.supersedes,)).fetchone():
             raise ValueError("Superseded claim does not exist")
+        seen = {record.id}
+        current = record.supersedes
+        while current:
+            if current in seen:
+                raise ValueError("Claim supersession cannot contain a cycle")
+            seen.add(current)
+            row = db.execute("SELECT payload FROM claims WHERE id=?", (current,)).fetchone()
+            current = json.loads(row[0]).get("supersedes") if row else None
+        signature = record.model_dump(mode="json", exclude={"id"})
+        for row in db.execute("SELECT id,payload FROM claims WHERE id!=?", (record.id,)):
+            other = json.loads(row["payload"])
+            other.pop("id", None)
+            if fingerprint(signature) == fingerprint(other):
+                raise ValueError(f"Duplicate claim already exists as {row['id']}")
+
+def validate_dataset(db):
+    # Validate the final state: changing a parent can invalidate existing claims.
+    for table, model in (("entities", Entity), ("sources", Source), ("claims", Claim)):
+        for row in db.execute(f"SELECT payload FROM {table}").fetchall():
+            validate_links(db, model.model_validate_json(row[0]))
 
 def save_record(db, kind, record, reason, validate=True):
     table = {"entity": "entities", "source": "sources", "claim": "claims"}[kind]
@@ -67,7 +117,9 @@ def save_record(db, kind, record, reason, validate=True):
         validate_links(db, record)
     payload = record.model_dump_json()
     old = db.execute(f"SELECT payload FROM {table} WHERE id=?", (record.id,)).fetchone()
-    if old and old[0] == payload:
+    if kind == "entity" and old and json.loads(old[0])["kind"] != record.kind:
+        raise ValueError("An existing entity cannot change type")
+    if old and fingerprint(old[0]) == fingerprint(payload):
         return False
     if kind == "entity":
         db.execute("INSERT INTO entities VALUES (?,?,?,?) ON CONFLICT(id) DO UPDATE SET kind=excluded.kind,name=excluded.name,payload=excluded.payload", (record.id, record.kind, record.name, payload))
@@ -83,25 +135,77 @@ def save_record(db, kind, record, reason, validate=True):
 
 def ingest_bundle(raw, reason="Initial human-reviewed research collection", only_if_empty=False):
     bundle = Bundle.model_validate_json(raw)
-    digest = hashlib.sha256(raw.encode()).hexdigest()
+    digest = fingerprint(bundle.model_dump(mode="json"))
     with connect() as db:
+        db.execute("BEGIN IMMEDIATE")
         if only_if_empty and db.execute("SELECT 1 FROM entities LIMIT 1").fetchone():
             return {"status": "existing", "changed": 0}
-        previous = db.execute("SELECT 1 FROM ingestion_runs WHERE digest=? AND status='completed'", (digest,)).fetchone()
+        previous = db.execute("SELECT 1 FROM ingestion_runs WHERE adapter='reviewed-bundle' AND digest=? AND status='completed'", (digest,)).fetchone()
         if previous:
             return {"status": "cached", "changed": 0}
         changed = 0
         for entity in bundle.entities:
             changed += save_record(db, "entity", entity, reason, validate=False)
-        for entity in bundle.entities:
-            validate_links(db, entity)
         for source in bundle.sources:
-            changed += save_record(db, "source", source, reason)
+            changed += save_record(db, "source", source, reason, validate=False)
+        # FK references to entities/sources already exist. Supersession may point
+        # forward in the submitted bundle, so validate after inserting all claims.
         for claim in bundle.claims:
-            changed += save_record(db, "claim", claim, reason)
+            changed += save_record(db, "claim", claim, reason, validate=False)
+        validate_dataset(db)
         db.execute("INSERT INTO ingestion_runs(adapter,digest,status,detail,created_at) VALUES (?,?,?,?,?)", ("reviewed-bundle", digest, "completed", f"{changed} records changed", now()))
     return {"status": "completed", "changed": changed}
 
+def sync_curated(raw):
+    """Apply reviewed release data while preserving subsequent administrator edits.
+
+    Baselines track the last released value, not the latest edited value. A
+    conflict is reported and never silently overwrites a correction. Removing a
+    record from a release does not delete historical evidence.
+    """
+    bundle = Bundle.model_validate_json(raw)
+    digest = fingerprint(bundle.model_dump(mode="json"))
+    with connect() as db:
+        db.execute("BEGIN IMMEDIATE")
+        if db.execute("SELECT 1 FROM ingestion_runs WHERE adapter='curated-release' AND digest=? AND status='completed'", (digest,)).fetchone():
+            return {"status": "cached", "changed": 0, "conflicts": []}
+        changed, conflicts = 0, []
+        for kind, table, records in (("entity", "entities", bundle.entities), ("source", "sources", bundle.sources), ("claim", "claims", bundle.claims)):
+            for record in records:
+                incoming = fingerprint(record.model_dump(mode="json"))
+                existing = db.execute(f"SELECT payload FROM {table} WHERE id=?", (record.id,)).fetchone()
+                baseline = db.execute("SELECT digest FROM curated_baselines WHERE kind=? AND record_id=?", (kind, record.id)).fetchone()
+                prior = baseline[0] if baseline else None
+                if existing and not prior:
+                    original = db.execute("SELECT after_json,reason FROM revisions WHERE kind=? AND record_id=? ORDER BY id LIMIT 1", (kind, record.id)).fetchone()
+                    if original and original["reason"] == "Initial human-reviewed research collection":
+                        prior = fingerprint(original["after_json"])
+                current = fingerprint(existing[0]) if existing else None
+                if existing and current != incoming and current != prior:
+                    conflicts.append(f"{kind}/{record.id}")
+                    continue
+                changed += save_record(db, kind, record, "Reviewed built-in collection release", validate=False)
+                db.execute("INSERT INTO curated_baselines VALUES (?,?,?) ON CONFLICT(kind,record_id) DO UPDATE SET digest=excluded.digest", (kind, record.id, incoming))
+        validate_dataset(db)
+        detail = json.dumps({"changed": changed, "preserved_admin_records": conflicts})
+        db.execute("INSERT INTO ingestion_runs(adapter,digest,status,detail,created_at) VALUES (?,?,?,?,?)", ("curated-release", digest, "completed", detail, now()))
+    return {"status": "completed", "changed": changed, "conflicts": conflicts}
+
 def initialize():
     migrate()
-    ingest_bundle((ROOT / "research" / "collection.json").read_text(encoding="utf-8"), only_if_empty=True)
+    raw = (ROOT / "research" / "collection.json").read_text(encoding="utf-8")
+    with connect() as db:
+        existing = bool(db.execute("SELECT 1 FROM entities LIMIT 1").fetchone())
+    try:
+        return sync_curated(raw)
+    except (ValueError, sqlite3.IntegrityError) as exc:
+        if not existing:
+            raise
+        # sync_curated has rolled back. Keep a valid existing collection online
+        # when incoming release data conflicts with an operator's additions.
+        with connect() as db:
+            validate_dataset(db)
+            detail = "Curated update was rolled back; existing collection preserved. Resolve the conflict through reviewed administration before retrying: " + str(exc)
+            db.execute("INSERT INTO ingestion_runs(adapter,digest,status,detail,created_at) VALUES (?,?,?,?,?)", ("curated-release", hashlib.sha256(raw.encode()).hexdigest(), "failed", detail, now()))
+        log.error("%s", detail)
+        return {"status": "failed", "changed": 0, "detail": detail}
