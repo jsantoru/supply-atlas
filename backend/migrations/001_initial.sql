@@ -1,0 +1,12 @@
+CREATE TABLE entities (id TEXT PRIMARY KEY, kind TEXT NOT NULL, name TEXT NOT NULL, payload TEXT NOT NULL CHECK(json_valid(payload)));
+CREATE INDEX entity_kind ON entities(kind);
+CREATE TABLE sources (id TEXT PRIMARY KEY, payload TEXT NOT NULL CHECK(json_valid(payload)));
+CREATE TABLE claims (id TEXT PRIMARY KEY, supplier_id TEXT REFERENCES entities(id), customer_id TEXT REFERENCES entities(id), product_id TEXT REFERENCES entities(id), part_id TEXT REFERENCES entities(id), facility_id TEXT REFERENCES entities(id), material_id TEXT REFERENCES entities(id), status TEXT NOT NULL, payload TEXT NOT NULL CHECK(json_valid(payload)));
+CREATE INDEX claims_product ON claims(product_id);
+CREATE INDEX claims_part ON claims(part_id);
+CREATE INDEX claims_supplier ON claims(supplier_id);
+CREATE TABLE evidence (claim_id TEXT REFERENCES claims(id), source_id TEXT REFERENCES sources(id), reference TEXT NOT NULL, PRIMARY KEY(claim_id,source_id,reference));
+CREATE TABLE revisions (id INTEGER PRIMARY KEY, kind TEXT NOT NULL, record_id TEXT NOT NULL, before_json TEXT, after_json TEXT NOT NULL, reason TEXT NOT NULL, created_at TEXT NOT NULL);
+CREATE TABLE ingestion_runs (id INTEGER PRIMARY KEY, adapter TEXT NOT NULL, digest TEXT NOT NULL, status TEXT NOT NULL, detail TEXT NOT NULL, created_at TEXT NOT NULL);
+CREATE TABLE source_cache (source_id TEXT PRIMARY KEY REFERENCES sources(id), etag TEXT, modified TEXT, digest TEXT, checked_at TEXT NOT NULL, status TEXT NOT NULL);
+CREATE TABLE login_attempts (client TEXT PRIMARY KEY, attempts INTEGER NOT NULL, window_start REAL NOT NULL);

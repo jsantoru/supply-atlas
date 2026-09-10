@@ -1,0 +1,677 @@
+{
+  "entities": [
+    {
+      "id": "electronics",
+      "kind": "industry",
+      "name": "Consumer electronics",
+      "description": "Collection taxonomy; classification does not establish a supply relationship."
+    },
+    {
+      "id": "semiconductors",
+      "kind": "industry",
+      "name": "Semiconductors",
+      "description": "Collection taxonomy; classification does not establish a supply relationship."
+    },
+    {
+      "id": "processors",
+      "kind": "category",
+      "name": "Application processors",
+      "description": "Component category, distinct from a specific part.",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "io",
+      "kind": "category",
+      "name": "I/O controllers",
+      "description": "Component category, distinct from a specific part.",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "power",
+      "kind": "category",
+      "name": "Power management",
+      "description": "Component category, distinct from a specific part.",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "wireless",
+      "kind": "category",
+      "name": "Wireless connectivity",
+      "description": "Component category, distinct from a specific part.",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "ethernet",
+      "kind": "category",
+      "name": "Ethernet",
+      "description": "Component category, distinct from a specific part.",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "assembly",
+      "kind": "category",
+      "name": "Board assembly",
+      "description": "Component category, distinct from a specific part.",
+      "industry_id": "electronics"
+    },
+    {
+      "id": "microcontrollers",
+      "kind": "category",
+      "name": "Microcontrollers",
+      "description": "Component category, distinct from a specific part.",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "wales",
+      "kind": "region",
+      "name": "Wales, United Kingdom",
+      "description": "Geographic region. Only documented facility relationships establish exposure."
+    },
+    {
+      "id": "silicon",
+      "kind": "material",
+      "name": "Silicon",
+      "description": "Upstream material coverage is not yet established. No refinery, wafer or material supplier is claimed.",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "raspberry-pi",
+      "kind": "company",
+      "name": "Raspberry Pi",
+      "description": "See individual claims for documented roles, products, periods and manufacturing locations.",
+      "aliases": [
+        "Raspberry Pi Ltd",
+        "Raspberry Pi Trading"
+      ],
+      "industry_id": "electronics"
+    },
+    {
+      "id": "broadcom",
+      "kind": "company",
+      "name": "Broadcom",
+      "description": "See individual claims for documented roles, products, periods and manufacturing locations.",
+      "aliases": [
+        "Broadcom Inc."
+      ],
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "renesas",
+      "kind": "company",
+      "name": "Renesas",
+      "description": "See individual claims for documented roles, products, periods and manufacturing locations.",
+      "aliases": [
+        "Renesas Electronics"
+      ],
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "infineon",
+      "kind": "company",
+      "name": "Infineon",
+      "description": "See individual claims for documented roles, products, periods and manufacturing locations.",
+      "aliases": [
+        "Infineon Technologies"
+      ],
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "tsmc",
+      "kind": "company",
+      "name": "TSMC",
+      "description": "See individual claims for documented roles, products, periods and manufacturing locations.",
+      "aliases": [
+        "Taiwan Semiconductor Manufacturing Company"
+      ],
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "sony",
+      "kind": "company",
+      "name": "Sony",
+      "description": "See individual claims for documented roles, products, periods and manufacturing locations.",
+      "aliases": [
+        "Sony UK TEC"
+      ],
+      "industry_id": "electronics"
+    },
+    {
+      "id": "via",
+      "kind": "company",
+      "name": "VIA Labs",
+      "description": "See individual claims for documented roles, products, periods and manufacturing locations.",
+      "aliases": [
+        "VLI"
+      ],
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "pencoed",
+      "kind": "facility",
+      "name": "Sony UK Technology Centre",
+      "description": "Pencoed, South Wales. Documented board assembly; this is not evidence of semiconductor fabrication here.",
+      "region_id": "wales",
+      "latitude": 51.523,
+      "longitude": -3.5,
+      "precision": "approximate",
+      "location_reference": "Town-level placement for Pencoed, South Wales, identified in the Pi 5 launch article; not a surveyed factory coordinate.",
+      "industry_id": "electronics"
+    },
+    {
+      "id": "pi5",
+      "kind": "product",
+      "name": "Raspberry Pi 5",
+      "description": "Flagship single-board computer \u00b7 2023 launch collection. A documented partial breakdown, not a complete bill of materials.",
+      "industry_id": "electronics",
+      "aliases": [
+        "Pi 5"
+      ]
+    },
+    {
+      "id": "pi4",
+      "kind": "product",
+      "name": "Raspberry Pi 4 Model B",
+      "description": "Single-board computer \u00b7 partial chipset collection. A documented partial breakdown, not a complete bill of materials.",
+      "industry_id": "electronics",
+      "aliases": [
+        "Pi 4 Model B"
+      ]
+    },
+    {
+      "id": "pi500",
+      "kind": "product",
+      "name": "Raspberry Pi 500",
+      "description": "Keyboard computer \u00b7 shared BCM2712 and RP1 dependencies. A documented partial breakdown, not a complete bill of materials.",
+      "industry_id": "electronics",
+      "aliases": [
+        "Pi 500"
+      ]
+    },
+    {
+      "id": "pi400",
+      "kind": "product",
+      "name": "Raspberry Pi 400",
+      "description": "Keyboard computer \u00b7 shared BCM2711 dependency. A documented partial breakdown, not a complete bill of materials.",
+      "industry_id": "electronics",
+      "aliases": [
+        "Pi 400"
+      ]
+    },
+    {
+      "id": "pico",
+      "kind": "product",
+      "name": "Raspberry Pi Pico",
+      "description": "Microcontroller board \u00b7 RP2040 and upstream fabrication. A documented partial breakdown, not a complete bill of materials.",
+      "industry_id": "electronics",
+      "aliases": [
+        "Pi Pico"
+      ]
+    },
+    {
+      "id": "pi5-4gb",
+      "kind": "variant",
+      "name": "Raspberry Pi 5 \u00b7 4 GB",
+      "description": "Launch memory variant. Claims without variant scope do not establish variant-specific sourcing.",
+      "parent_id": "pi5",
+      "industry_id": "electronics"
+    },
+    {
+      "id": "pi5-8gb",
+      "kind": "variant",
+      "name": "Raspberry Pi 5 \u00b7 8 GB",
+      "description": "Launch memory variant. Claims without variant scope do not establish variant-specific sourcing.",
+      "parent_id": "pi5",
+      "industry_id": "electronics"
+    },
+    {
+      "id": "bcm2712",
+      "kind": "part",
+      "name": "BCM2712",
+      "description": "Broadcom application processor. Inspect claims for evidence and sourcing scope.",
+      "category_id": "processors",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "bcm2711",
+      "kind": "part",
+      "name": "BCM2711",
+      "description": "Broadcom application processor. Inspect claims for evidence and sourcing scope.",
+      "category_id": "processors",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "rp1",
+      "kind": "part",
+      "name": "RP1",
+      "description": "Raspberry Pi I/O controller. Inspect claims for evidence and sourcing scope.",
+      "category_id": "io",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "da9091",
+      "kind": "part",
+      "name": "DA9091",
+      "description": "Renesas power-management IC. Inspect claims for evidence and sourcing scope.",
+      "category_id": "power",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "cyw43455",
+      "kind": "part",
+      "name": "CYW43455",
+      "description": "Infineon Wi-Fi and Bluetooth device. Inspect claims for evidence and sourcing scope.",
+      "category_id": "wireless",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "bcm54213",
+      "kind": "part",
+      "name": "BCM54213",
+      "description": "Broadcom Gigabit Ethernet PHY. Inspect claims for evidence and sourcing scope.",
+      "category_id": "ethernet",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "vl805",
+      "kind": "part",
+      "name": "VL805",
+      "description": "VIA Labs USB controller. Inspect claims for evidence and sourcing scope.",
+      "category_id": "io",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "rp2040",
+      "kind": "part",
+      "name": "RP2040",
+      "description": "Raspberry Pi microcontroller. Inspect claims for evidence and sourcing scope.",
+      "category_id": "microcontrollers",
+      "industry_id": "semiconductors"
+    },
+    {
+      "id": "pi5-board",
+      "kind": "part",
+      "name": "Pi 5 board assembly",
+      "description": "Product-specific assembled board; not an upstream chip fabrication stage. Inspect claims for evidence and sourcing scope.",
+      "category_id": "assembly",
+      "industry_id": "electronics"
+    }
+  ],
+  "sources": [
+    {
+      "id": "pi5-launch",
+      "title": "Introducing: Raspberry Pi 5!",
+      "url": "https://www.raspberrypi.com/news/introducing-raspberry-pi-5/",
+      "publisher": "Raspberry Pi Ltd",
+      "published": "2023-09-28",
+      "retrieved": "2026-09-10",
+      "license": "Publicly viewable; all rights reserved",
+      "terms_url": "https://www.raspberrypi.com/terms-and-conditions/",
+      "reuse": "Manual factual reference only. No article text, images or full-page copy redistributed. Automated scraping disabled under source terms.",
+      "adapter": "manual-reference"
+    },
+    {
+      "id": "rp1-design",
+      "title": "RP1: the silicon controlling Raspberry Pi 5 I/O",
+      "url": "https://www.raspberrypi.com/news/rp1-the-silicon-controlling-raspberry-pi-5-i-o-designed-here-at-raspberry-pi/",
+      "publisher": "Raspberry Pi Ltd",
+      "published": "2023-10-06",
+      "retrieved": "2026-09-10",
+      "license": "Publicly viewable; all rights reserved",
+      "terms_url": "https://www.raspberrypi.com/terms-and-conditions/",
+      "reuse": "Manual factual reference only. No article text, images or full-page copy redistributed. Automated scraping disabled under source terms.",
+      "adapter": "manual-reference"
+    },
+    {
+      "id": "bcm2711-doc",
+      "title": "BCM2711 processor documentation",
+      "url": "https://github.com/raspberrypi/documentation/blob/master/documentation/asciidoc/computers/processors/bcm2711.adoc",
+      "publisher": "Raspberry Pi Ltd",
+      "published": null,
+      "retrieved": "2026-09-10",
+      "license": "CC BY-SA 4.0",
+      "terms_url": "https://www.raspberrypi.com/licensing/",
+      "reuse": "Adapted factual identification with attribution. Documentation-derived data is CC BY-SA 4.0; changes: normalized into entity and claim records.",
+      "adapter": "raspberrypi-docs"
+    },
+    {
+      "id": "keyboard-doc",
+      "title": "Keyboard computer processor documentation",
+      "url": "https://github.com/raspberrypi/documentation/blob/master/documentation/asciidoc/computers/keyboard-computers/intro.adoc",
+      "publisher": "Raspberry Pi Ltd",
+      "published": null,
+      "retrieved": "2026-09-10",
+      "license": "CC BY-SA 4.0",
+      "terms_url": "https://www.raspberrypi.com/licensing/",
+      "reuse": "Adapted factual identification with attribution. Documentation-derived data is CC BY-SA 4.0; changes: normalized into entity and claim records.",
+      "adapter": "raspberrypi-docs"
+    },
+    {
+      "id": "pi500-spec",
+      "title": "Raspberry Pi 500 product specifications",
+      "url": "https://www.raspberrypi.com/products/raspberry-pi-500/",
+      "publisher": "Raspberry Pi Ltd",
+      "published": null,
+      "retrieved": "2026-09-10",
+      "license": "Publicly viewable; all rights reserved",
+      "terms_url": "https://www.raspberrypi.com/terms-and-conditions/",
+      "reuse": "Manual factual reference only. No article text, images or full-page copy redistributed. Automated scraping disabled under source terms.",
+      "adapter": "manual-reference"
+    },
+    {
+      "id": "pico-launch",
+      "title": "Meet Raspberry Silicon: Raspberry Pi Pico",
+      "url": "https://www.raspberrypi.com/news/raspberry-pi-silicon-pico-now-on-sale/",
+      "publisher": "Raspberry Pi Ltd",
+      "published": "2021-01-21",
+      "retrieved": "2026-09-10",
+      "license": "Publicly viewable; all rights reserved",
+      "terms_url": "https://www.raspberrypi.com/terms-and-conditions/",
+      "reuse": "Manual factual reference only. No article text, images or full-page copy redistributed. Automated scraping disabled under source terms.",
+      "adapter": "manual-reference"
+    },
+    {
+      "id": "rp2040-process",
+      "title": "Raspberry Pi Direct: RP2040",
+      "url": "https://www.raspberrypi.com/news/raspberry-pi-direct-buy-rp2040-in-bulk-from-just-0-70/",
+      "publisher": "Raspberry Pi Ltd",
+      "published": "2022-01-17",
+      "retrieved": "2026-09-10",
+      "license": "Publicly viewable; all rights reserved",
+      "terms_url": "https://www.raspberrypi.com/terms-and-conditions/",
+      "reuse": "Manual factual reference only. No article text, images or full-page copy redistributed. Automated scraping disabled under source terms.",
+      "adapter": "manual-reference"
+    }
+  ],
+  "claims": [
+    {
+      "id": "pi5-bcm2712",
+      "supplier_id": "broadcom",
+      "customer_id": "raspberry-pi",
+      "part_id": "bcm2712",
+      "product_id": "pi5",
+      "role": "designer",
+      "status": "direct",
+      "observed_at": "2023-09-28",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "pi5-launch",
+          "reference": "New platform, new chipset / BCM2712"
+        }
+      ]
+    },
+    {
+      "id": "pi5-rp1",
+      "supplier_id": "raspberry-pi",
+      "customer_id": "raspberry-pi",
+      "part_id": "rp1",
+      "product_id": "pi5",
+      "role": "designer",
+      "status": "direct",
+      "observed_at": "2023-09-28",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "pi5-launch",
+          "reference": "New platform, new chipset / RP1"
+        }
+      ]
+    },
+    {
+      "id": "pi5-da9091",
+      "supplier_id": "renesas",
+      "customer_id": "raspberry-pi",
+      "part_id": "da9091",
+      "product_id": "pi5",
+      "role": "component supplier",
+      "status": "direct",
+      "observed_at": "2023-09-28",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "pi5-launch",
+          "reference": "New platform, new chipset / DA9091"
+        }
+      ]
+    },
+    {
+      "id": "pi5-cyw43455",
+      "supplier_id": "infineon",
+      "customer_id": "raspberry-pi",
+      "part_id": "cyw43455",
+      "product_id": "pi5",
+      "role": "component supplier",
+      "status": "direct",
+      "observed_at": "2023-09-28",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "pi5-launch",
+          "reference": "Paragraph following DA9091: retained wireless chipset"
+        }
+      ]
+    },
+    {
+      "id": "pi5-bcm54213",
+      "supplier_id": "broadcom",
+      "customer_id": "raspberry-pi",
+      "part_id": "bcm54213",
+      "product_id": "pi5",
+      "role": "component supplier",
+      "status": "direct",
+      "observed_at": "2023-09-28",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "pi5-launch",
+          "reference": "Paragraph following DA9091: Ethernet PHY"
+        }
+      ]
+    },
+    {
+      "id": "pi5-assembly",
+      "supplier_id": "sony",
+      "customer_id": "raspberry-pi",
+      "part_id": "pi5-board",
+      "product_id": "pi5",
+      "role": "assembler",
+      "status": "direct",
+      "observed_at": "2023-09-28",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Board assembly in Pencoed is supported for the 2023 launch. Chip fabrication at this facility, all later batches and exclusivity are not established.",
+      "evidence": [
+        {
+          "source_id": "pi5-launch",
+          "reference": "Designed in Cambridge, manufactured in Wales"
+        }
+      ],
+      "facility_id": "pencoed",
+      "region_id": "wales"
+    },
+    {
+      "id": "rp1-fabrication",
+      "supplier_id": "tsmc",
+      "customer_id": "raspberry-pi",
+      "part_id": "rp1",
+      "product_id": null,
+      "role": "fabricator",
+      "status": "direct",
+      "observed_at": "2023-10-06",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "TSMC process is identified for RP1. Specific fab and country of fabrication are undisclosed. Applying this part-level sourcing to later products is an inference, not a product-specific sourcing confirmation.",
+      "evidence": [
+        {
+          "source_id": "rp1-design",
+          "reference": "Opening technical description: TSMC 40LP implementation"
+        }
+      ]
+    },
+    {
+      "id": "pi4-cyw43455",
+      "supplier_id": "infineon",
+      "customer_id": "raspberry-pi",
+      "part_id": "cyw43455",
+      "product_id": "pi4",
+      "role": "component supplier",
+      "status": "direct",
+      "observed_at": "2023-09-28",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "pi5-launch",
+          "reference": "New platform, new chipset: wireless device retained from Pi 4"
+        }
+      ]
+    },
+    {
+      "id": "pi4-bcm54213",
+      "supplier_id": "broadcom",
+      "customer_id": "raspberry-pi",
+      "part_id": "bcm54213",
+      "product_id": "pi4",
+      "role": "component supplier",
+      "status": "direct",
+      "observed_at": "2023-09-28",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "pi5-launch",
+          "reference": "New platform, new chipset: Ethernet PHY retained"
+        }
+      ]
+    },
+    {
+      "id": "pi4-vl805",
+      "supplier_id": "via",
+      "customer_id": "raspberry-pi",
+      "part_id": "vl805",
+      "product_id": "pi4",
+      "role": "component supplier",
+      "status": "direct",
+      "observed_at": "2023-09-28",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "pi5-launch",
+          "reference": "RP1 section: Pi 4 external USB controller"
+        }
+      ]
+    },
+    {
+      "id": "pi4-bcm2711",
+      "supplier_id": "broadcom",
+      "customer_id": "raspberry-pi",
+      "part_id": "bcm2711",
+      "product_id": "pi4",
+      "role": "designer",
+      "status": "direct",
+      "observed_at": "2026-09-10",
+      "period": "Documentation retrieved September 2026; publication and batch dates not supplied.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "bcm2711-doc",
+          "reference": "Opening paragraph: BCM2711 product list"
+        }
+      ]
+    },
+    {
+      "id": "pi400-bcm2711",
+      "supplier_id": "broadcom",
+      "customer_id": "raspberry-pi",
+      "part_id": "bcm2711",
+      "product_id": "pi400",
+      "role": "designer",
+      "status": "direct",
+      "observed_at": "2026-09-10",
+      "period": "Documentation retrieved September 2026; publication and batch dates not supplied.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "bcm2711-doc",
+          "reference": "Opening paragraph: BCM2711 product list"
+        }
+      ]
+    },
+    {
+      "id": "pi500-bcm2712",
+      "supplier_id": "broadcom",
+      "customer_id": "raspberry-pi",
+      "part_id": "bcm2712",
+      "product_id": "pi500",
+      "role": "designer",
+      "status": "direct",
+      "observed_at": "2026-09-10",
+      "period": "Documentation retrieved September 2026; production allocation not supplied.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "keyboard-doc",
+          "reference": "Introduction: processor and I/O controller identification"
+        }
+      ]
+    },
+    {
+      "id": "pi500-rp1",
+      "supplier_id": "raspberry-pi",
+      "customer_id": "raspberry-pi",
+      "part_id": "rp1",
+      "product_id": "pi500",
+      "role": "designer",
+      "status": "direct",
+      "observed_at": "2026-09-10",
+      "period": "Documentation retrieved September 2026; production allocation not supplied.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "keyboard-doc",
+          "reference": "Introduction: processor and I/O controller identification"
+        }
+      ]
+    },
+    {
+      "id": "pico-rp2040",
+      "supplier_id": "raspberry-pi",
+      "customer_id": "raspberry-pi",
+      "part_id": "rp2040",
+      "product_id": "pico",
+      "role": "designer",
+      "status": "direct",
+      "observed_at": "2021-01-21",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Specific manufacturing facility, batch allocation and alternate suppliers are not established. This record does not establish sole sourcing.",
+      "evidence": [
+        {
+          "source_id": "pico-launch",
+          "reference": "Opening product announcement and RP2040 description"
+        }
+      ]
+    },
+    {
+      "id": "rp2040-fabrication",
+      "supplier_id": "tsmc",
+      "customer_id": "raspberry-pi",
+      "part_id": "rp2040",
+      "product_id": null,
+      "role": "fabricator",
+      "status": "direct",
+      "observed_at": "2022-01-17",
+      "period": "Documented at source date; end date and present-day continuity unconfirmed.",
+      "uncertainty": "Part-level fabrication process evidence. Fab location, packaging provider and product/batch allocation remain unknown.",
+      "evidence": [
+        {
+          "source_id": "rp2040-process",
+          "reference": "TSMC 40LP process discussion"
+        }
+      ]
+    }
+  ]
+}

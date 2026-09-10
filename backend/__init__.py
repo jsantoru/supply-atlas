@@ -1,0 +1,1 @@
+"""Supply Atlas service."""
