@@ -99,7 +99,8 @@ def health():
 @app.get("/api/atlas")
 def atlas():
     data = get_data()
-    data["research"] = {id: {"system_count": len(record.systems), "entry_count": len(list(record.entries()))}
+    data["research"] = {id: {"system_count": len(record.systems), "entry_count": len(list(record.entries())),
+                              "network_available": record.network is not None}
                         for id, record in dossiers().items()
                         if any(e["id"] == id and e["kind"] == "product" for e in data["entities"])}
     data["coverage"] = "Documented partial collection. Unknown relationships are not evidence of no relationship. Source dates describe observations, not assured current sourcing."

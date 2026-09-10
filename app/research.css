@@ -448,6 +448,255 @@
 .research-canvas button:focus-visible {
   outline-color: #ffbd98;
 }
+.lucas-studio .research-canvas-heading {
+  padding-right: 28px;
+}
+.lucas-studio .research-canvas-heading p {
+  max-width: 100%;
+}
+.lucas-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 24px 28px 0;
+}
+.lucas-mode-switch {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border: 1px solid #45647c;
+  border-radius: 6px;
+  gap: 3px;
+}
+.lucas-mode-switch button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 13px;
+  color: #c6ddeb;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.lucas-mode-switch button[aria-pressed='true'] {
+  border-color: #809aae;
+  color: white;
+  background: #25475f;
+}
+.lucas-mode-switch button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.lucas-studio .studio-view-controls {
+  position: static;
+  flex-direction: row;
+  margin: 0;
+}
+.lucas-studio .studio-view-controls button {
+  width: 38px;
+  height: 38px;
+}
+.lucas-figure {
+  margin: 0;
+  padding-top: 24px;
+  overflow: hidden;
+}
+.lucas-stage-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 0 28px;
+  color: #9bb9cf;
+  font-size: 11px;
+  letter-spacing: 0.055em;
+}
+.lucas-stage-meta > span:last-child {
+  text-align: right;
+  letter-spacing: 0;
+  color: #e8cbb6;
+}
+.lucas-perspective {
+  perspective: 1100px;
+}
+.lucas-drawing-plane {
+  transform: rotateX(var(--lucas-tilt)) rotateZ(var(--lucas-angle)) scale(0.92);
+  transition: transform 0.6s ease;
+}
+.lucas-exterior-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.5;
+  object-fit: contain;
+}
+.lucas-diagram-sheet {
+  position: relative;
+  aspect-ratio: 900 / 560;
+}
+.lucas-diagram {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.lucas-ghost {
+  fill: #204660;
+  stroke: #6388a3;
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
+  transition: opacity 0.6s ease;
+}
+.lucas-exterior-piece {
+  cursor: pointer;
+  stroke: #bdced8;
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+  transition:
+    transform 0.7s cubic-bezier(0.22, 0.7, 0.2, 1),
+    filter 0.25s ease;
+  filter: drop-shadow(0 10px 9px #0009);
+}
+.lucas-exterior-piece.is-active {
+  stroke: #ffb58b;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 9px #f68d5040) drop-shadow(0 10px 9px #0009);
+}
+.lucas-shell-highlight {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1;
+  opacity: 0.38;
+}
+.lucas-leader-lines path {
+  fill: none;
+  stroke: #7296b0;
+  stroke-width: 1.3;
+  transition:
+    d 0.7s cubic-bezier(0.22, 0.7, 0.2, 1),
+    stroke 0.3s ease;
+}
+.lucas-leader-lines .is-context {
+  stroke-dasharray: 4 6;
+}
+.lucas-leader-lines .is-active {
+  stroke: #ffb58b;
+  stroke-width: 2;
+}
+.lucas-context-glyphs g {
+  fill: #17384f;
+  stroke: #96b2c7;
+  stroke-width: 1.5;
+}
+.lucas-context-glyphs .is-active {
+  fill: #4a3025;
+  stroke: #ffb58b;
+}
+.lucas-hotspot {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #8daec5;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  color: #e5eff5;
+  background: #12344e;
+  box-shadow: 0 3px 12px #0006;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.lucas-hotspot.is-context {
+  border-style: dashed;
+}
+.lucas-hotspot[aria-pressed='true'] {
+  color: white;
+  background: #9f3d16;
+  border: 2px solid #ffb58b;
+  box-shadow:
+    0 0 0 5px #ff97591f,
+    0 3px 12px #0006;
+}
+.lucas-hotspot:hover {
+  background: #37566c;
+}
+.lucas-hotspot[aria-pressed='true']:hover {
+  background: #9f3d16;
+}
+.lucas-figure-caption {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 0 28px 18px;
+  color: #c3d9e9;
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 58px;
+}
+.lucas-figure-caption svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.lucas-topic-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  padding: 0 28px 24px;
+}
+.lucas-topic-strip button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #46677f;
+  border-radius: 4px;
+  color: #ebf4fa;
+  background: #11324c;
+}
+.lucas-topic-strip button > span:first-child {
+  color: #ffbd98;
+  font-size: 11px;
+}
+.lucas-topic-strip button strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.lucas-topic-strip button small {
+  display: block;
+  font-size: 11px;
+  margin-top: 4px;
+  color: #afc9dc;
+}
+.lucas-topic-strip button svg {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.lucas-topic-strip button[aria-pressed='true'] {
+  border-color: #f4aa7c;
+  background: #663018;
+}
+.lucas-topic-strip button[aria-pressed='true'] small {
+  color: #edceba;
+}
+.lucas-image-notice {
+  margin: 16px 28px 0;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid #59778e;
+  border-radius: 4px;
+  color: #d0e2ef;
+}
+.lucas-studio input:focus-visible {
+  outline: 3px solid #ffbd98;
+  outline-offset: 4px;
+}
 @media (max-width: 1100px) {
   .research-studio-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -468,6 +717,46 @@
   }
 }
 @media (max-width: 700px) {
+  .lucas-studio .research-canvas-heading {
+    padding-right: 18px;
+  }
+  .lucas-studio .research-canvas-heading h2 {
+    max-width: 100%;
+  }
+  .lucas-toolbar {
+    padding: 20px 18px 0;
+  }
+  .lucas-mode-switch {
+    width: 100%;
+  }
+  .lucas-mode-switch button {
+    flex: 1;
+    padding: 9px 5px;
+    font-size: 12px;
+  }
+  .lucas-studio .studio-view-controls {
+    margin: 0;
+  }
+  .lucas-stage-meta {
+    padding: 0 18px;
+    font-size: 10px;
+  }
+  .lucas-topic-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0 18px 20px;
+  }
+  .lucas-figure-caption {
+    padding: 0 18px 18px;
+    font-size: 12px;
+  }
+  .lucas-hotspot {
+    width: 36px;
+    height: 36px;
+    font-size: 11px;
+  }
+  .lucas-image-notice {
+    margin: 16px 18px 0;
+  }
   .research-canvas .studio-topline {
     padding: 18px;
     flex-wrap: wrap;
@@ -534,6 +823,12 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .lucas-drawing-plane,
+  .lucas-exterior-piece,
+  .lucas-leader-lines path,
+  .lucas-ghost {
+    transition: none;
+  }
   .research-airframe,
   .research-system-labels button {
     transition: none;

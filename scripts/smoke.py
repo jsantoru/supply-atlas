@@ -30,11 +30,14 @@ page, _ = get("/?view=teardown&product=pi5")
 assert b"Supply Atlas" in page
 image, headers = get("/products/pi5.png")
 assert headers.get_content_type() == "image/png" and image.startswith(b"\x89PNG")
-for product in ("mohajer6", "shahed238"):
+for product in ("mohajer6", "shahed238", "lucas"):
     raw, _ = get("/api/research/" + product)
     dossier = json.loads(raw)
     assert dossier["product_id"] == product and not dossier["missing_source_ids"]
     assert dossier["systems"] and dossier["people"] and dossier["manufacturing"]
+    if product == "lucas":
+        assert dossier["network"]["edges"]
+        assert all(ref["source_id"] in sources for edge in dossier["network"]["edges"] for ref in edge["evidence"])
     image, headers = get("/products/" + product + ".png")
     assert headers.get_content_type() == "image/png" and image.startswith(b"\x89PNG")
 for path in ("/api/admin/status", "/api/does-not-exist"):

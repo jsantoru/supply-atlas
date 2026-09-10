@@ -4,11 +4,12 @@ from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
+from pydantic import ValidationError
 
-from backend.dossiers import dossiers, research_profile
+from backend.dossiers import ResearchNetwork, dossiers, research_profile
 from backend.main import app
 from backend.models import Bundle
-from backend.research.drone_research import DOSSIERS
+from backend.research.build_collection import DOSSIERS
 from backend.semantics import graph, scenario
 
 
@@ -23,7 +24,7 @@ def test_research_artifact_and_all_citations_are_consistent():
     data = collection()
     entities = {entity["id"]: entity for entity in data["entities"]}
     sources = {source["id"]: source for source in data["sources"]}
-    assert set(dossiers()) == {"mohajer6", "shahed238"}
+    assert set(dossiers()) == {"mohajer6", "shahed238", "lucas"}
     for product, dossier in dossiers().items():
         assert entities[product]["kind"] == "product"
         assert dossier.reviewed == "2026-09-10"
@@ -41,7 +42,7 @@ def test_research_artifact_and_all_citations_are_consistent():
 
 def test_context_never_creates_component_or_facility_edges():
     data = collection()
-    for product, company in (("mohajer6", "qods-aviation"), ("shahed238", "shahed-aviation")):
+    for product, company in (("mohajer6", "qods-aviation"), ("shahed238", "shahed-aviation"), ("lucas", "spektreworks")):
         result = graph(data, product, depth=3)
         assert {entity["id"] for entity in result["nodes"]} == {product, company}
         assert all(not claim["part_id"] and not claim["facility_id"] for claim in result["claims"])
@@ -60,7 +61,7 @@ def test_research_source_missing_is_visible_without_invented_link():
     assert research_profile("pi5", data) is None
 
 
-@pytest.mark.parametrize("product", ["mohajer6", "shahed238"])
+@pytest.mark.parametrize("product", ["mohajer6", "shahed238", "lucas"])
 def test_public_dossier_api_and_filtered_attributions(tmp_path, monkeypatch, product):
     monkeypatch.setenv("DATABASE_PATH", str(tmp_path / "research.sqlite3"))
     with TestClient(app) as client:
@@ -70,7 +71,39 @@ def test_public_dossier_api_and_filtered_attributions(tmp_path, monkeypatch, pro
         assert response.json()["missing_source_ids"] == []
         summary = client.get("/api/atlas").json()["research"][product]
         assert summary["system_count"] == len(response.json()["systems"])
+        assert summary["network_available"] == (product == "lucas")
         assert client.get("/api/research/pi5").status_code == 404
         assert client.get("/api/research/qods-aviation").status_code == 404
         assert client.get("/api/research/missing").status_code == 404
         assert client.get(f"/api/graph/{product}?at=2000-01-01").json()["claims"] == []
+
+
+def test_lucas_program_relationships_are_cited_but_do_not_create_supplier_exposure():
+    data = collection()
+    profile = research_profile("lucas", data)
+    network = profile["network"]
+    assert network and {edge["relation_kind"] for edge in network["edges"]} == {"industrial", "evaluation", "program"}
+    source_ids = {source["id"] for source in profile["sources"]}
+    for edge in network["edges"]:
+        assert edge["evidence"] and all(ref["source_id"] in source_ids for ref in edge["evidence"])
+    manufacturing = graph(data, "lucas", depth=3)
+    assert {node["id"] for node in manufacturing["nodes"]} == {"lucas", "spektreworks"}
+    assert not {edge["id"] for edge in network["edges"]} & {claim["id"] for claim in data["claims"]}
+    assert all(claim["product_id"] == "lucas" for claim in manufacturing["claims"])
+    assert not graph(data, "lucas", at="2020-01-01")["claims"]
+    assert {row["product"]["id"] for row in scenario(data, "spektreworks")["products"]} == {"lucas"}
+
+
+@pytest.mark.parametrize("problem", ["missing", "duplicate", "self", "disconnected"])
+def test_program_network_rejects_unverifiable_graph_structure(problem):
+    record = dossiers()["lucas"].network.model_dump(mode="json")
+    if problem == "missing":
+        record["edges"][0]["target_node"] = "invented-node"
+    elif problem == "duplicate":
+        record["nodes"].append(record["nodes"][0])
+    elif problem == "self":
+        record["edges"][0]["target_node"] = record["edges"][0]["source_node"]
+    else:
+        record["nodes"].append({"id": "unconnected", "label": "Uncited organization", "kind": "organization"})
+    with pytest.raises(ValidationError):
+        ResearchNetwork.model_validate(record)

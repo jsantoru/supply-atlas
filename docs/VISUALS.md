@@ -53,3 +53,33 @@ Composition/framing: Landscape 3:2 image. Elevated three-quarter overview, nose 
 Lighting/mood: Soft gallery lighting with broad gentle highlights, subtle rim separation from navy background, quiet and analytical. Very faint studio grounding shadow.
 Constraints: Public-interest illustrative exterior, not engineering documentation or factual photographic evidence. No internal cutaways, exposed internal mechanisms, detailed dimensions, specifications, diagrams, arrows, annotations, labels, letters, numbers, watermarks, weapons fittings, attached weapons, visible explosives, flags, logos, insignia, soldiers, battle scenes, scenery, dramatic effects, propeller, or added props.
 ```
+
+## LUCAS exterior and interactive diagram
+
+The original `public/products/lucas.png` image was generated with the built-in image tool and visually inspected. The code-native SVG in `app/lucas-studio.tsx` provides interactive conceptual exterior separation; it is not an image edit or measured mechanical model. Only exterior sections move; dashed topics do not identify internal positions.
+
+Generation record and exact prompt:
+
+```text
+Tool: built-in image_gen.imagegen (no API/CLI fallback)
+Workspace asset: public/products/lucas.png
+Original output: C:/Users/Joe/.codex/generated_images/01a08bb4-a600-7361-8ec7-76e00100c258/exec-eb74ee4a-ec87-43ef-9ece-e845d1e3e544.png
+Dimensions: 1536 x 1024
+Inspected official reference photos:
+https://www.centcom.mil/MEDIA/PUBLIC-RELEASES/Article/4347030/us-launches-one-way-attack-drone-force-in-the-middle-east/
+https://media.defense.gov/2025/Dec/03/2003834253/1920/1080/0/251123-D-D0477-1163.JPG
+https://media.defense.gov/2025/Dec/03/2003834255/1920/1080/0/251123-D-D0477-1029.JPG
+Reference photographs viewed in browser; no reference photo is embedded or copied into this original illustration.
+Visual QA: complete aircraft in frame, nose lower-left, delta wing, upright wingtip fins, aft two-blade pusher propeller, closed exterior shell, navy background, no labels/dimensions/internal assemblies. Surface seams and dorsal details are illustrative, not measured configuration evidence.
+
+Exact prompt:
+Use case: product-mockup.
+Asset type: original editorial exterior illustration for the Supply Atlas research application, 1536 x 1024 pixels, landscape 3:2.
+Primary request: a premium photorealistic studio illustration of one complete US SpektreWorks LUCAS unmanned aircraft, showing only its closed external shell. LUCAS has a propeller-driven delta-wing exterior; it is not the jet-powered Shahed-238.
+Reference-informed appearance: Based on externally visible morphology in CENTCOM's November 23, 2025 photographs published December 3, 2025. A narrow smooth light-gray central fuselage with a rounded tapered nose extending well forward of the broad swept delta wings; two straight, upright wingtip fins at the rear outer corners; an aft two-blade wooden/tan pusher propeller behind the fuselage; modest low-profile dorsal surface features. No conventional separate tailplane. Do not show a jet exhaust, turbine inlet, undercarriage, missiles or external weapon fittings.
+Scene/backdrop: seamless uniform deep navy #011B34 background, matching a dark research dashboard. No scenery, no platform, no horizon, no floor.
+Composition/framing: one entire aircraft centered with generous breathing room on every side, all wing tips and both propeller blades inside frame. Elevated upper three-quarter view, nose toward lower-left, aft propeller toward upper-right. The aircraft fills approximately 70 percent of the canvas width. Keep the silhouette clear and recognizable.
+Style/medium: polished photorealistic product illustration, restrained editorial mood, not a technical rendering. Matte light-gray composite skin with subtle realistic surface seams, restrained soft highlights and faint cool rim light. No dramatic smoke or action.
+Constraints: closed outer shell only. No cutaways, no disassembly, no transparent panels, no hidden internal components, no explosives, no engineering dimensions, no operating mechanisms, no diagrams or arrows. No humans, logos, flags, text, numbers, watermarks, or markings. Do not imitate an actual documentary photograph or label it as measured CAD.
+
+```

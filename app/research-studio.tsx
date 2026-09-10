@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { api, type Atlas, type Claim, type Entity, type Source } from './types';
 import { ErrorState, Status } from './controls';
+import LucasStudio from './lucas-studio';
 import './research.css';
 
 type Entry = {
@@ -96,7 +97,11 @@ function DossierView({
   const [imageFailed, setImageFailed] = useState(false);
   const current = dossier.systems.find((entry) => entry.id === selected)!;
   const prefix = `research-${product.id}`;
-  const other = product.id === 'mohajer6' ? 'shahed238' : 'mohajer6';
+  const researchProducts = Object.keys(data.research || {});
+  const other =
+    researchProducts[
+      (researchProducts.indexOf(product.id) + 1) % researchProducts.length
+    ];
   const names = new Map(data.entities.map((e) => [e.id, e.name]));
   const sourceNumbers = new Map(dossier.sources.map((s, i) => [s.id, i + 1]));
   const sourcesById = new Map(dossier.sources.map((s) => [s.id, s]));
@@ -190,126 +195,137 @@ function DossierView({
         </p>
       )}
       <div className="research-studio-grid">
-        <section
-          className="research-canvas"
-          aria-label={`${product.name} interactive systems illustration`}
-        >
-          <div className="studio-topline">
-            <span>
-              <Plane size={17} /> Aircraft studio
-            </span>
-            <span className="studio-tag">Conceptual systems overview</span>
-          </div>
-          <div className="research-canvas-heading">
-            <p>{dossier.subtitle}</p>
-            <h2>Explore the aircraft.</h2>
-            <span>Visible form. Dated evidence.</span>
-          </div>
-          <div
-            className="studio-view-controls"
-            aria-label="Aircraft view controls"
+        {product.id === 'lucas' ? (
+          <LucasStudio
+            name={product.name}
+            subtitle={dossier.subtitle}
+            systems={dossier.systems}
+            selected={selected}
+            onSelect={setSelected}
+          />
+        ) : (
+          <section
+            className="research-canvas"
+            aria-label={`${product.name} interactive systems illustration`}
           >
-            <button
-              aria-label="Toggle angled view"
-              aria-pressed={tilt}
-              onClick={() => setTilt((v) => !v)}
-            >
-              <Maximize2 size={18} />
-            </button>
-            <button
-              aria-label="Rotate product"
-              onClick={() => setAngle((v) => (v >= 8 ? -8 : v + 8))}
-            >
-              <RotateCcw size={18} />
-            </button>
-            <button
-              aria-label="Reset product view"
-              onClick={() => {
-                setAngle(0);
-                setTilt(false);
-                setSeparation(0);
-              }}
-            >
-              <Scan size={18} />
-            </button>
-          </div>
-          <div
-            className="research-airframe-stage"
-            style={
-              {
-                '--research-angle': `${angle}deg`,
-                '--research-tilt': tilt ? '20deg' : '0deg',
-                '--research-separation': separation / 100,
-              } as CSSProperties
-            }
-          >
-            {!imageFailed ? (
-              <img
-                className="research-airframe"
-                src={`/products/${product.id}.png`}
-                width="1536"
-                height="1024"
-                onError={() => setImageFailed(true)}
-                alt={`AI-generated illustrative rendering of ${product.name}; exterior only, not a measured model`}
-              />
-            ) : (
-              <div className="research-image-error" role="status">
-                <Plane size={40} />
-                <p>
-                  Exterior illustration unavailable. The cited system cards
-                  remain available.
-                </p>
-              </div>
-            )}
-            <div
-              className={`research-system-labels ${separation ? 'is-separated' : ''}`}
-              aria-label="Conceptual system cards"
-            >
-              {dossier.systems.map((entry, i) => (
-                <button
-                  key={entry.id}
-                  aria-label={`Inspect ${entry.title}`}
-                  aria-pressed={selected === entry.id}
-                  onClick={() => {
-                    setSelected(entry.id);
-                    setSeparation((v) => v || 65);
-                  }}
-                  style={{ '--system-index': i } as CSSProperties}
-                >
-                  <span>{String(i + 1).padStart(2, '0')}</span>
-                  <strong>{entry.title}</strong>
-                  <ChevronRight size={14} />
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="studio-controls">
-            <button
-              className="studio-explode"
-              onClick={() => setSeparation((v) => (v ? 0 : 85))}
-            >
-              <Layers3 size={18} />
-              {separation ? 'Gather system cards' : 'Separate system cards'}
-            </button>
-            <label className="studio-slider">
+            <div className="studio-topline">
               <span>
-                Card separation <output>{separation}%</output>
+                <Plane size={17} /> Aircraft studio
               </span>
-              <input
-                aria-label="System card separation"
-                type="range"
-                min="0"
-                max="100"
-                value={separation}
-                onChange={(e) => setSeparation(Number(e.target.value))}
-              />
-            </label>
-          </div>
-          <p className="studio-disclosure">
-            AI-generated exterior illustration · conceptual labels, not internal
-            component positions · no measured CAD or mechanical disassembly.
-          </p>
-        </section>
+              <span className="studio-tag">Conceptual systems overview</span>
+            </div>
+            <div className="research-canvas-heading">
+              <p>{dossier.subtitle}</p>
+              <h2>Explore the aircraft.</h2>
+              <span>Visible form. Dated evidence.</span>
+            </div>
+            <div
+              className="studio-view-controls"
+              aria-label="Aircraft view controls"
+            >
+              <button
+                aria-label="Toggle angled view"
+                aria-pressed={tilt}
+                onClick={() => setTilt((v) => !v)}
+              >
+                <Maximize2 size={18} />
+              </button>
+              <button
+                aria-label="Rotate product"
+                onClick={() => setAngle((v) => (v >= 8 ? -8 : v + 8))}
+              >
+                <RotateCcw size={18} />
+              </button>
+              <button
+                aria-label="Reset product view"
+                onClick={() => {
+                  setAngle(0);
+                  setTilt(false);
+                  setSeparation(0);
+                }}
+              >
+                <Scan size={18} />
+              </button>
+            </div>
+            <div
+              className="research-airframe-stage"
+              style={
+                {
+                  '--research-angle': `${angle}deg`,
+                  '--research-tilt': tilt ? '20deg' : '0deg',
+                  '--research-separation': separation / 100,
+                } as CSSProperties
+              }
+            >
+              {!imageFailed ? (
+                <img
+                  className="research-airframe"
+                  src={`/products/${product.id}.png`}
+                  width="1536"
+                  height="1024"
+                  onError={() => setImageFailed(true)}
+                  alt={`AI-generated illustrative rendering of ${product.name}; exterior only, not a measured model`}
+                />
+              ) : (
+                <div className="research-image-error" role="status">
+                  <Plane size={40} />
+                  <p>
+                    Exterior illustration unavailable. The cited system cards
+                    remain available.
+                  </p>
+                </div>
+              )}
+              <div
+                className={`research-system-labels ${separation ? 'is-separated' : ''}`}
+                aria-label="Conceptual system cards"
+              >
+                {dossier.systems.map((entry, i) => (
+                  <button
+                    key={entry.id}
+                    aria-label={`Inspect ${entry.title}`}
+                    aria-pressed={selected === entry.id}
+                    onClick={() => {
+                      setSelected(entry.id);
+                      setSeparation((v) => v || 65);
+                    }}
+                    style={{ '--system-index': i } as CSSProperties}
+                  >
+                    <span>{String(i + 1).padStart(2, '0')}</span>
+                    <strong>{entry.title}</strong>
+                    <ChevronRight size={14} />
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="studio-controls">
+              <button
+                className="studio-explode"
+                onClick={() => setSeparation((v) => (v ? 0 : 85))}
+              >
+                <Layers3 size={18} />
+                {separation ? 'Gather system cards' : 'Separate system cards'}
+              </button>
+              <label className="studio-slider">
+                <span>
+                  Card separation <output>{separation}%</output>
+                </span>
+                <input
+                  aria-label="System card separation"
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={separation}
+                  onChange={(e) => setSeparation(Number(e.target.value))}
+                />
+              </label>
+            </div>
+            <p className="studio-disclosure">
+              AI-generated exterior illustration · conceptual labels, not
+              internal component positions · no measured CAD or mechanical
+              disassembly.
+            </p>
+          </section>
+        )}
         <aside
           className="research-inspector"
           aria-label="Selected major system"

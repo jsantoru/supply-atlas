@@ -51,7 +51,10 @@ export type Atlas = {
   sources: Source[];
   claims: Claim[];
   coverage: string;
-  research?: Record<string, { system_count: number; entry_count: number }>;
+  research?: Record<
+    string,
+    { system_count: number; entry_count: number; network_available?: boolean }
+  >;
 };
 export type Edge = {
   id: string;

@@ -125,13 +125,16 @@ for part, supplier in [("w25q32rv", "winbond"), ("abm8-272-t3", "abracon")]:
     claim("pico2-" + part, supplier, part, "pico2", "component supplier", "pico2-datasheet", "Page 4, About Raspberry Pi Pico 2 / external flash and crystal circuitry", "2026-07-03", period="Pico 2 datasheet revision July 3, 2026; earlier and later board batch sourcing not established.", uncertainty="Named in the reviewed datasheet revision. Manufacturing location, alternate approved devices and allocation across board revisions or batches remain unknown.")
 
 if __package__:
-    from .drone_research import CLAIMS, DOSSIERS, ENTITIES, SOURCES
+    from . import drone_research, lucas_research
 else:
-    from drone_research import CLAIMS, DOSSIERS, ENTITIES, SOURCES
+    import drone_research, lucas_research
 
-entities.extend(ENTITIES)
-sources.extend(SOURCES)
-claims.extend(CLAIMS)
+DOSSIERS = []
+for research in (drone_research, lucas_research):
+    entities.extend(research.ENTITIES)
+    sources.extend(research.SOURCES)
+    claims.extend(research.CLAIMS)
+    DOSSIERS.extend(research.DOSSIERS)
 
 if __name__ == "__main__":
     Path(__file__).with_name("collection.json").write_text(json.dumps(dict(entities=entities,sources=sources,claims=claims),indent=2)+"\n",encoding="utf-8")

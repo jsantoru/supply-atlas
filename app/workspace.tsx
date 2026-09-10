@@ -63,6 +63,7 @@ import { CompareView, RiskView } from './analysis-views';
 const FactoryMap = lazy(() => import('./factory-map'));
 const Admin = lazy(() => import('./admin'));
 const ProductTeardown = lazy(() => import('./product-teardown'));
+const ResearchNetwork = lazy(() => import('./research-network'));
 const views = [
   { id: 'teardown', name: 'Product studio', icon: Box },
   { id: 'network', name: 'Supply network', icon: NetworkIcon },
@@ -963,6 +964,16 @@ export default function App() {
                     )}
                   </div>
                 )}
+                {view === 'network' &&
+                  data.research?.[product]?.network_available && (
+                    <Suspense
+                      fallback={
+                        <p role="status">Loading cited program network…</p>
+                      }
+                    >
+                      <ResearchNetwork key={product} product={product} />
+                    </Suspense>
+                  )}
               </section>
               <aside className="context-panel">
                 <div className="context-title">
