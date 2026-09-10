@@ -233,7 +233,11 @@ export default function App() {
       <a className="skip-link" href="#workspace">
         Skip to workspace
       </a>
-      <Sidebar className="atlas-sidebar">
+      <Sidebar
+        className="atlas-sidebar"
+        role="complementary"
+        aria-label="Workspace navigation"
+      >
         <div className="brand">
           <Compass size={29} />
           <span>
@@ -292,8 +296,8 @@ export default function App() {
           </SidebarGroup>
           <div className="collection-note">
             <span className="tiny-label">Collection 01</span>
-            <strong>Inside the computer</strong>
-            <p>Consumer electronics & semiconductor dependencies</p>
+            <strong>Products, in context</strong>
+            <p>Electronics, semiconductors & aircraft research</p>
             <span className="collection-status">
               <span /> Researched · partial coverage
             </span>
@@ -382,8 +386,10 @@ export default function App() {
               Collection
             </button>
             <ChevronRight size={13} />
-            <button onClick={() => openEntity('electronics')}>
-              Consumer electronics
+            <button
+              onClick={() => openEntity(entity?.industry_id || 'electronics')}
+            >
+              {name(entity?.industry_id || 'electronics')}
             </button>
             <ChevronRight size={13} />
             <span>{entity?.name || 'Unknown product'}</span>
@@ -392,7 +398,11 @@ export default function App() {
             <div>
               <div className="eyebrow">
                 Product intelligence{' '}
-                <span className="tag">Partial breakdown</span>
+                <span className="tag">
+                  {data.research?.[product]
+                    ? 'Research dossier'
+                    : 'Partial breakdown'}
+                </span>
               </div>
               <h1>
                 {['directory', 'sources', 'risk', 'admin'].includes(view)
@@ -438,13 +448,21 @@ export default function App() {
                 <div>
                   <CpuIcon />
                   <span>
-                    <strong>{partIds.length}</strong>Documented parts
+                    <strong>
+                      {data.research?.[product]?.system_count ?? partIds.length}
+                    </strong>
+                    {data.research?.[product]
+                      ? 'System topics · all dates'
+                      : 'Documented parts'}
                   </span>
                 </div>
                 <div>
                   <Factory size={20} />
                   <span>
-                    <strong>{supplierCount}</strong>Known suppliers
+                    <strong>{supplierCount}</strong>
+                    {data.research?.[product]
+                      ? 'Attributed organizations'
+                      : 'Known suppliers'}
                   </span>
                 </div>
                 <div>
@@ -468,7 +486,9 @@ export default function App() {
                   {views.map((v) => (
                     <TabsTrigger key={v.id} value={v.id}>
                       <v.icon size={17} />
-                      {v.name}
+                      {v.id === 'breakdown' && data.research?.[product]
+                        ? 'Major systems'
+                        : v.name}
                     </TabsTrigger>
                   ))}
                 </TabsList>
@@ -733,7 +753,8 @@ export default function App() {
             <Suspense fallback={<p>Loading administration…</p>}>
               <Admin data={data} onRefresh={() => setRetry((v) => v + 1)} />
             </Suspense>
-          ) : view === 'teardown' ? (
+          ) : view === 'teardown' ||
+            (view === 'breakdown' && data.research?.[product]) ? (
             networkError ? (
               <ErrorState
                 error={networkError}

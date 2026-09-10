@@ -8,7 +8,7 @@ test('every researched product has an illustration and a working studio', async 
   const products = atlas.entities.filter(
     (e: { kind: string }) => e.kind === 'product',
   );
-  expect(products.length).toBe(9);
+  expect(products.length).toBe(11);
   for (const product of products) {
     const asset = await request.get(`/products/${product.id}.png`);
     expect(asset.headers()['content-type']).toContain('image/png');
@@ -25,7 +25,12 @@ test('every researched product has an illustration and a working studio', async 
       }),
     ).toBeVisible();
     await expect(
-      page.getByRole('button', { name: 'Explode components', exact: true }),
+      page.getByRole('button', {
+        name: atlas.research?.[product.id]
+          ? 'Separate system cards'
+          : 'Explode components',
+        exact: true,
+      }),
     ).toBeVisible();
   }
 });

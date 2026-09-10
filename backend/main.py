@@ -17,6 +17,7 @@ from .database import connect, dataset, initialize, ingest_bundle, now, save_rec
 from .ingestion import refresh_sources, review_snapshot, snapshot_record
 from .models import Claim, Entity, Review, ReviewedImport, SnapshotReview, Source
 from .semantics import comparison, graph, scenario
+from .dossiers import dossiers, research_profile
 
 log = logging.getLogger("supply-atlas")
 
@@ -98,6 +99,9 @@ def health():
 @app.get("/api/atlas")
 def atlas():
     data = get_data()
+    data["research"] = {id: {"system_count": len(record.systems), "entry_count": len(list(record.entries()))}
+                        for id, record in dossiers().items()
+                        if any(e["id"] == id and e["kind"] == "product" for e in data["entities"])}
     data["coverage"] = "Documented partial collection. Unknown relationships are not evidence of no relationship. Source dates describe observations, not assured current sourcing."
     return data
 
@@ -109,6 +113,15 @@ def entities(q: str = Query("", max_length=200), kind: str | None = None):
 def profile(id: str):
     data = get_data()
     return {"entity": require_entity(data,id), "claims": [c for c in data["claims"] if id in [c.get(k) for k in ("supplier_id", "customer_id", "product_id", "part_id", "facility_id", "material_id", "region_id")]]}
+
+@app.get("/api/research/{product}")
+def research(product: str):
+    data = get_data()
+    require_entity(data, product, ["product"])
+    result = research_profile(product, data)
+    if result is None:
+        raise HTTPException(404, "No research dossier for this product")
+    return result
 
 @app.get("/api/graph/{product}")
 def network(product: str, depth: int = Query(2, ge=1, le=3), f: dict = Depends(filters)):

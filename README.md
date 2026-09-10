@@ -2,6 +2,8 @@
 
 A research workspace for exploring products, documented components, suppliers and manufacturing locations. The product studio, graph, map and evidence drawer share one scoped dataset; a shared company never transfers a factory assignment to another product.
 
+The collection now includes **Mohajer-6** and **Shahed-238** research studios, alongside the nine electronics products. Each aircraft has an original exterior illustration, selectable major-system topics and a cited dossier covering chronology, organizations, public leadership, manufacturing context and evidence limits. Open `?product=mohajer6&view=teardown` or `?product=shahed238&view=teardown`. These are conceptual research overviews, not engineering teardowns or weapons parts lists.
+
 ## Start with Docker
 
 Install Docker with Compose v2 and start the Docker engine. From this repository:
@@ -61,6 +63,7 @@ For browser tests against a running production container, set `TEST_BASE_URL=htt
 - [Ingestion and administration](docs/INGESTION.md)
 - [Design system and extensions](docs/DESIGN.md)
 - [Product visual provenance](docs/VISUALS.md)
+- [Aircraft research scope and methodology](docs/DRONE-RESEARCH.md)
 - [Release status](docs/RELEASE.md)
 - [Authoritative backlog](https://github.com/jsantoru/supply-atlas/issues) and [contribution workflow](CONTRIBUTING.md)
 

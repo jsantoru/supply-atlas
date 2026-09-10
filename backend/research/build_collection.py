@@ -124,5 +124,15 @@ claim("rp2350-fabrication", "tsmc", "rp2350", None, "fabricator", "rp2350-proces
 for part, supplier in [("w25q32rv", "winbond"), ("abm8-272-t3", "abracon")]:
     claim("pico2-" + part, supplier, part, "pico2", "component supplier", "pico2-datasheet", "Page 4, About Raspberry Pi Pico 2 / external flash and crystal circuitry", "2026-07-03", period="Pico 2 datasheet revision July 3, 2026; earlier and later board batch sourcing not established.", uncertainty="Named in the reviewed datasheet revision. Manufacturing location, alternate approved devices and allocation across board revisions or batches remain unknown.")
 
+if __package__:
+    from .drone_research import CLAIMS, DOSSIERS, ENTITIES, SOURCES
+else:
+    from drone_research import CLAIMS, DOSSIERS, ENTITIES, SOURCES
+
+entities.extend(ENTITIES)
+sources.extend(SOURCES)
+claims.extend(CLAIMS)
+
 if __name__ == "__main__":
     Path(__file__).with_name("collection.json").write_text(json.dumps(dict(entities=entities,sources=sources,claims=claims),indent=2)+"\n",encoding="utf-8")
+    Path(__file__).with_name("drone_dossiers.json").write_text(json.dumps(DOSSIERS, indent=2)+"\n", encoding="utf-8")

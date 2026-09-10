@@ -1,0 +1,667 @@
+[
+  {
+    "product_id": "mohajer6",
+    "reviewed": "2026-09-10",
+    "subtitle": "Multirole aircraft \u00b7 historical research dossier",
+    "introduction": "Follow the visible aircraft, the organizations behind the program, and the public record linking specific observed examples. Source assertions, direct observations and unresolved questions are identified individually below.",
+    "scope": "Major-system and institutional research across the cited dates. This is a conceptual overview, not an engineering teardown, complete parts list or present-day production census. People are shown only in their dated public roles.",
+    "systems": [
+      {
+        "id": "m6-airframe",
+        "title": "Airframe and wings",
+        "text": "The Army ODIN reference describes a central fuselage and straight, high-mounted wings. These labels identify external form; neither the illustration nor this description establishes internal structure or materials.",
+        "basis": "attributed",
+        "date": "Reference modified 2024-11-13",
+        "evidence": [
+          {
+            "source_id": "m6-odin",
+            "reference": "General information / external configuration description; search-index access."
+          }
+        ]
+      },
+      {
+        "id": "m6-tail",
+        "title": "Twin-boom tail",
+        "text": "Two tail booms and an elevated horizontal tail surface distinguish the external layout. DIA used the tail as one feature in its comparison of Iranian and recovered examples.",
+        "basis": "observed",
+        "date": "DIA observation cutoff 2022-10-27",
+        "evidence": [
+          {
+            "source_id": "m6-odin",
+            "reference": "External tail configuration."
+          },
+          {
+            "source_id": "m6-dia-visual",
+            "reference": "Printed page 7: tail comparison."
+          }
+        ]
+      },
+      {
+        "id": "m6-landing",
+        "title": "Wheeled undercarriage",
+        "text": "Wheeled landing gear is visible in the examples compared by DIA. The record supports this observable category, not a specification for every production configuration.",
+        "basis": "observed",
+        "date": "DIA observation cutoff 2022-10-27",
+        "evidence": [
+          {
+            "source_id": "m6-dia-visual",
+            "reference": "Printed page 7: landing-gear comparison."
+          }
+        ]
+      },
+      {
+        "id": "m6-observation",
+        "title": "Observation equipment",
+        "text": "DIA identifies externally visible surveillance equipment in its comparison. Contemporary launch coverage also describes electro-optical observation equipment. The available observations do not identify all internal devices or establish uniformity across batches.",
+        "basis": "observed",
+        "date": "2018 reporting / 2022 observations",
+        "evidence": [
+          {
+            "source_id": "m6-dia-visual",
+            "reference": "Printed page 7: surveillance equipment."
+          },
+          {
+            "source_id": "m6-launch-report",
+            "reference": "Description of observation equipment in launch reporting."
+          }
+        ]
+      },
+      {
+        "id": "m6-ground",
+        "title": "Ground segment",
+        "text": "Janes' illustrated deployment reporting shows a separate control vehicle alongside the aircraft. The ground segment is therefore presented as its own system category, without suggesting that its hardware sits inside the airframe.",
+        "basis": "observed",
+        "date": "Article publication date unavailable",
+        "evidence": [
+          {
+            "source_id": "m6-janes",
+            "reference": "Image and description of the accompanying control vehicle."
+          }
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "id": "m6-early-date",
+        "title": "The first-unveiling date remains disputed",
+        "text": "Janes gives April 2016; the Army ODIN entry gives April 2017. The reviewed material does not resolve the discrepancy, so neither year is treated as settled.",
+        "basis": "unresolved",
+        "date": "2016 / 2017",
+        "evidence": [
+          {
+            "source_id": "m6-janes",
+            "reference": "Unveiling date in program background."
+          },
+          {
+            "source_id": "m6-odin",
+            "reference": "Unveiling date in reference background."
+          }
+        ]
+      },
+      {
+        "id": "m6-line-event",
+        "title": "Production-line inauguration reported",
+        "text": "Mehr's contemporaneous gallery reports a Mohajer-6 production-line opening in Tehran on February 5, 2018. This anchors the announced production milestone; it does not measure actual output.",
+        "basis": "attributed",
+        "date": "2018-02-05",
+        "evidence": [
+          {
+            "source_id": "m6-mehr-launch",
+            "reference": "Gallery introduction: inauguration, date and city."
+          }
+        ]
+      },
+      {
+        "id": "m6-recovery",
+        "title": "Recovered aircraft enters the public evidence record",
+        "text": "DIA compared a largely intact aircraft recovered from the Black Sea in 2022 with examples pictured in Iran and Iraq, judging their visible features indistinguishable. This is an attributed identification of particular examples.",
+        "basis": "attributed",
+        "date": "2022 observation / 2023-02 publication",
+        "evidence": [
+          {
+            "source_id": "m6-dia-visual",
+            "reference": "Printed page 7; report information cutoff October 27, 2022."
+          }
+        ]
+      },
+      {
+        "id": "m6-briefing",
+        "title": "U.S. assessment and Iranian account differ",
+        "text": "AP's account of the DIA briefing records the U.S. assessment of Iranian supply to Russia and Iran's position that a small number had been supplied before the invasion, with further supply denied. These positions remain separately attributed.",
+        "basis": "context",
+        "date": "2023-02-14",
+        "evidence": [
+          {
+            "source_id": "m6-ap-assessment",
+            "reference": "London briefing and account of Iran's stated position; search-index text."
+          }
+        ]
+      },
+      {
+        "id": "m6-expanded-record",
+        "title": "DIA expands its evidence presentation",
+        "text": "DIA announced an updated report in August 2023 using recovered material and declassified imagery. Its coverage spans multiple aircraft families; an observation about one model cannot automatically populate another model's record.",
+        "basis": "context",
+        "date": "2023-08-25",
+        "evidence": [
+          {
+            "source_id": "m6-dia-update",
+            "reference": "Announcement of expanded report and its evidentiary scope."
+          }
+        ]
+      }
+    ],
+    "organizations": [
+      {
+        "id": "m6-qai",
+        "title": "Qods Aviation Industries",
+        "text": "Treasury attributes Mohajer-6 design and manufacture to QAI and records the Light Airplanes Design and Manufacturing Industries alias from mid-2020. The attribution is explicit; it is not a factory inspection.",
+        "basis": "attributed",
+        "date": "2023-01-06",
+        "evidence": [
+          {
+            "source_id": "m6-treasury-2023",
+            "reference": "QAI identity and manufacturer attribution."
+          }
+        ],
+        "entity_id": "qods-aviation"
+      },
+      {
+        "id": "m6-iaio",
+        "title": "Iran Aviation Industries Organization",
+        "text": "Treasury places QAI under Iran Aviation Industries Organization (IAIO), within the defense ministry structure. This is institutional oversight, not a component supply relationship. IAIO should not be confused with the similarly abbreviated Aerospace Industries Organization.",
+        "basis": "attributed",
+        "date": "2023-10-18",
+        "evidence": [
+          {
+            "source_id": "m6-treasury-structure",
+            "reference": "QAI subsidiary and IAIO/MODAFL relationship."
+          }
+        ]
+      },
+      {
+        "id": "m6-modafl",
+        "title": "Ministry of Defense and Armed Forces Logistics",
+        "text": "MODAFL is the ministry named in Treasury's organizational account. A ministry's oversight does not establish which premises, workers or subcontractors produced an individual aircraft.",
+        "basis": "context",
+        "date": "2023-10-18",
+        "evidence": [
+          {
+            "source_id": "m6-treasury-structure",
+            "reference": "Institutional placement of QAI and IAIO."
+          }
+        ]
+      },
+      {
+        "id": "m6-sibling-boundary",
+        "title": "HESA: a sibling is not a proven manufacturer here",
+        "text": "Treasury identifies QAI and HESA within IAIO's wider aviation organization. Shared institutional ownership alone does not establish that HESA assembled Mohajer-6; no such product edge is added.",
+        "basis": "context",
+        "date": "2024-05-31",
+        "evidence": [
+          {
+            "source_id": "m6-treasury-iaio",
+            "reference": "IAIO, QAI and HESA organization description."
+          }
+        ]
+      }
+    ],
+    "people": [
+      {
+        "id": "m6-hatami",
+        "title": "Amir Hatami",
+        "text": "Iranian defense minister at the reported production-line inauguration. Mehr identifies him as the official opening the line; that ceremonial role does not establish personal engineering authorship.",
+        "basis": "attributed",
+        "date": "2018-02-05",
+        "evidence": [
+          {
+            "source_id": "m6-mehr-launch",
+            "reference": "Named official at the inauguration."
+          }
+        ]
+      },
+      {
+        "id": "m6-pakpour",
+        "title": "Mohammad Pakpour",
+        "text": "IRGC Ground Forces commander identified in contemporary reporting as attending the inauguration. Attendance is public-event context, not proof of factory management.",
+        "basis": "context",
+        "date": "2018-02-05 event",
+        "evidence": [
+          {
+            "source_id": "m6-launch-report",
+            "reference": "Officials attending the Tehran ceremony."
+          }
+        ]
+      },
+      {
+        "id": "m6-ghoreishi",
+        "title": "Seyed Hojatollah Ghoreishi",
+        "text": "QAI board chairman in Treasury's dated leadership record. Current officeholding and individual design responsibilities are not asserted.",
+        "basis": "attributed",
+        "date": "2023-01-06",
+        "evidence": [
+          {
+            "source_id": "m6-treasury-2023",
+            "reference": "QAI leadership: chairman."
+          }
+        ]
+      },
+      {
+        "id": "m6-damavandian",
+        "title": "Ghassem Damavandian",
+        "text": "QAI managing director and board member in Treasury's record. Its October release uses the spelling Ghasem; this is a name variant, not another manufacturer.",
+        "basis": "attributed",
+        "date": "2023-01-06 / 2023-10-18",
+        "evidence": [
+          {
+            "source_id": "m6-treasury-2023",
+            "reference": "QAI leadership: managing director."
+          },
+          {
+            "source_id": "m6-treasury-structure",
+            "reference": "Ghasem Damavandian name spelling."
+          }
+        ]
+      },
+      {
+        "id": "m6-board",
+        "title": "Other named QAI board members",
+        "text": "Treasury lists Hamidreza Sharifi-Tehrani, Reza Khaki, Majid Reza Niyazi-Angili and Vali Arlanizadeh as board members. These are historical organizational roles, not a list of product engineers.",
+        "basis": "attributed",
+        "date": "2023-01-06",
+        "evidence": [
+          {
+            "source_id": "m6-treasury-2023",
+            "reference": "Four further QAI directors."
+          }
+        ]
+      },
+      {
+        "id": "m6-khajeh-fard",
+        "title": "Afshin Khajeh Fard",
+        "text": "Treasury names him as IAIO's chief in May 2024. The documented relationship is leadership of the parent organization; product-specific technical work is not established.",
+        "basis": "attributed",
+        "date": "2024-05-31",
+        "evidence": [
+          {
+            "source_id": "m6-treasury-iaio",
+            "reference": "IAIO leadership identification."
+          }
+        ]
+      }
+    ],
+    "manufacturing": [
+      {
+        "id": "m6-tehran-context",
+        "title": "Tehran: a historical production event",
+        "text": "Mehr places the 2018 line-opening ceremony in Tehran. The exact premises, surveyed location and later operating status are unresolved. A corporate address is not substituted for a verified product factory, and no map coordinate is assigned.",
+        "basis": "attributed",
+        "date": "2018-02-05",
+        "evidence": [
+          {
+            "source_id": "m6-mehr-launch",
+            "reference": "City and inauguration event; no precise premises established."
+          }
+        ]
+      },
+      {
+        "id": "m6-workshare",
+        "title": "Manufacturer attribution has a narrower meaning",
+        "text": "Treasury's QAI attribution does not describe internal workshare, supplier contracts, batch allocations or an exclusive final-assembly line. The network records the attributed organization while leaving facility fields empty.",
+        "basis": "unresolved",
+        "date": "2023-10-18 source scope",
+        "evidence": [
+          {
+            "source_id": "m6-treasury-structure",
+            "reference": "Manufacturer attribution; no batch-level factory allocation supplied."
+          }
+        ]
+      }
+    ],
+    "assessment": [
+      {
+        "id": "m6-sample-limits",
+        "title": "An observed aircraft is not an entire production series",
+        "text": "DIA's comparison supports an origin assessment for the pictured examples. It cannot establish a complete inventory, every variant, or continuity of production. Its October 2022 information cutoff also predates the Shahed-238 display.",
+        "basis": "context",
+        "date": "2022-10-27 cutoff",
+        "evidence": [
+          {
+            "source_id": "m6-dia-visual",
+            "reference": "Report scope, cutoff and Mohajer-6 visual comparison."
+          }
+        ]
+      },
+      {
+        "id": "m6-date-limits",
+        "title": "Source dates and current status are different",
+        "text": "The 2018 event report and subsequent institutional records describe different moments. They do not establish that the same line remains active today. The dossier preserves those dates instead of presenting a live factory or personnel registry.",
+        "basis": "unresolved",
+        "date": "2018\u20132024 records",
+        "evidence": [
+          {
+            "source_id": "m6-mehr-launch",
+            "reference": "Historical inauguration only."
+          },
+          {
+            "source_id": "m6-treasury-iaio",
+            "reference": "Dated organizational record."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "product_id": "shahed238",
+    "reviewed": "2026-09-10",
+    "subtitle": "Jet-powered one-way aircraft \u00b7 historical research dossier",
+    "introduction": "Examine the public display, attributed development organization and evolving identification record. Exhibition configurations and later Russian derivative reporting remain separately scoped throughout this dossier.",
+    "scope": "Exterior and major-system categories only. Displayed options are not a unified production configuration, and Russian Geran-3 findings are not an Iranian Shahed-238 parts list. Leadership and venue records are dated institutional context.",
+    "systems": [
+      {
+        "id": "s238-airframe",
+        "title": "Delta-wing airframe",
+        "text": "The 2023 display imagery shows a delta-wing exterior in a matte dark finish. An observed finish is not evidence of a particular coating technology or verified performance.",
+        "basis": "observed",
+        "date": "2023-11-19 display",
+        "evidence": [
+          {
+            "source_id": "s238-twz-display",
+            "reference": "Original analysis of exhibition imagery and visible finish."
+          }
+        ]
+      },
+      {
+        "id": "s238-propulsion",
+        "title": "Jet propulsion",
+        "text": "The November display analysis identifies the named Shahed-238 as jet-powered. This supports the broad propulsion category; no engine model, construction detail or performance figure is inferred here.",
+        "basis": "observed",
+        "date": "2023-11-19 display",
+        "evidence": [
+          {
+            "source_id": "s238-twz-display",
+            "reference": "Named Shahed-238 identification and broad jet-propulsion category."
+          }
+        ]
+      },
+      {
+        "id": "s238-flight",
+        "title": "Flight-management systems",
+        "text": "Public analysis discusses differing avionics configurations, but the exhibition did not establish one verified internal arrangement for all aircraft. This card represents a system category, not a located assembly or shared production design.",
+        "basis": "unresolved",
+        "date": "2023-11 reporting",
+        "evidence": [
+          {
+            "source_id": "s238-twz-display",
+            "reference": "Configuration discussion and explicit uncertainty about implementation and maturity."
+          }
+        ]
+      },
+      {
+        "id": "s238-configurations",
+        "title": "Displayed configuration options",
+        "text": "Three examples were displayed. The reviewed analysis leaves their testing, availability and configuration maturity uncertain. They must not be combined into a single aircraft containing every announced option.",
+        "basis": "observed",
+        "date": "2023-11-19 display",
+        "evidence": [
+          {
+            "source_id": "s238-twz-display",
+            "reference": "Three displayed examples and uncertainty about fielding."
+          }
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "id": "s238-precursor",
+        "title": "An unnamed jet aircraft appears on film",
+        "text": "Janes examined footage from a documentary premiered on September 26, 2023. The aircraft was unnamed in the trailer; the footage is a precursor observation, not a verified Shahed-238 naming date.",
+        "basis": "observed",
+        "date": "2023-09-26",
+        "evidence": [
+          {
+            "source_id": "s238-janes-preview",
+            "reference": "Documentary premiere and unnamed aircraft."
+          }
+        ]
+      },
+      {
+        "id": "s238-debut",
+        "title": "Named public display in Tehran",
+        "text": "The War Zone identifies the November 19 exhibition as the public Shahed-238 display. Tasnim independently records the exhibition visit and Tehran venue. A public display establishes visibility, not serial-production output.",
+        "basis": "attributed",
+        "date": "2023-11-19",
+        "evidence": [
+          {
+            "source_id": "s238-twz-display",
+            "reference": "Shahed-238 public display identification."
+          },
+          {
+            "source_id": "s238-tasnim-event",
+            "reference": "Exhibition date and venue."
+          }
+        ]
+      },
+      {
+        "id": "s238-initial-claims",
+        "title": "Early identification was not immediately confirmed",
+        "text": "UNN interviewed forensic-institute director Oleksandr Ruvin, who said his institute's research had not established Shahed-238 use at that point. This dated absence of confirmation does not disprove later observations.",
+        "basis": "attributed",
+        "date": "2024-01-09",
+        "evidence": [
+          {
+            "source_id": "s238-unn-unconfirmed",
+            "reference": "Direct interview with Oleksandr Ruvin about the institute's findings at that date."
+          }
+        ]
+      },
+      {
+        "id": "s238-russian-sample",
+        "title": "A Russian derivative needs its own evidence scope",
+        "text": "UNN reports Ukrainian intelligence's examination of a Russian Geran-3 U-series sample. Its relationship to Shahed-238 does not make the sample's internals, suppliers or manufacturing arrangements evidence for the Iranian aircraft.",
+        "basis": "attributed",
+        "date": "2025-09-16",
+        "evidence": [
+          {
+            "source_id": "s238-unn-geran3",
+            "reference": "Russian sample identity and distinction from Iranian design."
+          }
+        ]
+      },
+      {
+        "id": "s238-civilian-impact",
+        "title": "Civilian-impact investigation",
+        "text": "Human Rights Watch identifies a Shahed-238 in a February 28, 2026 Dubai hotel-forecourt incident and relays local authorities' report of four injuries. The investigation concerns civilian harm, not manufacturing attribution; HRW could not rule out military guests at the hotel.",
+        "basis": "attributed",
+        "date": "2026-02-28 event / 2026-03-17 report",
+        "evidence": [
+          {
+            "source_id": "s238-hrw",
+            "reference": "Dubai hotel investigation, aircraft identification and limits."
+          }
+        ]
+      }
+    ],
+    "organizations": [
+      {
+        "id": "s238-sairc",
+        "title": "Shahed Aviation Industries Research Center",
+        "text": "CSIS attributes Shahed-238 development to Shahed Aviation Industries. This is a research assessment, not a manufacturer declaration or final-assembly inspection, so the supply-network development edge is conservatively marked inferred.",
+        "basis": "attributed",
+        "date": "2026-06-02 profile update",
+        "evidence": [
+          {
+            "source_id": "s238-csis",
+            "reference": "Development attribution to Shahed Aviation Industries."
+          }
+        ],
+        "entity_id": "shahed-aviation"
+      },
+      {
+        "id": "s238-asf",
+        "title": "IRGC Aerospace Force",
+        "text": "Treasury described SAIRC as subordinate to the IRGC Aerospace Force in November 2022. That institutional record predates Shahed-238's named display and cannot independently establish this model's manufacturer workshare.",
+        "basis": "context",
+        "date": "2022-11-15",
+        "evidence": [
+          {
+            "source_id": "shahed-treasury-organization",
+            "reference": "Shahed Aviation Industries Research Center institutional description."
+          }
+        ]
+      },
+      {
+        "id": "s238-host",
+        "title": "Ashura Aerospace University",
+        "text": "Tasnim identifies the university in Tehran as the exhibition venue. Its presence in the public record is as a host location; no Shahed-238 manufacturing relationship is established.",
+        "basis": "context",
+        "date": "2023-11-19",
+        "evidence": [
+          {
+            "source_id": "s238-tasnim-event",
+            "reference": "Location of the IRGC Aerospace Force exhibition."
+          }
+        ]
+      }
+    ],
+    "people": [
+      {
+        "id": "s238-khamenei",
+        "title": "Ali Khamenei",
+        "text": "Tasnim records his visit to the exhibition as supreme leader and commander-in-chief in November 2023. This entry describes that dated public role, not product engineering authorship or present officeholding.",
+        "basis": "context",
+        "date": "2023-11-19",
+        "evidence": [
+          {
+            "source_id": "s238-tasnim-event",
+            "reference": "Exhibition visitor and public role at the event."
+          }
+        ]
+      },
+      {
+        "id": "s238-hajizadeh",
+        "title": "Amir Ali Hajizadeh",
+        "text": "Treasury identifies Hajizadeh as IRGC Aerospace Force commander in 2019; Janes identifies him in that role in the 2023 documentary. Neither record establishes that he personally designed Shahed-238.",
+        "basis": "context",
+        "date": "2019-06-24 / 2023-10-03",
+        "evidence": [
+          {
+            "source_id": "shahed-treasury-hajizadeh",
+            "reference": "Dated command role."
+          },
+          {
+            "source_id": "s238-janes-preview",
+            "reference": "Documentary interview participant and command role."
+          }
+        ]
+      },
+      {
+        "id": "s238-aghajani",
+        "title": "Saeed Aghajani",
+        "text": "Treasury names Aghajani as IRGC Aerospace Force UAV Command commander in October 2021. This provides earlier institutional context; no product-specific Shahed-238 development role is established.",
+        "basis": "context",
+        "date": "2021-10-29",
+        "evidence": [
+          {
+            "source_id": "shahed-treasury-aghajani",
+            "reference": "Dated UAV Command leadership identification."
+          }
+        ]
+      },
+      {
+        "id": "s238-engineers",
+        "title": "Product-specific engineers remain unverified",
+        "text": "The reviewed development assessment names an organization, not a verified engineering team. Public commanders and exhibition attendees should not be converted into designer or supplier records.",
+        "basis": "unresolved",
+        "date": "2026-06-02 source scope",
+        "evidence": [
+          {
+            "source_id": "s238-csis",
+            "reference": "Organizational development attribution without individual engineering credits."
+          }
+        ]
+      }
+    ],
+    "manufacturing": [
+      {
+        "id": "s238-venue-boundary",
+        "title": "A Tehran exhibition venue is not a factory",
+        "text": "The November 2023 venue establishes where the aircraft was shown. It supplies no proof of final assembly there. No military-site coordinates or factory marker are assigned.",
+        "basis": "context",
+        "date": "2023-11-19",
+        "evidence": [
+          {
+            "source_id": "s238-tasnim-event",
+            "reference": "Exhibition venue only."
+          }
+        ]
+      },
+      {
+        "id": "s238-assembly-gap",
+        "title": "Iranian final assembly remains unresolved",
+        "text": "The reviewed CSIS profile does not provide independently verified, product-specific Iranian final-assembly premises or workshare. General Shahed-family manufacturing statements are insufficient to fill that gap.",
+        "basis": "unresolved",
+        "date": "2026-06-02 profile scope",
+        "evidence": [
+          {
+            "source_id": "s238-csis",
+            "reference": "Development/manufacturing discussion lacks independently verified Iranian site allocation."
+          }
+        ]
+      },
+      {
+        "id": "s238-derivative-boundary",
+        "title": "Geran-3 observations stay with the Russian sample",
+        "text": "The reported Geran-3 examination concerns a distinct Russian sample. Transferring its plant, companies or hardware findings to every Iranian Shahed-238 would erase the very provenance distinctions this collection preserves.",
+        "basis": "context",
+        "date": "2025-09-16",
+        "evidence": [
+          {
+            "source_id": "s238-unn-geran3",
+            "reference": "Russian sample examination and separate production context."
+          }
+        ]
+      }
+    ],
+    "assessment": [
+      {
+        "id": "s238-family-boundary",
+        "title": "Shahed is a family name, not a shared parts list",
+        "text": "Treasury's 2022 family-level account predates the named Shahed-238 display. It supports institutional background only. Shahed-131, Shahed-136 and Geran-2 claims therefore do not automatically become Shahed-238 dependencies.",
+        "basis": "context",
+        "date": "2022 record / 2023 model display",
+        "evidence": [
+          {
+            "source_id": "shahed-treasury-organization",
+            "reference": "Earlier Shahed-family scope."
+          },
+          {
+            "source_id": "s238-twz-display",
+            "reference": "Named Shahed-238 display in November 2023."
+          }
+        ]
+      },
+      {
+        "id": "s238-observation-history",
+        "title": "Identification changed as evidence accumulated",
+        "text": "The January 2024 interview records uncertainty at one institute at one time. Later Russian-sample reporting and HRW's 2026 identification concern different observations; none retroactively verifies every earlier claim.",
+        "basis": "context",
+        "date": "2024\u20132026",
+        "evidence": [
+          {
+            "source_id": "s238-unn-unconfirmed",
+            "reference": "Dated lack of institute confirmation."
+          },
+          {
+            "source_id": "s238-unn-geran3",
+            "reference": "Later Russian sample report."
+          },
+          {
+            "source_id": "s238-hrw",
+            "reference": "Separate 2026 incident identification."
+          }
+        ]
+      }
+    ]
+  }
+]

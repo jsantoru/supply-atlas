@@ -647,6 +647,63 @@
       "description": "Abracon crystal identified in the Pico 2 external circuitry description.",
       "category_id": "timing",
       "industry_id": "semiconductors"
+    },
+    {
+      "id": "aviation",
+      "kind": "industry",
+      "name": "Aviation",
+      "description": "Aircraft program research. Major-system narratives are distinct from verified component and manufacturing claims."
+    },
+    {
+      "id": "iran",
+      "kind": "region",
+      "name": "Iran",
+      "description": "Country context. National origin does not establish a factory location."
+    },
+    {
+      "id": "mohajer6",
+      "kind": "product",
+      "name": "Mohajer-6",
+      "aliases": [
+        "Mohajer 6",
+        "Qods Mohajer-6",
+        "Muhajer-6"
+      ],
+      "industry_id": "aviation",
+      "description": "Iranian multirole aircraft \u00b7 dated program history and major-system research."
+    },
+    {
+      "id": "shahed238",
+      "kind": "product",
+      "name": "Shahed-238",
+      "aliases": [
+        "Shahed 238"
+      ],
+      "industry_id": "aviation",
+      "description": "Iranian jet-powered one-way aircraft \u00b7 November 2023 public debut and documented program context."
+    },
+    {
+      "id": "qods-aviation",
+      "kind": "company",
+      "name": "Qods Aviation Industries",
+      "aliases": [
+        "QAI",
+        "Qods Aviation Industries Company",
+        "Light Airplanes Design and Manufacturing Industries"
+      ],
+      "industry_id": "aviation",
+      "description": "Organization attributed by U.S. Treasury to Mohajer-6 design and manufacture. Dated institutional context appears in the Mohajer-6 dossier. No factory is located from its address; this company is distinct from the IRGC Qods Force."
+    },
+    {
+      "id": "shahed-aviation",
+      "kind": "company",
+      "name": "Shahed Aviation Industries Research Center",
+      "aliases": [
+        "SAIRC",
+        "Shahed Aviation Industries"
+      ],
+      "industry_id": "aviation",
+      "description": "Shahed-family development organization. CSIS attributes Shahed-238 development to it; Treasury's 2022 institutional description predates this model's public display. Exact Shahed-238 final-assembly arrangements remain unverified."
     }
   ],
   "sources": [
@@ -853,6 +910,246 @@
       "terms_url": "https://datasheets.raspberrypi.com/pico/pico-2-datasheet.pdf",
       "reuse": "Manual component identification only, with precise page references. PDF colophon restricts resource use; section 1.1 separately permits reuse of hardware design files. Neither permission is presented as an open licence for the full PDF. No PDF prose, images or tables are bundled.",
       "adapter": "manual-reference"
+    },
+    {
+      "id": "m6-mehr-launch",
+      "title": "Iran starts mass production of advanced drone Mohajer-6",
+      "url": "https://en.mehrnews.com/photo/131926/Iran-starts-mass-production-of-advanced-drone-Mohajer-6",
+      "publisher": "Mehr News Agency",
+      "published": "2018-02-05",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://en.mehrnews.com/photo/131926/Iran-starts-mass-production-of-advanced-drone-Mohajer-6",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "m6-treasury-2023",
+      "title": "Treasury Sanctions Suppliers of Iranian UAVs Used to Target Ukraine\u2019s Civilian Infrastructure",
+      "url": "https://home.treasury.gov/news/press-releases/jy1182",
+      "publisher": "U.S. Department of the Treasury",
+      "published": "2023-01-06",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://home.treasury.gov/news/press-releases/jy1182",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "m6-treasury-structure",
+      "title": "Treasury Sanctions Actors Supporting Iran\u2019s Missile and UAV Programs",
+      "url": "https://home.treasury.gov/news/press-releases/jy1820",
+      "publisher": "U.S. Department of the Treasury",
+      "published": "2023-10-18",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://home.treasury.gov/news/press-releases/jy1820",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "m6-treasury-iaio",
+      "title": "Treasury Targets Enablers of Iran\u2019s UAV Production",
+      "url": "https://home.treasury.gov/news/press-releases/jy2388",
+      "publisher": "U.S. Department of the Treasury",
+      "published": "2024-05-31",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://home.treasury.gov/news/press-releases/jy2388",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "m6-dia-visual",
+      "title": "Iranian UAVs in Ukraine: A Visual Comparison",
+      "url": "https://www.dia.mil/Portals/110/DIA_Iranian_UAVs_in_Ukraine-A_Visual_Comparison.pdf",
+      "publisher": "Defense Intelligence Agency",
+      "published": "2023-02-14",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.dia.mil/Portals/110/DIA_Iranian_UAVs_in_Ukraine-A_Visual_Comparison.pdf",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Information cutoff: 2022-10-27. Printed page 7 / PDF page 9. Publication day verified by DIA's February 14 release notice (Article 3297418), which states the report was released that day. The PDF contains third-party copyrighted images; none are copied."
+    },
+    {
+      "id": "m6-dia-update",
+      "title": "DIA releases updated report on Russia\u2019s use of lethal Iranian unmanned aerial vehicles in Ukraine",
+      "url": "https://www.dia.mil/News-Features/Articles/Article-View/Article/3504948/dia-releases-updated-report-on-russias-use-of-lethal-iranian-unmanned-aerial-ve/",
+      "publisher": "DIA Public Affairs",
+      "published": "2023-08-25",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.dia.mil/News-Features/Articles/Article-View/Article/3504948/dia-releases-updated-report-on-russias-use-of-lethal-iranian-unmanned-aerial-ve/",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "m6-launch-report",
+      "title": "Iran announces mass production of bomb-carrying drones",
+      "url": "https://www.timesofisrael.com/iran-announces-mass-production-of-bomb-carrying-drones/",
+      "publisher": "The Times of Israel / Stuart Winer",
+      "published": "2018-02-06",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.timesofisrael.com/iran-announces-mass-production-of-bomb-carrying-drones/",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "m6-ap-assessment",
+      "title": "US officials point to Russia using Iranian drones in Ukraine",
+      "url": "https://apnews.com/article/fecf53c964f09e24bd9a187715ac8598",
+      "publisher": "Associated Press",
+      "published": "2023-02-14",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://apnews.com/article/fecf53c964f09e24bd9a187715ac8598",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Substantive search-index text reviewed; direct article retrieval was unavailable."
+    },
+    {
+      "id": "m6-odin",
+      "title": "Mohajer-6 Iranian Unmanned Aerial Vehicle (UAV)",
+      "url": "https://odin.t2com.army.mil/WEG/Asset/Mohajer-6_Iranian_Unmanned_Aerial_Vehicle_%28UAV%29",
+      "publisher": "U.S. Army ODIN",
+      "published": null,
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://odin.t2com.army.mil/WEG/Asset/Mohajer-6_Iranian_Unmanned_Aerial_Vehicle_%28UAV%29",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Search-index entry reviewed; direct page timed out. Entry last modified 2024-11-13; original publication date unavailable. Only external form and the dating discrepancy are used."
+    },
+    {
+      "id": "m6-janes",
+      "title": "Iranian army deploys armed UAVs",
+      "url": "https://www.janes.com/defence-intelligence-insights/defence-news/iranian-army-deploys-armed-uavs",
+      "publisher": "Janes",
+      "published": null,
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.janes.com/defence-intelligence-insights/defence-news/iranian-army-deploys-armed-uavs",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Publication date unavailable in the retrieved page; no year inferred from its July 17 event reference."
+    },
+    {
+      "id": "s238-janes-preview",
+      "title": "IRGC documentary shows jet-powered Shahed-136 UAV variant",
+      "url": "https://www.janes.com/defence-intelligence-insights/defence-news/air/irgc-documentary-shows-jet-powered-shahed-136-uav-variant",
+      "publisher": "Janes / Jeremy Binnie",
+      "published": "2023-10-03",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.janes.com/defence-intelligence-insights/defence-news/air/irgc-documentary-shows-jet-powered-shahed-136-uav-variant",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "s238-twz-display",
+      "title": "Iran\u2019s Jet-Powered Shahed Drone Could Be A Problem For Ukraine",
+      "url": "https://www.twz.com/irans-jet-powered-shahed-drone-could-be-a-problem-for-ukraine",
+      "publisher": "The War Zone / Thomas Newdick and Tyler Rogoway",
+      "published": "2023-11-22",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.twz.com/irans-jet-powered-shahed-drone-could-be-a-problem-for-ukraine",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "s238-tasnim-event",
+      "title": "Ayatollah Khamenei Briefed on IRGC Aerospace Advances",
+      "url": "https://www.tasnimnews.ir/en/news/2023/11/19/2992050/ayatollah-khamenei-briefed-on-irgc-aerospace-advances",
+      "publisher": "Tasnim News Agency",
+      "published": "2023-11-19",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.tasnimnews.ir/en/news/2023/11/19/2992050/ayatollah-khamenei-briefed-on-irgc-aerospace-advances",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "shahed-treasury-organization",
+      "title": "Treasury Targets Actors Involved in Production and Transfer of Iranian Unmanned Aerial Vehicles to Russia for Use in Ukraine",
+      "url": "https://home.treasury.gov/news/press-releases/jy1104",
+      "publisher": "U.S. Department of the Treasury",
+      "published": "2022-11-15",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://home.treasury.gov/news/press-releases/jy1104",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "shahed-treasury-hajizadeh",
+      "title": "Treasury Targets Senior IRGC Commanders Behind Iran\u2019s Destructive and Destabilizing Activities",
+      "url": "https://home.treasury.gov/news/press-releases/sm716",
+      "publisher": "U.S. Department of the Treasury",
+      "published": "2019-06-24",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://home.treasury.gov/news/press-releases/sm716",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "shahed-treasury-aghajani",
+      "title": "Treasury Sanctions Network and Individuals in Connection with Iran\u2019s Unmanned Aerial Vehicle Program",
+      "url": "https://home.treasury.gov/news/press-releases/jy0443",
+      "publisher": "U.S. Department of the Treasury",
+      "published": "2021-10-29",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://home.treasury.gov/news/press-releases/jy0443",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "s238-unn-unconfirmed",
+      "title": "The KFI does not confirm the information about the possible downing of a Shahed with a jet engine over Ukraine",
+      "url": "https://unn.ua/en/news/the-kfi-does-not-confirm-the-information-about-the-possible-downing-of-a-shahed-with-a-jet-engine-over-ukraine",
+      "publisher": "UNN / Zakhar Podkidyshev",
+      "published": "2024-01-09",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://unn.ua/en/news/the-kfi-does-not-confirm-the-information-about-the-possible-downing-of-a-shahed-with-a-jet-engine-over-ukraine",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "s238-unn-geran3",
+      "title": "DIU revealed foreign components and the filling of the Russian Geran-3 drone",
+      "url": "https://unn.ua/en/news/the-gur-revealed-foreign-parts-and-the-filling-of-the-russian-geran-3-drone",
+      "publisher": "UNN / Stepan Haftko",
+      "published": "2025-09-16",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://unn.ua/en/news/the-gur-revealed-foreign-parts-and-the-filling-of-the-russian-geran-3-drone",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Used only for Russian sample identity and the distinction from the Iranian aircraft. Technical parts and vendor findings are not reproduced."
+    },
+    {
+      "id": "s238-hrw",
+      "title": "Iran: Unlawful Strikes Across Gulf Endanger Civilians",
+      "url": "https://www.hrw.org/news/2026/03/17/iran-unlawful-strikes-across-gulf-endanger-civilians",
+      "publisher": "Human Rights Watch",
+      "published": "2026-03-17",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://www.hrw.org/news/2026/03/17/iran-unlawful-strikes-across-gulf-endanger-civilians",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. "
+    },
+    {
+      "id": "s238-csis",
+      "title": "Shahed-238",
+      "url": "https://missilethreat.csis.org/missile/shahed-238/",
+      "publisher": "CSIS Missile Defense Project",
+      "published": "2026-06-02",
+      "retrieved": "2026-09-10",
+      "license": "Public reference; no open reuse licence asserted",
+      "terms_url": "https://missilethreat.csis.org/missile/shahed-238/",
+      "adapter": "manual-reference",
+      "reuse": "Short original factual paraphrases and citations only. Source-page rights notices apply; no source imagery, full text or technical tables redistributed. No automatic ingestion. Date is the profile update date. Used for attributed development and model identity, not aggregate performance, supplier or production claims."
     }
   ],
   "claims": [
@@ -1457,6 +1754,54 @@
         {
           "source_id": "pico2-datasheet",
           "reference": "Page 4, About Raspberry Pi Pico 2 / external flash and crystal circuitry"
+        }
+      ]
+    },
+    {
+      "id": "mohajer6-qai-design",
+      "supplier_id": "qods-aviation",
+      "product_id": "mohajer6",
+      "role": "designer",
+      "status": "direct",
+      "observed_at": "2023-01-06",
+      "period": "U.S. Treasury attribution published January 6, 2023; current organization and production continuity unverified.",
+      "uncertainty": "Direct means the cited source explicitly makes this attribution, not independent inspection. This is a whole-aircraft organizational attribution, not a complete parts list or proof of any factory location.",
+      "evidence": [
+        {
+          "source_id": "m6-treasury-2023",
+          "reference": "Qods Aviation Industries section: Mohajer-6 design and manufacture attribution."
+        }
+      ]
+    },
+    {
+      "id": "mohajer6-qai-manufacture",
+      "supplier_id": "qods-aviation",
+      "product_id": "mohajer6",
+      "role": "assembler",
+      "status": "direct",
+      "observed_at": "2023-10-18",
+      "period": "Whole-aircraft manufacturer attribution in Treasury's October 18, 2023 release.",
+      "uncertainty": "Treasury identifies QAI as manufacturer. The assembler role records whole-aircraft manufacture only; internal workshare, final-assembly line, production totals, subcontractors and current operating status are not established.",
+      "evidence": [
+        {
+          "source_id": "m6-treasury-structure",
+          "reference": "Qods Aviation Industries section: manufacturer attribution and parent organization."
+        }
+      ]
+    },
+    {
+      "id": "shahed238-attributed-development",
+      "supplier_id": "shahed-aviation",
+      "product_id": "shahed238",
+      "role": "designer",
+      "status": "inferred",
+      "observed_at": "2026-06-02",
+      "period": "CSIS research profile updated June 2, 2026; not a factory disclosure.",
+      "uncertainty": "Research assessment attributes development to Shahed Aviation Industries. Recorded conservatively as inferred, not independently verified production evidence. Shahed-family statements from 2022 cannot confirm this model's components, assembly or facilities.",
+      "evidence": [
+        {
+          "source_id": "s238-csis",
+          "reference": "Development section: attribution to Shahed Aviation Industries; configuration and derivative boundaries retained."
         }
       ]
     }
