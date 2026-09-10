@@ -15,7 +15,7 @@ def test_factory_does_not_propagate_through_shared_supplier():
 def test_part_upstream_shared_explicitly():
     d=data()
     affected=scenario(d,"tsmc")["products"]
-    assert {r["product"]["id"] for r in affected} == {"pi5","pi500","pico"}
+    assert {r["product"]["id"] for r in affected} == {"pi5","pi500","pico","pico-w","pico2"}
     assert all("not confirmed" in p["basis"] for r in affected for p in r["paths"])
 
 def test_comparison_and_roles():
