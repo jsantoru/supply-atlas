@@ -13,8 +13,9 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import ValidationError
-from .database import connect, dataset, initialize, now, save_record
-from .models import Claim, Entity, Review, Source
+from .database import connect, dataset, initialize, ingest_bundle, now, save_record, validate_dataset
+from .ingestion import refresh_sources, review_snapshot, snapshot_record
+from .models import Claim, Entity, Review, ReviewedImport, SnapshotReview, Source
 from .semantics import comparison, graph, scenario
 
 log = logging.getLogger("supply-atlas")
@@ -131,7 +132,43 @@ def compare(left: str, right: str, f: dict = Depends(filters)):
 @app.get("/api/admin/status", dependencies=[Depends(admin)])
 def admin_status():
     with connect() as db:
-        return {"runs": [dict(r) for r in db.execute("SELECT * FROM ingestion_runs ORDER BY id DESC LIMIT 100")], "revisions": [dict(r) for r in db.execute("SELECT id,kind,record_id,reason,created_at FROM revisions ORDER BY id DESC LIMIT 100")], "sources": [dict(r) for r in db.execute("SELECT * FROM source_cache")], "review_queue": [json.loads(r[0]) for r in db.execute("SELECT payload FROM claims WHERE status!='direct'")]}
+        return {"runs": [dict(r) for r in db.execute("SELECT * FROM ingestion_runs ORDER BY id DESC LIMIT 100")], "revisions": [dict(r) for r in db.execute("SELECT id,kind,record_id,reason,created_at FROM revisions ORDER BY id DESC LIMIT 100")], "sources": [dict(r) for r in db.execute("SELECT * FROM source_cache")], "review_queue": [json.loads(r[0]) for r in db.execute("SELECT payload FROM claims WHERE status!='direct'")], "snapshots": [snapshot_record(db, r) for r in db.execute("SELECT * FROM source_snapshots ORDER BY status='pending' DESC,id DESC LIMIT 100").fetchall()]}
+
+@app.post("/api/admin/refresh", dependencies=[Depends(admin)])
+def refresh():
+    return refresh_sources()
+
+@app.post("/api/admin/import", dependencies=[Depends(admin)])
+def import_reviewed(body: ReviewedImport):
+    try:
+        return ingest_bundle(body.bundle.model_dump_json(), reason=body.reason)
+    except (ValueError, ValidationError, sqlite3.IntegrityError) as exc:
+        raise HTTPException(422, str(exc)) from exc
+
+@app.get("/api/admin/snapshots/{id}", dependencies=[Depends(admin)])
+def source_snapshot(id: int):
+    with connect() as db:
+        row = db.execute("SELECT * FROM source_snapshots WHERE id=?", (id,)).fetchone()
+        if not row:
+            raise HTTPException(404, "Source snapshot not found")
+        return snapshot_record(db, row, include_body=True)
+
+@app.post("/api/admin/snapshots/{id}/review", dependencies=[Depends(admin)])
+def source_review(id: int, body: SnapshotReview):
+    try:
+        return review_snapshot(id, body)
+    except LookupError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(409, str(exc)) from exc
+
+@app.get("/api/admin/revisions/{id}", dependencies=[Depends(admin)])
+def revision_detail(id: int):
+    with connect() as db:
+        row = db.execute("SELECT * FROM revisions WHERE id=?", (id,)).fetchone()
+        if not row:
+            raise HTTPException(404, "Revision not found")
+        return dict(row)
 
 @app.put("/api/admin/{kind}/{id}", dependencies=[Depends(admin)])
 def review(kind: str, id: str, body: Review):
@@ -143,11 +180,13 @@ def review(kind: str, id: str, body: Review):
         if record.id != id:
             raise ValueError("Record ID cannot change; create an alias for entity resolution")
         with connect() as db:
+            db.execute("BEGIN IMMEDIATE")
             if kind == "entity":
                 previous = db.execute("SELECT kind FROM entities WHERE id=?", (id,)).fetchone()
                 if previous and previous[0] != record.kind:
                     raise ValueError("An existing entity cannot change type")
             save_record(db,kind,record,body.reason)
+            validate_dataset(db)
         return {"status": "saved"}
     except (ValueError, ValidationError, sqlite3.IntegrityError) as exc:
         raise HTTPException(422, str(exc)) from exc
@@ -155,8 +194,14 @@ def review(kind: str, id: str, body: Review):
 DIST = Path(__file__).resolve().parent.parent / "dist"
 if DIST.is_dir():
     app.mount("/assets", StaticFiles(directory=DIST / "assets"), name="assets")
+    if (DIST / "products").is_dir():
+        app.mount("/products", StaticFiles(directory=DIST / "products"), name="products")
     @app.get("/{path:path}")
     def frontend(path: str):
         if path.startswith("api/"):
             raise HTTPException(404, "API route not found")
+        if path == "favicon.svg" and (DIST / "favicon.svg").is_file():
+            return FileResponse(DIST / "favicon.svg", media_type="image/svg+xml")
+        if "." in Path(path).name:
+            raise HTTPException(404, "Static file not found")
         return FileResponse(DIST / "index.html")
