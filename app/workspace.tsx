@@ -177,6 +177,10 @@ export default function App() {
       </main>
     );
   const entity = data.entities.find((e) => e.id === product);
+  const hasDocumentedNetwork =
+    view === 'network' && !!data.research?.[product]?.network_available;
+  const documentedNetwork =
+    hasDocumentedNetwork && params.get('networkMode') !== 'claims';
   const current = data.entities.find((e) => e.id === selected);
   const claim = data.claims.find((c) => c.id === claimId);
   const products = data.entities.filter((e) => e.kind === 'product');
@@ -442,43 +446,46 @@ export default function App() {
           </section>
           {!['directory', 'sources', 'risk', 'admin'].includes(view) && (
             <>
-              <section
-                className="facts-strip"
-                aria-label="Coverage of this view"
-              >
-                <div>
-                  <CpuIcon />
-                  <span>
-                    <strong>
-                      {data.research?.[product]?.system_count ?? partIds.length}
-                    </strong>
-                    {data.research?.[product]
-                      ? 'System topics · all dates'
-                      : 'Documented parts'}
-                  </span>
-                </div>
-                <div>
-                  <Factory size={20} />
-                  <span>
-                    <strong>{supplierCount}</strong>
-                    {data.research?.[product]
-                      ? 'Attributed organizations'
-                      : 'Known suppliers'}
-                  </span>
-                </div>
-                <div>
-                  <Compass size={20} />
-                  <span>
-                    <strong>{facilities.length}</strong>Located facilities
-                  </span>
-                </div>
-                <div className="gap-stat">
-                  <CircleHelp size={20} />
-                  <span>
-                    <strong>{missing}</strong>Claims with location gaps
-                  </span>
-                </div>
-              </section>
+              {!documentedNetwork && (
+                <section
+                  className="facts-strip"
+                  aria-label="Coverage of this view"
+                >
+                  <div>
+                    <CpuIcon />
+                    <span>
+                      <strong>
+                        {data.research?.[product]?.system_count ??
+                          partIds.length}
+                      </strong>
+                      {data.research?.[product]
+                        ? 'System topics · all dates'
+                        : 'Documented parts'}
+                    </span>
+                  </div>
+                  <div>
+                    <Factory size={20} />
+                    <span>
+                      <strong>{supplierCount}</strong>
+                      {data.research?.[product]
+                        ? 'Attributed organizations'
+                        : 'Known suppliers'}
+                    </span>
+                  </div>
+                  <div>
+                    <Compass size={20} />
+                    <span>
+                      <strong>{facilities.length}</strong>Located facilities
+                    </span>
+                  </div>
+                  <div className="gap-stat">
+                    <CircleHelp size={20} />
+                    <span>
+                      <strong>{missing}</strong>Claims with location gaps
+                    </span>
+                  </div>
+                </section>
+              )}
               <Tabs
                 value={view}
                 onValueChange={(v) => update({ view: String(v) })}
@@ -496,86 +503,111 @@ export default function App() {
               </Tabs>
             </>
           )}
-          {view !== 'admin' && view !== 'sources' && view !== 'directory' && (
-            <div className="filters">
-              <SlidersHorizontal size={17} />
-              <Picker
-                label="Evidence"
-                value={status}
-                onChange={(v) => update({ status: v })}
-                options={[
-                  'all',
-                  'direct',
-                  'inferred',
-                  'disputed',
-                  'outdated',
-                ].map((id) => ({
-                  id,
-                  name:
-                    id === 'all'
-                      ? 'All evidence'
-                      : id === 'direct'
-                        ? 'Direct evidence'
-                        : id[0].toUpperCase() + id.slice(1),
-                }))}
-              />
-              <Picker
-                label="Role"
-                value={role}
-                onChange={(v) => update({ role: v })}
-                options={roles.map((id) => ({
-                  id,
-                  name:
-                    id === 'all'
-                      ? 'All roles'
-                      : id[0].toUpperCase() + id.slice(1),
-                }))}
-              />
-              {view === 'network' && (
+          {hasDocumentedNetwork && (
+            <Tabs
+              value={documentedNetwork ? 'documented' : 'claims'}
+              onValueChange={(value) =>
+                update({ networkMode: String(value), entity: '', claim: '' })
+              }
+            >
+              <TabsList
+                className="network-mode-tabs"
+                aria-label="Network evidence view"
+              >
+                <TabsTrigger value="documented">
+                  <NetworkIcon size={16} />
+                  Documented network
+                </TabsTrigger>
+                <TabsTrigger value="claims">
+                  <Factory size={16} />
+                  Supplier claims
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          )}
+          {!documentedNetwork &&
+            view !== 'admin' &&
+            view !== 'sources' &&
+            view !== 'directory' && (
+              <div className="filters">
+                <SlidersHorizontal size={17} />
                 <Picker
-                  label="Depth"
-                  value={depth}
-                  onChange={(v) => update({ depth: v })}
-                  options={[1, 2, 3].map((n) => ({
-                    id: String(n),
-                    name: n + ' ' + (n === 1 ? 'level' : 'levels'),
+                  label="Evidence"
+                  value={status}
+                  onChange={(v) => update({ status: v })}
+                  options={[
+                    'all',
+                    'direct',
+                    'inferred',
+                    'disputed',
+                    'outdated',
+                  ].map((id) => ({
+                    id,
+                    name:
+                      id === 'all'
+                        ? 'All evidence'
+                        : id === 'direct'
+                          ? 'Direct evidence'
+                          : id[0].toUpperCase() + id.slice(1),
                   }))}
                 />
-              )}
-              <button
-                className="filter-more"
-                onClick={() => setAdvanced((v) => !v)}
-                aria-expanded={advanced}
-              >
-                Time & variant
-              </button>
-              {(role !== 'all' ||
-                status !== 'all' ||
-                at ||
-                variant ||
-                supplier ||
-                part ||
-                industry) && (
+                <Picker
+                  label="Role"
+                  value={role}
+                  onChange={(v) => update({ role: v })}
+                  options={roles.map((id) => ({
+                    id,
+                    name:
+                      id === 'all'
+                        ? 'All roles'
+                        : id[0].toUpperCase() + id.slice(1),
+                  }))}
+                />
+                {view === 'network' && (
+                  <Picker
+                    label="Depth"
+                    value={depth}
+                    onChange={(v) => update({ depth: v })}
+                    options={[1, 2, 3].map((n) => ({
+                      id: String(n),
+                      name: n + ' ' + (n === 1 ? 'level' : 'levels'),
+                    }))}
+                  />
+                )}
                 <button
-                  className="text-link"
-                  onClick={() =>
-                    update({
-                      role: 'all',
-                      status: 'all',
-                      at: '',
-                      variant: '',
-                      supplier: '',
-                      part: '',
-                      industry: '',
-                    })
-                  }
+                  className="filter-more"
+                  onClick={() => setAdvanced((v) => !v)}
+                  aria-expanded={advanced}
                 >
-                  Reset filters
+                  Time & variant
                 </button>
-              )}
-            </div>
-          )}
-          {advanced && (
+                {(role !== 'all' ||
+                  status !== 'all' ||
+                  at ||
+                  variant ||
+                  supplier ||
+                  part ||
+                  industry) && (
+                  <button
+                    className="text-link"
+                    onClick={() =>
+                      update({
+                        role: 'all',
+                        status: 'all',
+                        at: '',
+                        variant: '',
+                        supplier: '',
+                        part: '',
+                        industry: '',
+                      })
+                    }
+                  >
+                    Reset filters
+                  </button>
+                )}
+              </div>
+            )}
+          {advanced && !documentedNetwork && (
             <div className="advanced-filters">
               <label>
                 Evidence known by
@@ -789,274 +821,290 @@ export default function App() {
               onEntity={openEntity}
             />
           ) : (
-            <div className="workspace-grid">
+            <div
+              className={`workspace-grid ${documentedNetwork ? 'workspace-grid-program' : ''}`}
+            >
               <section className="visual-panel">
-                <div className="panel-heading">
-                  <div>
-                    <h2>
-                      {view === 'network'
-                        ? 'A connected view of your product'
-                        : view === 'map'
-                          ? 'Where manufacturing is documented'
-                          : 'Inside the product'}
-                    </h2>
-                    <p>
-                      {view === 'network'
-                        ? 'Follow a connection to inspect its evidence.'
-                        : view === 'map'
-                          ? 'Only facilities tied to scoped claims appear here.'
-                          : 'Component categories → specific parts → documented suppliers.'}
-                    </p>
-                  </div>
-                  <span className="panel-count">
-                    {network?.claims.length || 0} claims
-                  </span>
-                </div>
-                {networkError ? (
-                  <ErrorState
-                    error={networkError}
-                    retry={() => setRetry((v) => v + 1)}
-                  />
-                ) : !network ? (
-                  <div className="network-loading" role="status">
-                    <Skeleton className="h-60 w-full" />
-                    <p>Loading documented dependencies…</p>
-                  </div>
-                ) : view === 'network' ? (
-                  <NetworkView
-                    key={product}
-                    network={network}
-                    selected={selected}
-                    onEntity={openEntity}
-                    onClaim={openClaim}
-                  />
-                ) : view === 'map' ? (
-                  <Suspense fallback={<p>Loading map…</p>}>
-                    <FactoryMap facilities={facilities} onSelect={openEntity} />
+                {documentedNetwork ? (
+                  <Suspense
+                    fallback={
+                      <p role="status">Loading cited program network…</p>
+                    }
+                  >
+                    <ResearchNetwork key={product} product={product} />
                   </Suspense>
                 ) : (
-                  <div className="breakdown-table">
-                    {partIds.length ? (
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>Component / specific part</TableHead>
-                            <TableHead>Supplier & role</TableHead>
-                            <TableHead>Manufacturing location</TableHead>
-                            <TableHead>Evidence</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {breakdownCategories.flatMap((category) => [
-                            <TableRow
-                              key={category.id}
-                              className="category-row"
-                            >
-                              <TableCell colSpan={4}>
-                                <button
-                                  onClick={() =>
-                                    setCollapsed((v) =>
-                                      v.includes(category.id)
-                                        ? v.filter((x) => x !== category.id)
-                                        : [...v, category.id],
-                                    )
-                                  }
-                                  aria-expanded={
-                                    !collapsed.includes(category.id)
-                                  }
-                                >
-                                  <ChevronRight
-                                    size={15}
-                                    className={
-                                      collapsed.includes(category.id)
-                                        ? ''
-                                        : 'rotated'
-                                    }
-                                  />
-                                  {category.name}
-                                </button>
-                              </TableCell>
-                            </TableRow>,
-                            ...(!collapsed.includes(category.id)
-                              ? partIds
-                                  .filter(
-                                    (id) => partCategory(id) === category.id,
-                                  )
-                                  .flatMap((id) =>
-                                    network.claims
-                                      .filter((c) => c.part_id === id)
-                                      .map((c) => (
-                                        <TableRow key={c.id}>
-                                          <TableCell>
-                                            <button
-                                              className="part-name"
-                                              onClick={() => openEntity(id)}
-                                            >
-                                              <EntityIcon kind="part" />
-                                              {name(id)}
-                                            </button>
-                                            {!c.product_id && (
-                                              <small className="inference-note">
-                                                Part-level upstream link
-                                              </small>
-                                            )}
-                                          </TableCell>
-                                          <TableCell>
-                                            {c.supplier_id ? (
-                                              <button
-                                                className="text-link"
-                                                onClick={() =>
-                                                  c.supplier_id &&
-                                                  openEntity(c.supplier_id)
-                                                }
-                                              >
-                                                {name(c.supplier_id)}
-                                              </button>
-                                            ) : (
-                                              <span className="muted">
-                                                Supplier not established
-                                              </span>
-                                            )}
-                                            <small>{c.role}</small>
-                                          </TableCell>
-                                          <TableCell>
-                                            {c.facility_id ? (
-                                              <button
-                                                className="text-link"
-                                                onClick={() =>
-                                                  openEntity(c.facility_id!)
-                                                }
-                                              >
-                                                {name(c.facility_id)}
-                                              </button>
-                                            ) : (
-                                              <span className="muted">
-                                                Not established
-                                              </span>
-                                            )}
-                                          </TableCell>
-                                          <TableCell>
-                                            <button
-                                              className="evidence-button"
-                                              onClick={() => openClaim(c.id)}
-                                            >
-                                              <Status
-                                                value={
-                                                  c.context_status ||
-                                                  (!c.product_id &&
-                                                  c.status === 'direct'
-                                                    ? 'inferred'
-                                                    : c.status)
-                                                }
-                                              />
-                                              <ArrowUpRight size={14} />
-                                            </button>
-                                          </TableCell>
-                                        </TableRow>
-                                      )),
-                                  )
-                              : []),
-                          ])}
-                        </TableBody>
-                      </Table>
+                  <>
+                    <div className="panel-heading">
+                      <div>
+                        <h2>
+                          {view === 'network'
+                            ? hasDocumentedNetwork
+                              ? 'Documented supplier claims'
+                              : 'A connected view of your product'
+                            : view === 'map'
+                              ? 'Where manufacturing is documented'
+                              : 'Inside the product'}
+                        </h2>
+                        <p>
+                          {view === 'network'
+                            ? hasDocumentedNetwork
+                              ? 'Supplier claims use the workspace filters and underpin disruption scenarios. Institutional relationships appear in the Documented network tab.'
+                              : 'Follow a connection to inspect its evidence.'
+                            : view === 'map'
+                              ? 'Only facilities tied to scoped claims appear here.'
+                              : 'Component categories → specific parts → documented suppliers.'}
+                        </p>
+                      </div>
+                      <span className="panel-count">
+                        {network?.claims.length || 0} claims
+                      </span>
+                    </div>
+                    {networkError ? (
+                      <ErrorState
+                        error={networkError}
+                        retry={() => setRetry((v) => v + 1)}
+                      />
+                    ) : !network ? (
+                      <div className="network-loading" role="status">
+                        <Skeleton className="h-60 w-full" />
+                        <p>Loading documented dependencies…</p>
+                      </div>
+                    ) : view === 'network' ? (
+                      <NetworkView
+                        key={product}
+                        network={network}
+                        selected={selected}
+                        onEntity={openEntity}
+                        onClaim={openClaim}
+                      />
+                    ) : view === 'map' ? (
+                      <Suspense fallback={<p>Loading map…</p>}>
+                        <FactoryMap
+                          facilities={facilities}
+                          onSelect={openEntity}
+                        />
+                      </Suspense>
                     ) : (
-                      <Empty />
+                      <div className="breakdown-table">
+                        {partIds.length ? (
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                <TableHead>Component / specific part</TableHead>
+                                <TableHead>Supplier & role</TableHead>
+                                <TableHead>Manufacturing location</TableHead>
+                                <TableHead>Evidence</TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              {breakdownCategories.flatMap((category) => [
+                                <TableRow
+                                  key={category.id}
+                                  className="category-row"
+                                >
+                                  <TableCell colSpan={4}>
+                                    <button
+                                      onClick={() =>
+                                        setCollapsed((v) =>
+                                          v.includes(category.id)
+                                            ? v.filter((x) => x !== category.id)
+                                            : [...v, category.id],
+                                        )
+                                      }
+                                      aria-expanded={
+                                        !collapsed.includes(category.id)
+                                      }
+                                    >
+                                      <ChevronRight
+                                        size={15}
+                                        className={
+                                          collapsed.includes(category.id)
+                                            ? ''
+                                            : 'rotated'
+                                        }
+                                      />
+                                      {category.name}
+                                    </button>
+                                  </TableCell>
+                                </TableRow>,
+                                ...(!collapsed.includes(category.id)
+                                  ? partIds
+                                      .filter(
+                                        (id) =>
+                                          partCategory(id) === category.id,
+                                      )
+                                      .flatMap((id) =>
+                                        network.claims
+                                          .filter((c) => c.part_id === id)
+                                          .map((c) => (
+                                            <TableRow key={c.id}>
+                                              <TableCell>
+                                                <button
+                                                  className="part-name"
+                                                  onClick={() => openEntity(id)}
+                                                >
+                                                  <EntityIcon kind="part" />
+                                                  {name(id)}
+                                                </button>
+                                                {!c.product_id && (
+                                                  <small className="inference-note">
+                                                    Part-level upstream link
+                                                  </small>
+                                                )}
+                                              </TableCell>
+                                              <TableCell>
+                                                {c.supplier_id ? (
+                                                  <button
+                                                    className="text-link"
+                                                    onClick={() =>
+                                                      c.supplier_id &&
+                                                      openEntity(c.supplier_id)
+                                                    }
+                                                  >
+                                                    {name(c.supplier_id)}
+                                                  </button>
+                                                ) : (
+                                                  <span className="muted">
+                                                    Supplier not established
+                                                  </span>
+                                                )}
+                                                <small>{c.role}</small>
+                                              </TableCell>
+                                              <TableCell>
+                                                {c.facility_id ? (
+                                                  <button
+                                                    className="text-link"
+                                                    onClick={() =>
+                                                      openEntity(c.facility_id!)
+                                                    }
+                                                  >
+                                                    {name(c.facility_id)}
+                                                  </button>
+                                                ) : (
+                                                  <span className="muted">
+                                                    Not established
+                                                  </span>
+                                                )}
+                                              </TableCell>
+                                              <TableCell>
+                                                <button
+                                                  className="evidence-button"
+                                                  onClick={() =>
+                                                    openClaim(c.id)
+                                                  }
+                                                >
+                                                  <Status
+                                                    value={
+                                                      c.context_status ||
+                                                      (!c.product_id &&
+                                                      c.status === 'direct'
+                                                        ? 'inferred'
+                                                        : c.status)
+                                                    }
+                                                  />
+                                                  <ArrowUpRight size={14} />
+                                                </button>
+                                              </TableCell>
+                                            </TableRow>
+                                          )),
+                                      )
+                                  : []),
+                              ])}
+                            </TableBody>
+                          </Table>
+                        ) : (
+                          <Empty />
+                        )}
+                      </div>
                     )}
-                  </div>
+                  </>
                 )}
-                {view === 'network' &&
-                  data.research?.[product]?.network_available && (
-                    <Suspense
-                      fallback={
-                        <p role="status">Loading cited program network…</p>
-                      }
-                    >
-                      <ResearchNetwork key={product} product={product} />
-                    </Suspense>
-                  )}
               </section>
-              <aside className="context-panel">
-                <div className="context-title">
-                  <FileText size={18} />
-                  <h2>Research context</h2>
-                </div>
-                <span className="eyebrow">Understanding coverage</span>
-                <h3>
-                  A partial picture.
-                  <br />A clear evidence trail.
-                </h3>
-                <p>
-                  This is a documented slice of the supply chain. Every
-                  connection points to a source; missing connections stay
-                  visible.
-                </p>
-                <div className="coverage-box">
-                  <div>
-                    <Check size={17} />
-                    <strong>
-                      {directClaims.length} product-specific claims
-                    </strong>
+              {!documentedNetwork && (
+                <aside className="context-panel">
+                  <div className="context-title">
+                    <FileText size={18} />
+                    <h2>Research context</h2>
                   </div>
+                  <span className="eyebrow">Understanding coverage</span>
+                  <h3>
+                    A partial picture.
+                    <br />A clear evidence trail.
+                  </h3>
                   <p>
-                    Supported by identified publications. Dates and scope are
-                    attached to each claim.
+                    This is a documented slice of the supply chain. Every
+                    connection points to a source; missing connections stay
+                    visible.
                   </p>
-                </div>
-                <div className="coverage-box warm">
-                  <div>
-                    <CircleHelp size={17} />
-                    <strong>Manufacturing gaps remain</strong>
-                  </div>
-                  <p>
-                    {missing} claims do not identify a facility. A supplier’s
-                    location does not locate its factories.
-                  </p>
-                </div>
-                <h4>Start with a documented path</h4>
-                {factoryClaim ? (
-                  <button
-                    className="suggested-path"
-                    onClick={() => openClaim(factoryClaim.id)}
-                  >
-                    <Factory size={20} />
-                    <span>
+                  <div className="coverage-box">
+                    <div>
+                      <Check size={17} />
                       <strong>
-                        {factoryClaim.supplier_id
-                          ? name(factoryClaim.supplier_id)
-                          : 'Operator unknown'}{' '}
-                        → {name(factoryClaim.part_id || product)}
+                        {directClaims.length} product-specific claims
                       </strong>
-                      <small>
-                        {name(factoryClaim.facility_id)} · {factoryClaim.role}
-                      </small>
-                    </span>
-                    <ArrowRight size={16} />
-                  </button>
-                ) : directClaims[0] ? (
+                    </div>
+                    <p>
+                      Supported by identified publications. Dates and scope are
+                      attached to each claim.
+                    </p>
+                  </div>
+                  <div className="coverage-box warm">
+                    <div>
+                      <CircleHelp size={17} />
+                      <strong>Manufacturing gaps remain</strong>
+                    </div>
+                    <p>
+                      {missing} claims do not identify a facility. A supplier’s
+                      location does not locate its factories.
+                    </p>
+                  </div>
+                  <h4>Start with a documented path</h4>
+                  {factoryClaim ? (
+                    <button
+                      className="suggested-path"
+                      onClick={() => openClaim(factoryClaim.id)}
+                    >
+                      <Factory size={20} />
+                      <span>
+                        <strong>
+                          {factoryClaim.supplier_id
+                            ? name(factoryClaim.supplier_id)
+                            : 'Operator unknown'}{' '}
+                          → {name(factoryClaim.part_id || product)}
+                        </strong>
+                        <small>
+                          {name(factoryClaim.facility_id)} · {factoryClaim.role}
+                        </small>
+                      </span>
+                      <ArrowRight size={16} />
+                    </button>
+                  ) : directClaims[0] ? (
+                    <button
+                      className="suggested-path"
+                      onClick={() => openClaim(directClaims[0].id)}
+                    >
+                      <EntityIcon kind="part" />
+                      <span>Inspect a component claim</span>
+                      <ArrowRight size={16} />
+                    </button>
+                  ) : (
+                    <p>No claims match the filters.</p>
+                  )}
                   <button
-                    className="suggested-path"
-                    onClick={() => openClaim(directClaims[0].id)}
+                    className="text-link"
+                    onClick={() => openEntity(product)}
                   >
-                    <EntityIcon kind="part" />
-                    <span>Inspect a component claim</span>
-                    <ArrowRight size={16} />
+                    Open product profile <ArrowRight size={14} />
                   </button>
-                ) : (
-                  <p>No claims match the filters.</p>
-                )}
-                <button
-                  className="text-link"
-                  onClick={() => openEntity(product)}
-                >
-                  Open product profile <ArrowRight size={14} />
-                </button>
-                <div className="context-bottom">
-                  <BookOpen size={16} />
-                  <span>
-                    Source dates vary. Current sourcing is not guaranteed.
-                  </span>
-                </div>
-              </aside>
+                  <div className="context-bottom">
+                    <BookOpen size={16} />
+                    <span>
+                      Source dates vary. Current sourcing is not guaranteed.
+                    </span>
+                  </div>
+                </aside>
+              )}
             </div>
           )}
           <footer className="workspace-footer">

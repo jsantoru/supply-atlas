@@ -6,7 +6,7 @@ Supply Atlas includes public-interest research dossiers for **Mohajer-6**, **Sha
 | --- | ---: | ---: | ---: | ---: |
 | Mohajer-6 | 5 | 24 | 10 | 2 explicit QAI organization attributions |
 | Shahed-238 | 4 | 21 | 10 | 1 conservatively inferred development attribution |
-| LUCAS | 5 | 35 plus 6 program-network records | 14 | 2 explicit SpektreWorks attributions |
+| LUCAS | 5 | 36 plus 15 network records | 18 | 2 explicit SpektreWorks attributions |
 
 LUCAS includes a separate interactive exterior diagram and a cited program/evaluation network. See [LUCAS-RESEARCH.md](LUCAS-RESEARCH.md) for its identity boundaries, controls and verification.
 

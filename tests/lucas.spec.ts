@@ -66,19 +66,17 @@ test('LUCAS exterior really separates, selects cited topics and resets', async (
     page
       .getByRole('region', { name: 'Sources and access notes' })
       .locator(':scope > ol > li'),
-  ).toHaveCount(14);
+  ).toHaveCount(18);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBeTruthy();
-  await page
-    .locator('.research-studio-grid')
-    .screenshot({
-      path: `docs/screenshots/${info.project.name}-lucas-exploded.png`,
-      animations: 'disabled',
-    });
+  await page.locator('.research-studio-grid').screenshot({
+    path: `docs/screenshots/${info.project.name}-lucas-exploded.png`,
+    animations: 'disabled',
+  });
   await studio
     .getByRole('button', { name: 'Reset product view', exact: true })
     .click();
@@ -115,7 +113,13 @@ test('LUCAS network distinguishes manufacturing from program relationships', asy
   const evidence = network.getByRole('complementary', {
     name: 'Selected relationship evidence',
   });
-  await expect(relations.getByRole('button')).toHaveCount(6);
+  await expect(
+    page.getByRole('tab', { name: 'Documented network', exact: true }),
+  ).toHaveAttribute('aria-selected', 'true');
+  await expect(relations.getByRole('button')).toHaveCount(15);
+  await expect(network.getByLabel('Documented network coverage')).toContainText(
+    '12',
+  );
   await expect(
     evidence.getByRole('heading', { name: 'Attributed manufacturer' }),
   ).toBeVisible();
@@ -124,16 +128,61 @@ test('LUCAS network distinguishes manufacturing from program relationships', asy
     /channelnewsasia\.com/,
   );
   await network
-    .getByLabel('Show relationships', { exact: true })
+    .getByLabel('Focus organization or program', { exact: true })
     .selectOption('task-force-59');
-  await expect(relations.getByRole('button')).toHaveCount(1);
+  await expect(relations.getByRole('button')).toHaveCount(2);
   await expect(evidence).toContainText('demonstration');
   await expect(evidence.getByRole('link').first()).toHaveAttribute(
     'href',
     /navy\.mil/,
   );
-  await network.getByRole('button', { name: 'Show all', exact: true }).click();
-  await expect(relations.getByRole('button')).toHaveCount(6);
+  await network
+    .getByLabel('Focus organization or program', { exact: true })
+    .selectOption('research-engineering');
+  await expect(relations.getByRole('button')).toHaveCount(2);
+  const path = network.getByRole('region', { name: 'Connected context path' });
+  await expect(
+    path.getByRole('button', { name: 'Research & Engineering', exact: true }),
+  ).toBeVisible();
+  await expect(
+    path.getByRole('button', { name: 'APFIT', exact: true }),
+  ).toBeVisible();
+  await expect(
+    path.getByRole('button', { name: 'LUCAS', exact: true }),
+  ).toBeVisible();
+  await path
+    .getByRole('button', {
+      name: 'Inspect path link: FY2025 project funding',
+      exact: true,
+    })
+    .click();
+  await expect(evidence).toContainText('$30 million');
+  await expect(evidence).toContainText('No company payment');
+  await expect(evidence.getByRole('link')).toHaveAttribute(
+    'href',
+    'https://www.cto.mil/news/apfit-sbi/',
+  );
+  const categories = network.getByRole('group', {
+    name: 'Relationship category',
+  });
+  await categories
+    .getByRole('button', { name: /Industrial attribution/ })
+    .click();
+  await expect(relations.getByRole('button')).toHaveCount(0);
+  await expect(relations).toContainText('No cited relationships match');
+  await expect(evidence.getByRole('heading')).toHaveCount(0);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await network
+    .getByRole('button', { name: 'Clear network filters', exact: true })
+    .click();
+  await categories
+    .getByRole('button', { name: /Industrial attribution/ })
+    .click();
+  await expect(relations.getByRole('button')).toHaveCount(2);
+  await expect(relations).toContainText('Attributed developer');
+  await expect(relations).toContainText('Attributed manufacturer');
+  await network.getByRole('button', { name: 'Reset network view' }).click();
+  await expect(relations.getByRole('button')).toHaveCount(15);
   const node = network.getByRole('button', {
     name: 'Show relationships for Yuma Proving Ground',
     exact: true,
@@ -144,7 +193,15 @@ test('LUCAS network distinguishes manufacturing from program relationships', asy
   await expect(
     evidence.getByRole('heading', { name: 'Hosted evaluation' }),
   ).toBeVisible();
-  await network.getByRole('button', { name: 'Show all', exact: true }).click();
+  const normalWidth = (await node.boundingBox())!.width;
+  await network.getByRole('button', { name: 'Zoom in network' }).click();
+  await expect
+    .poll(async () => (await node.boundingBox())!.width)
+    .toBeGreaterThan(normalWidth + 10);
+  await network.getByRole('button', { name: 'Reset network view' }).click();
+  await expect
+    .poll(async () => (await node.boundingBox())!.width)
+    .toBeCloseTo(normalWidth, 0);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   expect(
     await page.evaluate(
@@ -161,12 +218,23 @@ test('LUCAS network distinguishes manufacturing from program relationships', asy
     'spektreworks',
   ]);
   expect(supply.claims).toHaveLength(2);
+  await page.getByRole('tab', { name: 'Supplier claims', exact: true }).click();
+  await expect(page).toHaveURL(/networkMode=claims/);
+  await page.reload();
+  await expect(
+    page.getByRole('heading', { name: 'Documented supplier claims' }),
+  ).toBeVisible();
+  await expect(network).toHaveCount(0);
+  await page
+    .getByRole('tab', { name: 'Documented network', exact: true })
+    .click();
+  await expect(relations.getByRole('button')).toHaveCount(15);
   await page.goto('/?product=lucas&view=network&role=fabricator&at=2000-01-01');
   await expect(
     network
       .getByRole('group', { name: 'Cited relationships' })
       .getByRole('button'),
-  ).toHaveCount(6);
+  ).toHaveCount(15);
   const filtered = await (
     await request.get('/api/graph/lucas?role=fabricator&at=2000-01-01')
   ).json();
@@ -203,9 +271,18 @@ test('program research survives an independent supplier graph failure and retrie
   await expect(
     page.getByRole('region', { name: 'Cited industrial and program network' }),
   ).toBeVisible();
+  await page.getByRole('tab', { name: 'Supplier claims', exact: true }).click();
   await expect(
     page.getByText('Supply graph temporarily unavailable', { exact: true }),
   ).toBeVisible();
+  await page
+    .getByRole('tab', { name: 'Documented network', exact: true })
+    .click();
+  await expect(
+    page
+      .getByRole('group', { name: 'Cited relationships' })
+      .getByRole('button'),
+  ).toHaveCount(15);
 });
 
 test('LUCAS retains interactive sections and citations if its exterior image is unavailable', async ({

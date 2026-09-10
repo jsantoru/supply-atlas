@@ -1,6 +1,6 @@
 # LUCAS research and visual studio
 
-The LUCAS entry brings together **14 cited sources, 35 dated narrative records, five major-system topics, two industrial attributions and six separately classified program relationships**. The interactive dossier is the research artifact; each entry carries its own date, evidence basis and linked reference. Its scope covers the public record reviewed on September 10, 2026.
+The LUCAS entry brings together **18 cited sources, 36 dated narrative records, five major-system topics, two industrial attributions and 15 separately classified network relationships across 12 nodes**. The interactive dossier is the research artifact; each entry carries its own date, evidence basis and linked reference. Its scope covers the public record reviewed on September 10, 2026.
 
 Open `/?product=lucas&view=teardown` for the studio and full dossier, or `/?product=lucas&view=network` for the manufacturing and program views.
 
@@ -23,7 +23,11 @@ Source-specific corrections are retained in the source notes. These include a he
 
 The existing supply graph contains the two product-scoped SpektreWorks development/manufacture attributions. There are no invented lower-tier suppliers or component dependencies.
 
-The supplementary network contains seven named nodes and six individually cited relationships. Industrial attribution, evaluation and program context have distinct visual treatments. Selecting a node filters its relationships; selecting a relationship shows the date, explanation and original source. These contextual edges never feed disruption calculations, factory counts, supplier concentration or cross-product dependency inference. Workspace filters apply to the manufacturing graph; the program record covers all its cited dates.
+The default **Documented network** view contains 12 named nodes and 15 individually cited relationships. It connects Research & Engineering through APFIT to LUCAS; CENTCOM through SOCCENT and Scorpion Strike; and NAVCENT/Fifth Fleet through Task Force 59. REJTF's capability alignment, Marine Corps sponsorship, Yuma evaluation and SpektreWorks' two industrial roles retain their distinct meanings. This provides institutional depth without inventing lower-tier vendors.
+
+The June 17, 2025 APFIT release lists **$30 million for the Marine Corps LUCAS project**. It does not identify the company recipient or establish a $30 million SpektreWorks contract. The original September 2025 REJTF and September 2021 Task Force 59 announcements establish organizational history; their later LUCAS connections use separate aircraft-specific sources. The undated SOCCENT directory carries a review date, not an invented founding date.
+
+Industrial attribution, evaluation and program context have distinct visual treatments. Node and relationship-type filters support exploration; selecting a relationship shows its date, explanation and original source. Connections spanning several organizations are contextual paths, not inferred procurement chains. These edges never feed disruption calculations, factory counts, supplier concentration or cross-product dependency inference. The **Supplier claims** tab retains the manufacturing graph and workspace filters; the documented network covers all its cited dates.
 
 Both network requests have independent loading and retry handling. A failed manufacturing graph does not hide an otherwise available program record. On narrow screens, the graph scrolls horizontally; keyboard focus brings each node into view, and all relationships remain available in the list below.
 
@@ -37,6 +41,6 @@ If the image fails, the diagram and citations remain usable. The controls work w
 
 ## Reproduction and validation
 
-`backend/research/lucas_research.py` is the reviewed source file. `python -m backend.research.build_collection` regenerates the collection and dossier JSON without network access. The API validates network references and rejects missing nodes, duplicates, self-links and uncited isolated nodes. Existing SQLite operator corrections retain the established upgrade safeguards.
+`backend/research/lucas_research.py` is the reviewed source file. `python -m backend.research.build_collection` regenerates the collection and dossier JSON without network access. Validation rejects missing nodes, duplicates, self-links, isolated nodes and disconnected cited groups. Every node must connect to the single focal product, whose ID must match the dossier. Existing SQLite operator corrections retain the established upgrade safeguards.
 
-Browser coverage checks actual exterior geometry movement, assembly/reset, keyboard control, source-selection coupling, image failure, both network error paths, independent filters, responsive layouts and accessibility. The full twelve-product acceptance suite remains in place. See [RELEASE.md](RELEASE.md) for completed verification and [issue #12](https://github.com/jsantoru/supply-atlas/issues/12) for PR and merge status.
+Browser coverage checks actual exterior geometry movement, assembly/reset, keyboard control, source-selection coupling, image failure, both network error paths, independent filters, responsive layouts and accessibility. The full twelve-product acceptance suite remains in place. See [RELEASE.md](RELEASE.md) for completed verification, [issue #12](https://github.com/jsantoru/supply-atlas/issues/12) for the original studio and [issue #14](https://github.com/jsantoru/supply-atlas/issues/14) for the expanded network.
