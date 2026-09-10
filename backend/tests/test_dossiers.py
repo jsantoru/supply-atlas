@@ -6,7 +6,7 @@ import pytest
 from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
-from backend.dossiers import ResearchNetwork, dossiers, research_profile
+from backend.dossiers import ResearchDossier, ResearchNetwork, dossiers, research_profile
 from backend.main import app
 from backend.models import Bundle
 from backend.research.build_collection import DOSSIERS
@@ -94,7 +94,7 @@ def test_lucas_program_relationships_are_cited_but_do_not_create_supplier_exposu
     assert {row["product"]["id"] for row in scenario(data, "spektreworks")["products"]} == {"lucas"}
 
 
-@pytest.mark.parametrize("problem", ["missing", "duplicate", "self", "disconnected"])
+@pytest.mark.parametrize("problem", ["missing", "duplicate", "self", "disconnected", "island", "no-product", "two-products"])
 def test_program_network_rejects_unverifiable_graph_structure(problem):
     record = dossiers()["lucas"].network.model_dump(mode="json")
     if problem == "missing":
@@ -103,7 +103,27 @@ def test_program_network_rejects_unverifiable_graph_structure(problem):
         record["nodes"].append(record["nodes"][0])
     elif problem == "self":
         record["edges"][0]["target_node"] = record["edges"][0]["source_node"]
-    else:
+    elif problem == "disconnected":
         record["nodes"].append({"id": "unconnected", "label": "Uncited organization", "kind": "organization"})
+    elif problem == "island":
+        record["nodes"].extend([
+            {"id": "unrelated-a", "label": "Unrelated organization A", "kind": "organization"},
+            {"id": "unrelated-b", "label": "Unrelated organization B", "kind": "organization"},
+        ])
+        record["edges"].append({**record["edges"][0], "id": "unrelated-link",
+                                "source_node": "unrelated-a", "target_node": "unrelated-b"})
+    elif problem == "no-product":
+        for node in record["nodes"]:
+            if node["kind"] == "product":
+                node["kind"] = "organization"
+    else:
+        next(node for node in record["nodes"] if node["kind"] != "product")["kind"] = "product"
     with pytest.raises(ValidationError):
         ResearchNetwork.model_validate(record)
+
+
+def test_program_network_cannot_be_attached_to_another_product():
+    record = dossiers()["lucas"].model_dump(mode="json")
+    record["product_id"] = "pi5"
+    with pytest.raises(ValidationError, match="focal product must match its dossier"):
+        ResearchDossier.model_validate(record)

@@ -71,4 +71,4 @@ The collection is intentionally partial and historically scoped. Unknown does no
 
 Public hosting requires a Docker-capable server, DNS and TLS. No paid infrastructure has been provisioned. Backup/restore features are excluded at the user's request.
 
-LUCAS adds a working interactive exterior diagram and a separately cited industrial/program network. See [LUCAS research](docs/LUCAS-RESEARCH.md).
+LUCAS adds a working interactive exterior diagram and a default Documented network with 12 nodes and 15 cited industrial, funding, evaluation and program relationships. The Supplier claims tab retains scoped manufacturing evidence. See [LUCAS research](docs/LUCAS-RESEARCH.md).
