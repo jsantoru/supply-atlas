@@ -21,3 +21,35 @@ Shared direction: premium photorealistic product visualization for a research ap
 - `galaxy-s9.png`: Samsung Galaxy S9 black curved-screen handset shown vertically in the landscape frame, abstract blue wallpaper.
 
 All selected outputs are copied into the repository. The original generated files remain in the tool's generated-images directory. Source Sans 3 is self-hosted through Fontsource under its SIL Open Font License; Clario is not bundled because the attached references do not grant a font license. See `DESIGN.md` for the supplied token system and disclosed substitution.
+
+## Aircraft studio assets
+
+Two additional images were generated with the **built-in image tool** on September 10, 2026 and inspected before integration. Final project paths are `public/products/mohajer6.png` and `public/products/shahed238.png`; both are 1536 × 1024. They are original exterior illustrations, not source photographs. Complete airframes are retained with padded containment in the studio. Rotation changes the image-plane angle. System cards separate as conceptual topics rather than as physical internal parts.
+
+### Mohajer-6 prompt
+
+```text
+Use case: product-mockup
+Asset type: Original exterior illustration for a Supply Atlas public-interest explanatory product profile.
+Scene/backdrop: Seamless solid dark navy studio background, base color #011B34. No horizon, scenery, props, or people.
+Primary request: A single photorealistic exterior-only illustration of a Mohajer-6 unmanned airframe, in a restrained premium product-catalog aesthetic.
+Subject: Externally recognizable light gray Mohajer-6, long straight wings, twin-boom tail, aft pusher propeller, wheel landing gear deployed, external observation turret visible under the forward fuselage. No attached weapons or weapons fittings.
+Style/medium: Original high-detail photorealistic studio illustration; realistic subtle matte painted surfaces, restrained seams, crisp silhouette, clean neutral rendering.
+Composition/framing: Landscape 3:2 image. Entire isolated airframe centered with at least 15 percent empty margin around every extremity; no cropped wings, tail, nose, or landing gear. Elevated three-quarter overview, nose pointing toward the lower left. Exterior shell only.
+Lighting/mood: Soft gallery lighting with broad gentle highlights, subtle rim separation from navy background, quiet and analytical. Very faint studio grounding shadow.
+Constraints: Public-interest illustrative exterior, not engineering documentation or factual photographic evidence. No internal cutaways, exposed internal mechanisms, detailed dimensions, specifications, diagrams, arrows, annotations, labels, letters, numbers, watermarks, weapons, explosives, weapon attachments, flags, logos, insignia, soldiers, battle scenes, scenery, or dramatic effects.
+```
+
+### Shahed-238 prompt
+
+```text
+Use case: product-mockup
+Asset type: Original exterior illustration for a Supply Atlas public-interest explanatory product profile.
+Scene/backdrop: Seamless solid dark navy studio background, base color #011B34. No horizon, scenery, props, or people.
+Primary request: A single photorealistic exterior-only illustration of a Shahed-238 unmanned airframe, in a restrained premium product-catalog aesthetic.
+Subject: Externally recognizable compact charcoal-dark Shahed-238 delta-wing jet airframe, sharp triangular wing silhouette, upper air intake, rear outlet, and no propeller. Exterior surfaces closed.
+Style/medium: Original photorealistic studio illustration; realistic subtle matte charcoal painted surfaces, restrained exterior seams, crisp silhouette, clean neutral rendering.
+Composition/framing: Landscape 3:2 image. Elevated three-quarter overview, nose pointing toward the lower left. Entire isolated airframe centered, visually occupying only the central 70 percent of the canvas width and height so at least 15 percent empty navy margin remains around every extremity. Show complete nose, wings, fins, and rear. No cropping. Exterior shell only.
+Lighting/mood: Soft gallery lighting with broad gentle highlights, subtle rim separation from navy background, quiet and analytical. Very faint studio grounding shadow.
+Constraints: Public-interest illustrative exterior, not engineering documentation or factual photographic evidence. No internal cutaways, exposed internal mechanisms, detailed dimensions, specifications, diagrams, arrows, annotations, labels, letters, numbers, watermarks, weapons fittings, attached weapons, visible explosives, flags, logos, insignia, soldiers, battle scenes, scenery, dramatic effects, propeller, or added props.
+```
