@@ -119,6 +119,15 @@ test('keyboard, responsive overflow and accessibility', async ({
   page,
 }, info) => {
   await page.goto('/?view=network');
+  const skipLink = page.getByRole('link', { name: 'Skip to workspace' });
+  await expect(skipLink).toHaveCSS('opacity', '0');
+  await page.keyboard.press('Tab');
+  await expect(skipLink).toBeFocused();
+  await expect(skipLink).toHaveCSS('opacity', '1');
+  await expect(skipLink).toBeInViewport();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#workspace$/);
+  await expect(skipLink).toHaveCSS('opacity', '0');
   await page
     .getByRole('heading', { name: 'A connected view of your product' })
     .waitFor();

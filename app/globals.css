@@ -143,6 +143,7 @@ svg {
 .skip-link {
   position: fixed;
   top: -80px;
+  opacity: 0;
   left: 20px;
   z-index: 100;
   background: white;
@@ -150,6 +151,7 @@ svg {
 }
 .skip-link:focus {
   top: 10px;
+  opacity: 1;
 }
 .brand {
   height: 78px;
