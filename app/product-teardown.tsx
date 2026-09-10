@@ -14,6 +14,7 @@ import {
 import type { Atlas, Claim, Entity } from './types';
 import { Status } from './controls';
 import './teardown.css';
+import ResearchStudio from './research-studio';
 
 type Props = {
   product: Entity;
@@ -63,6 +64,9 @@ const crops: Record<string, Record<string, Crop>> = {
 };
 
 export default function ProductTeardown(props: Props) {
+  if (props.data.research?.[props.product.id]) {
+    return <ResearchStudio key={props.product.id} {...props} />;
+  }
   // A new product starts with a fresh, assembled studio; filters keep the current view.
   return <Studio key={props.product.id} {...props} />;
 }
