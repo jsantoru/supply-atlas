@@ -2,7 +2,7 @@
 
 A research workspace for exploring products, documented components, suppliers and manufacturing locations. The product studio, graph, map and evidence drawer share one scoped dataset; a shared company never transfers a factory assignment to another product.
 
-The collection now includes **Mohajer-6** and **Shahed-238** research studios, alongside the nine electronics products. Each aircraft has an original exterior illustration, selectable major-system topics and a cited dossier covering chronology, organizations, public leadership, manufacturing context and evidence limits. Open `?product=mohajer6&view=teardown` or `?product=shahed238&view=teardown`. These are conceptual research overviews, not engineering teardowns or weapons parts lists.
+The collection now includes **Mohajer-6**, **Shahed-238** and **LUCAS** research studios, alongside the nine electronics products. Each aircraft has an original exterior illustration, selectable major-system topics and a cited dossier covering chronology, organizations, public leadership, manufacturing context and evidence limits. Open `?product=mohajer6&view=teardown`, `?product=shahed238&view=teardown` or `?product=lucas&view=teardown`. These are conceptual research overviews, not engineering teardowns or weapons parts lists.
 
 ## Start with Docker
 
@@ -70,3 +70,5 @@ For browser tests against a running production container, set `TEST_BASE_URL=htt
 The collection is intentionally partial and historically scoped. Unknown does not mean absent. A single observed supplier does not prove sole sourcing. Part-level evidence can suggest upstream exposure, but remains visibly inferred when applied to a product. Generated product illustrations are navigational aids, not engineering geometry or sourcing evidence.
 
 Public hosting requires a Docker-capable server, DNS and TLS. No paid infrastructure has been provisioned. Backup/restore features are excluded at the user's request.
+
+LUCAS adds a working interactive exterior diagram and a separately cited industrial/program network. See [LUCAS research](docs/LUCAS-RESEARCH.md).

@@ -1,13 +1,16 @@
 # Aircraft research dossiers
 
-Supply Atlas includes public-interest research dossiers for **Mohajer-6** and **Shahed-238**, reviewed on September 10, 2026. The interactive dossiers are the primary research artifact: each contains an exterior illustration, selectable system topics, chronology, organizations, public leadership, manufacturing context, unresolved questions and a complete linked source list.
+Supply Atlas includes public-interest research dossiers for **Mohajer-6**, **Shahed-238** and **LUCAS**, reviewed on September 10, 2026. The interactive dossiers are the primary research artifact: each contains an exterior illustration, selectable system topics, chronology, organizations, public leadership, manufacturing context, unresolved questions and a complete linked source list.
 
 | Dossier | System topics | Dated narrative records | Sources | Manufacturing claims |
 | --- | ---: | ---: | ---: | ---: |
 | Mohajer-6 | 5 | 24 | 10 | 2 explicit QAI organization attributions |
 | Shahed-238 | 4 | 21 | 10 | 1 conservatively inferred development attribution |
+| LUCAS | 5 | 35 plus 6 program-network records | 14 | 2 explicit SpektreWorks attributions |
 
-Open the Product studio or Major systems tab after selecting either aircraft. System topics are descriptive categories, not a count of physical components. Separating cards changes the presentation of those topics; it does not reveal an internal assembly. Generated images provide no sourcing evidence. Their prompts and saved asset paths are recorded in [VISUALS.md](VISUALS.md).
+LUCAS includes a separate interactive exterior diagram and a cited program/evaluation network. See [LUCAS-RESEARCH.md](LUCAS-RESEARCH.md) for its identity boundaries, controls and verification.
+
+Open the Product studio or Major systems tab after selecting an aircraft. System topics are descriptive categories, not a count of physical components. Mohajer-6 and Shahed-238 separate topic cards; LUCAS separates conceptual exterior shapes in an interactive diagram. Neither reveals an internal assembly. Generated images provide no sourcing evidence. Their prompts and saved asset paths are recorded in [VISUALS.md](VISUALS.md).
 
 ## Evidence and scope
 
@@ -23,7 +26,7 @@ The Tehran production-line inauguration and Tehran exhibition are contextual rec
 
 ## Reproducibility and corrections
 
-`backend/research/drone_research.py` contains the reviewed source metadata, entity/claim additions and narratives. Run `python -m backend.research.build_collection` to reproduce both JSON artifacts without network access. The FastAPI dossier model validates the structured narrative format. Tests ensure references resolve, IDs remain distinct, sources stay manual-only and contextual records cannot create product-part, facility or cross-product dependencies.
+`backend/research/drone_research.py` and `backend/research/lucas_research.py` contain the reviewed source metadata, entity/claim additions and narratives. Run `python -m backend.research.build_collection` to reproduce both JSON artifacts without network access. The FastAPI dossier model validates the structured narrative format. Tests ensure references resolve, IDs remain distinct, sources stay manual-only and contextual records cannot create product-part, facility or cross-product dependencies.
 
 The full source inventory is available within each dossier and in `backend/research/collection.json`. Each source includes its original URL, publisher, publication date when established, retrieval date and access/reuse notes. Search-index-only access is disclosed for the AP briefing and Army ODIN entry; undated Janes material remains undated. Source text, photos, diagrams and technical tables are not bundled.
 
